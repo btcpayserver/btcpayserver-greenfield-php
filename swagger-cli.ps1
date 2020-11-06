@@ -1,0 +1,1 @@
+docker run --rm -v ${PWD}:/local/SwaggerClient-php swaggerapi/swagger-codegen-cli-v3 $Args

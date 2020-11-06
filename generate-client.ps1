@@ -1,0 +1,1 @@
+& '.\swagger-cli.ps1' generate -i https://docs.btcpayserver.org/API/Greenfield/v1/swagger.json -l php -o /local --git-user-id btcpayserver --git-repo-id btcpayserver-greenfield-php
