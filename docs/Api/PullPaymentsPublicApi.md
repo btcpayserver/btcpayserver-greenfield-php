@@ -4,16 +4,16 @@ All URIs are relative to */*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**apiV1PullPaymentsPullPaymentIdGet**](PullPaymentsPublicApi.md#apiv1pullpaymentspullpaymentidget) | **GET** /api/v1/pull-payments/{pullPaymentId} | 
-[**apiV1PullPaymentsPullPaymentIdPayoutsGet**](PullPaymentsPublicApi.md#apiv1pullpaymentspullpaymentidpayoutsget) | **GET** /api/v1/pull-payments/{pullPaymentId}/payouts | 
-[**apiV1PullPaymentsPullPaymentIdPayoutsPost**](PullPaymentsPublicApi.md#apiv1pullpaymentspullpaymentidpayoutspost) | **POST** /api/v1/pull-payments/{pullPaymentId}/payouts | 
+[**pullPaymentsCreatePayout**](PullPaymentsPublicApi.md#pullpaymentscreatepayout) | **POST** /api/v1/pull-payments/{pullPaymentId}/payouts | Create Payout
+[**pullPaymentsGetPayouts**](PullPaymentsPublicApi.md#pullpaymentsgetpayouts) | **GET** /api/v1/pull-payments/{pullPaymentId}/payouts | Get Payouts
+[**pullPaymentsGetPullPayment**](PullPaymentsPublicApi.md#pullpaymentsgetpullpayment) | **GET** /api/v1/pull-payments/{pullPaymentId} | Get Pull Payment
 
-# **apiV1PullPaymentsPullPaymentIdGet**
-> \Swagger\Client\Model\PullPaymentData apiV1PullPaymentsPullPaymentIdGet($pull_payment_id)
+# **pullPaymentsCreatePayout**
+> \Swagger\Client\Model\PayoutData pullPaymentsCreatePayout($body, $pull_payment_id)
 
+Create Payout
 
-
-Get a pull payment
+Create a new payout
 
 ### Example
 ```php
@@ -25,13 +25,14 @@ $apiInstance = new Swagger\Client\Api\PullPaymentsPublicApi(
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client()
 );
+$body = new \Swagger\Client\Model\CreatePayoutRequest(); // \Swagger\Client\Model\CreatePayoutRequest | 
 $pull_payment_id = "pull_payment_id_example"; // string | The ID of the pull payment
 
 try {
-    $result = $apiInstance->apiV1PullPaymentsPullPaymentIdGet($pull_payment_id);
+    $result = $apiInstance->pullPaymentsCreatePayout($body, $pull_payment_id);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling PullPaymentsPublicApi->apiV1PullPaymentsPullPaymentIdGet: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling PullPaymentsPublicApi->pullPaymentsCreatePayout: ', $e->getMessage(), PHP_EOL;
 }
 ?>
 ```
@@ -40,11 +41,12 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **body** | [**\Swagger\Client\Model\CreatePayoutRequest**](../Model/CreatePayoutRequest.md)|  |
  **pull_payment_id** | **string**| The ID of the pull payment |
 
 ### Return type
 
-[**\Swagger\Client\Model\PullPaymentData**](../Model/PullPaymentData.md)
+[**\Swagger\Client\Model\PayoutData**](../Model/PayoutData.md)
 
 ### Authorization
 
@@ -52,15 +54,15 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-# **apiV1PullPaymentsPullPaymentIdPayoutsGet**
-> \Swagger\Client\Model\PayoutDataList apiV1PullPaymentsPullPaymentIdPayoutsGet($pull_payment_id, $include_cancelled)
+# **pullPaymentsGetPayouts**
+> \Swagger\Client\Model\PayoutDataList pullPaymentsGetPayouts($pull_payment_id, $include_cancelled)
 
-
+Get Payouts
 
 Get payouts
 
@@ -78,10 +80,10 @@ $pull_payment_id = "pull_payment_id_example"; // string | The ID of the pull pay
 $include_cancelled = false; // bool | Whether this should list cancelled payouts
 
 try {
-    $result = $apiInstance->apiV1PullPaymentsPullPaymentIdPayoutsGet($pull_payment_id, $include_cancelled);
+    $result = $apiInstance->pullPaymentsGetPayouts($pull_payment_id, $include_cancelled);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling PullPaymentsPublicApi->apiV1PullPaymentsPullPaymentIdPayoutsGet: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling PullPaymentsPublicApi->pullPaymentsGetPayouts: ', $e->getMessage(), PHP_EOL;
 }
 ?>
 ```
@@ -108,12 +110,12 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-# **apiV1PullPaymentsPullPaymentIdPayoutsPost**
-> \Swagger\Client\Model\PayoutData apiV1PullPaymentsPullPaymentIdPayoutsPost($pull_payment_id)
+# **pullPaymentsGetPullPayment**
+> \Swagger\Client\Model\PullPaymentData pullPaymentsGetPullPayment($pull_payment_id)
 
+Get Pull Payment
 
-
-Create a new payout
+Get a pull payment
 
 ### Example
 ```php
@@ -128,10 +130,10 @@ $apiInstance = new Swagger\Client\Api\PullPaymentsPublicApi(
 $pull_payment_id = "pull_payment_id_example"; // string | The ID of the pull payment
 
 try {
-    $result = $apiInstance->apiV1PullPaymentsPullPaymentIdPayoutsPost($pull_payment_id);
+    $result = $apiInstance->pullPaymentsGetPullPayment($pull_payment_id);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling PullPaymentsPublicApi->apiV1PullPaymentsPullPaymentIdPayoutsPost: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling PullPaymentsPublicApi->pullPaymentsGetPullPayment: ', $e->getMessage(), PHP_EOL;
 }
 ?>
 ```
@@ -144,7 +146,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**\Swagger\Client\Model\PayoutData**](../Model/PayoutData.md)
+[**\Swagger\Client\Model\PullPaymentData**](../Model/PullPaymentData.md)
 
 ### Authorization
 

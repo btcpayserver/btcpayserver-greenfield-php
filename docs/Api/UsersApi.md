@@ -33,7 +33,7 @@ $apiInstance = new Swagger\Client\Api\UsersApi(
     new GuzzleHttp\Client(),
     $config
 );
-$body = new \Swagger\Client\Model\Body3(); // \Swagger\Client\Model\Body3 | 
+$body = new \Swagger\Client\Model\V1UsersBody(); // \Swagger\Client\Model\V1UsersBody | 
 
 try {
     $result = $apiInstance->apiV1UsersPost($body);
@@ -48,7 +48,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**\Swagger\Client\Model\Body3**](../Model/Body3.md)|  |
+ **body** | [**\Swagger\Client\Model\V1UsersBody**](../Model/V1UsersBody.md)|  |
 
 ### Return type
 

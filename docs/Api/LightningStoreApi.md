@@ -100,7 +100,7 @@ $apiInstance = new Swagger\Client\Api\LightningStoreApi(
     new GuzzleHttp\Client(),
     $config
 );
-$body = new \Swagger\Client\Model\PayLightningInvoiceRequest(); // \Swagger\Client\Model\PayLightningInvoiceRequest | 
+$body = new \Swagger\Client\Model\CreateLightningInvoiceRequest(); // \Swagger\Client\Model\CreateLightningInvoiceRequest | 
 $crypto_code = "crypto_code_example"; // string | The cryptoCode of the lightning-node to query
 $store_id = "store_id_example"; // string | The store id with the lightning-node configuration to query
 
@@ -117,7 +117,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**\Swagger\Client\Model\PayLightningInvoiceRequest**](../Model/PayLightningInvoiceRequest.md)|  |
+ **body** | [**\Swagger\Client\Model\CreateLightningInvoiceRequest**](../Model/CreateLightningInvoiceRequest.md)|  |
  **crypto_code** | **string**| The cryptoCode of the lightning-node to query |
  **store_id** | **string**| The store id with the lightning-node configuration to query |
 

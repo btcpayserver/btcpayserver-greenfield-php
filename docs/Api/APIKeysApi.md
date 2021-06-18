@@ -192,7 +192,7 @@ $apiInstance = new Swagger\Client\Api\APIKeysApi(
     new GuzzleHttp\Client(),
     $config
 );
-$body = new \Swagger\Client\Model\Body(); // \Swagger\Client\Model\Body | 
+$body = new \Swagger\Client\Model\V1ApikeysBody(); // \Swagger\Client\Model\V1ApikeysBody | 
 
 try {
     $result = $apiInstance->apiV1ApiKeysPost($body);
@@ -207,7 +207,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**\Swagger\Client\Model\Body**](../Model/Body.md)|  | [optional]
+ **body** | [**\Swagger\Client\Model\V1ApikeysBody**](../Model/V1ApikeysBody.md)|  | [optional]
 
 ### Return type
 

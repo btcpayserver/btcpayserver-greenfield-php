@@ -6,8 +6,8 @@ Name | Type | Description | Notes
 **id** | **string** | The invoice&#x27;s ID | [optional] 
 **status** | [**\Swagger\Client\Model\LightningInvoiceStatus**](LightningInvoiceStatus.md) |  | [optional] 
 **bolt11** | **string** | The BOLT11 representation of the invoice | [optional] 
-**paid_at** | **int** | The unix timestamp when the invoice got paid | [optional] 
-**expires_at** | **int** | The unix timestamp when the invoice expires | [optional] 
+**paid_at** | [**AllOfLightningInvoiceDataPaidAt**](AllOfLightningInvoiceDataPaidAt.md) | The unix timestamp when the invoice got paid | [optional] 
+**expires_at** | [**AllOfLightningInvoiceDataExpiresAt**](AllOfLightningInvoiceDataExpiresAt.md) | The unix timestamp when the invoice expires | [optional] 
 **amount** | **string** | The amount of the invoice in millisatoshi | [optional] 
 **amount_received** | **string** | The amount received in millisatoshi | [optional] 
 
