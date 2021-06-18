@@ -131,7 +131,7 @@ $apiInstance = new Swagger\Client\Api\APIKeysApi(
     new GuzzleHttp\Client(),
     $config
 );
-$body = new \Swagger\Client\Model\Body(); // \Swagger\Client\Model\Body | 
+$body = new \Swagger\Client\Model\V1ApikeysBody(); // \Swagger\Client\Model\V1ApikeysBody | 
 
 try {
     $result = $apiInstance->apiV1ApiKeysPost($body);
@@ -154,12 +154,16 @@ Class | Method | HTTP request | Description
 *APIKeysApi* | [**apiV1ApiKeysPost**](docs/Api/APIKeysApi.md#apiv1apikeyspost) | **POST** /api/v1/api-keys | Create a new API Key
 *AuthorizationApi* | [**apiKeysAuthorizeGet**](docs/Api/AuthorizationApi.md#apikeysauthorizeget) | **GET** /api-keys/authorize | Authorize User
 *HealthApi* | [**healthGetHealth**](docs/Api/HealthApi.md#healthgethealth) | **GET** /api/v1/health | Get health status
+*InvoicesApi* | [**invoicesActivatePaymentMethod**](docs/Api/InvoicesApi.md#invoicesactivatepaymentmethod) | **POST** /api/v1/stores/{storeId}/invoices/{invoiceId}/payment-methods/{paymentMethod}/activate | Activate Payment Method
 *InvoicesApi* | [**invoicesArchiveInvoice**](docs/Api/InvoicesApi.md#invoicesarchiveinvoice) | **DELETE** /api/v1/stores/{storeId}/invoices/{invoiceId} | Archive invoice
+*InvoicesApi* | [**invoicesArchiveInvoice_0**](docs/Api/InvoicesApi.md#invoicesarchiveinvoice_0) | **DELETE** /api/v1/stores/{storeId}/invoices/{invoiceId}/payment-methods | Archive invoice
 *InvoicesApi* | [**invoicesCreateInvoice**](docs/Api/InvoicesApi.md#invoicescreateinvoice) | **POST** /api/v1/stores/{storeId}/invoices | Create a new invoice
 *InvoicesApi* | [**invoicesGetInvoice**](docs/Api/InvoicesApi.md#invoicesgetinvoice) | **GET** /api/v1/stores/{storeId}/invoices/{invoiceId} | Get invoice
+*InvoicesApi* | [**invoicesGetInvoicePaymentMethods**](docs/Api/InvoicesApi.md#invoicesgetinvoicepaymentmethods) | **GET** /api/v1/stores/{storeId}/invoices/{invoiceId}/payment-methods | Get invoice payment methods
 *InvoicesApi* | [**invoicesGetInvoices**](docs/Api/InvoicesApi.md#invoicesgetinvoices) | **GET** /api/v1/stores/{storeId}/invoices | Get invoices
 *InvoicesApi* | [**invoicesMarkInvoiceStatus**](docs/Api/InvoicesApi.md#invoicesmarkinvoicestatus) | **POST** /api/v1/stores/{storeId}/invoices/{invoiceId}/status | Mark invoice status
 *InvoicesApi* | [**invoicesUnarchiveInvoice**](docs/Api/InvoicesApi.md#invoicesunarchiveinvoice) | **POST** /api/v1/stores/{storeId}/invoices/{invoiceId}/unarchive | Unarchive invoice
+*InvoicesApi* | [**invoicesUpdateInvoice**](docs/Api/InvoicesApi.md#invoicesupdateinvoice) | **PUT** /api/v1/stores/{storeId}/invoices/{invoiceId} | Update invoice
 *LightningInternalNodeApi* | [**internalLightningNodeApiConnectToNode**](docs/Api/LightningInternalNodeApi.md#internallightningnodeapiconnecttonode) | **POST** /api/v1/server/lightning/{cryptoCode}/connect | Connect to lightning node
 *LightningInternalNodeApi* | [**internalLightningNodeApiCreateInvoice**](docs/Api/LightningInternalNodeApi.md#internallightningnodeapicreateinvoice) | **POST** /api/v1/server/lightning/{cryptoCode}/invoices | Create lightning invoice
 *LightningInternalNodeApi* | [**internalLightningNodeApiGetChannels**](docs/Api/LightningInternalNodeApi.md#internallightningnodeapigetchannels) | **GET** /api/v1/server/lightning/{cryptoCode}/channels | Get channels
@@ -176,20 +180,44 @@ Class | Method | HTTP request | Description
 *LightningStoreApi* | [**storeLightningNodeApiGetInvoice**](docs/Api/LightningStoreApi.md#storelightningnodeapigetinvoice) | **GET** /api/v1/stores/{storeId}/lightning/{cryptoCode}/invoices/{id} | Get invoice
 *LightningStoreApi* | [**storeLightningNodeApiOpenChannel**](docs/Api/LightningStoreApi.md#storelightningnodeapiopenchannel) | **POST** /api/v1/stores/{storeId}/lightning/{cryptoCode}/channels | Open channel
 *LightningStoreApi* | [**storeLightningNodeApiPayInvoice**](docs/Api/LightningStoreApi.md#storelightningnodeapipayinvoice) | **POST** /api/v1/stores/{storeId}/lightning/{cryptoCode}/invoices/pay | Pay Lightning Invoice
+*MiscalleneousApi* | [**iInvoiceIdGet**](docs/Api/MiscalleneousApi.md#iinvoiceidget) | **GET** /i/{invoiceId} | Invoice checkout
+*MiscalleneousApi* | [**langCodes**](docs/Api/MiscalleneousApi.md#langcodes) | **GET** /misc/lang | Language codes
+*NotificationsCurrentUserApi* | [**notificationsDeleteNotification**](docs/Api/NotificationsCurrentUserApi.md#notificationsdeletenotification) | **DELETE** /api/v1/users/me/notifications/{id} | Remove Notification
+*NotificationsCurrentUserApi* | [**notificationsGetNotification**](docs/Api/NotificationsCurrentUserApi.md#notificationsgetnotification) | **GET** /api/v1/users/me/notifications/{id} | Get notification
+*NotificationsCurrentUserApi* | [**notificationsGetNotifications**](docs/Api/NotificationsCurrentUserApi.md#notificationsgetnotifications) | **GET** /api/v1/users/me/notifications | Get notifications
+*NotificationsCurrentUserApi* | [**notificationsUpdateNotification**](docs/Api/NotificationsCurrentUserApi.md#notificationsupdatenotification) | **PUT** /api/v1/users/me/notifications/{id} | Update notification
 *PaymentRequestsApi* | [**paymentRequestsArchivePaymentRequest**](docs/Api/PaymentRequestsApi.md#paymentrequestsarchivepaymentrequest) | **DELETE** /api/v1/stores/{storeId}/payment-requests/{paymentRequestId} | Archive payment request
 *PaymentRequestsApi* | [**paymentRequestsCreatePaymentRequest**](docs/Api/PaymentRequestsApi.md#paymentrequestscreatepaymentrequest) | **POST** /api/v1/stores/{storeId}/payment-requests | Create a new payment request
 *PaymentRequestsApi* | [**paymentRequestsGetPaymentRequest**](docs/Api/PaymentRequestsApi.md#paymentrequestsgetpaymentrequest) | **GET** /api/v1/stores/{storeId}/payment-requests/{paymentRequestId} | Get payment request
 *PaymentRequestsApi* | [**paymentRequestsGetPaymentRequests**](docs/Api/PaymentRequestsApi.md#paymentrequestsgetpaymentrequests) | **GET** /api/v1/stores/{storeId}/payment-requests | Get payment requests
 *PaymentRequestsApi* | [**paymentRequestsUpdatePaymentRequest**](docs/Api/PaymentRequestsApi.md#paymentrequestsupdatepaymentrequest) | **PUT** /api/v1/stores/{storeId}/payment-requests/{paymentRequestId} | Update payment request
-*PullPaymentsManagementApi* | [**apiV1StoresStoreIdPayoutsPayoutIdDelete**](docs/Api/PullPaymentsManagementApi.md#apiv1storesstoreidpayoutspayoutiddelete) | **DELETE** /api/v1/stores/{storeId}/payouts/{payoutId} | 
-*PullPaymentsManagementApi* | [**apiV1StoresStoreIdPayoutsPayoutIdPost**](docs/Api/PullPaymentsManagementApi.md#apiv1storesstoreidpayoutspayoutidpost) | **POST** /api/v1/stores/{storeId}/payouts/{payoutId} | 
-*PullPaymentsManagementApi* | [**apiV1StoresStoreIdPullPaymentsGet**](docs/Api/PullPaymentsManagementApi.md#apiv1storesstoreidpullpaymentsget) | **GET** /api/v1/stores/{storeId}/pull-payments | Get store&#x27;s pull payments
-*PullPaymentsManagementApi* | [**apiV1StoresStoreIdPullPaymentsPost**](docs/Api/PullPaymentsManagementApi.md#apiv1storesstoreidpullpaymentspost) | **POST** /api/v1/stores/{storeId}/pull-payments | Create a new pull payment
-*PullPaymentsManagementApi* | [**apiV1StoresStoreIdPullPaymentsPullPaymentIdDelete**](docs/Api/PullPaymentsManagementApi.md#apiv1storesstoreidpullpaymentspullpaymentiddelete) | **DELETE** /api/v1/stores/{storeId}/pull-payments/{pullPaymentId} | Archive a pull payment
-*PullPaymentsPublicApi* | [**apiV1PullPaymentsPullPaymentIdGet**](docs/Api/PullPaymentsPublicApi.md#apiv1pullpaymentspullpaymentidget) | **GET** /api/v1/pull-payments/{pullPaymentId} | 
-*PullPaymentsPublicApi* | [**apiV1PullPaymentsPullPaymentIdPayoutsGet**](docs/Api/PullPaymentsPublicApi.md#apiv1pullpaymentspullpaymentidpayoutsget) | **GET** /api/v1/pull-payments/{pullPaymentId}/payouts | 
-*PullPaymentsPublicApi* | [**apiV1PullPaymentsPullPaymentIdPayoutsPost**](docs/Api/PullPaymentsPublicApi.md#apiv1pullpaymentspullpaymentidpayoutspost) | **POST** /api/v1/pull-payments/{pullPaymentId}/payouts | 
+*PullPaymentsManagementApi* | [**pullPaymentsApprovePayout**](docs/Api/PullPaymentsManagementApi.md#pullpaymentsapprovepayout) | **POST** /api/v1/stores/{storeId}/payouts/{payoutId} | Approve Payout
+*PullPaymentsManagementApi* | [**pullPaymentsArchivePullPayment**](docs/Api/PullPaymentsManagementApi.md#pullpaymentsarchivepullpayment) | **DELETE** /api/v1/stores/{storeId}/pull-payments/{pullPaymentId} | Archive a pull payment
+*PullPaymentsManagementApi* | [**pullPaymentsCancelPayout**](docs/Api/PullPaymentsManagementApi.md#pullpaymentscancelpayout) | **DELETE** /api/v1/stores/{storeId}/payouts/{payoutId} | Cancel Payout
+*PullPaymentsManagementApi* | [**pullPaymentsCreatePullPayment**](docs/Api/PullPaymentsManagementApi.md#pullpaymentscreatepullpayment) | **POST** /api/v1/stores/{storeId}/pull-payments | Create a new pull payment
+*PullPaymentsManagementApi* | [**pullPaymentsGetPullPayments**](docs/Api/PullPaymentsManagementApi.md#pullpaymentsgetpullpayments) | **GET** /api/v1/stores/{storeId}/pull-payments | Get store&#x27;s pull payments
+*PullPaymentsPublicApi* | [**pullPaymentsCreatePayout**](docs/Api/PullPaymentsPublicApi.md#pullpaymentscreatepayout) | **POST** /api/v1/pull-payments/{pullPaymentId}/payouts | Create Payout
+*PullPaymentsPublicApi* | [**pullPaymentsGetPayouts**](docs/Api/PullPaymentsPublicApi.md#pullpaymentsgetpayouts) | **GET** /api/v1/pull-payments/{pullPaymentId}/payouts | Get Payouts
+*PullPaymentsPublicApi* | [**pullPaymentsGetPullPayment**](docs/Api/PullPaymentsPublicApi.md#pullpaymentsgetpullpayment) | **GET** /api/v1/pull-payments/{pullPaymentId} | Get Pull Payment
 *ServerInfoApi* | [**serverInfoGetServerInfo**](docs/Api/ServerInfoApi.md#serverinfogetserverinfo) | **GET** /api/v1/server/info | Get server info
+*StorePaymentMethodsLightningNetworkApi* | [**apiV1StoresStoreIdPaymentMethodsLightningNetworkCryptoCodeDelete**](docs/Api/StorePaymentMethodsLightningNetworkApi.md#apiv1storesstoreidpaymentmethodslightningnetworkcryptocodedelete) | **DELETE** /api/v1/stores/{storeId}/payment-methods/LightningNetwork/{cryptoCode} | Remove store Lightning Network payment method
+*StorePaymentMethodsLightningNetworkApi* | [**storeLightningNetworkPaymentMethodsGetLightningNetworkPaymentMethod**](docs/Api/StorePaymentMethodsLightningNetworkApi.md#storelightningnetworkpaymentmethodsgetlightningnetworkpaymentmethod) | **GET** /api/v1/stores/{storeId}/payment-methods/LightningNetwork/{cryptoCode} | Get store Lightning Network payment method
+*StorePaymentMethodsLightningNetworkApi* | [**storeLightningNetworkPaymentMethodsGetLightningNetworkPaymentMethods**](docs/Api/StorePaymentMethodsLightningNetworkApi.md#storelightningnetworkpaymentmethodsgetlightningnetworkpaymentmethods) | **GET** /api/v1/stores/{storeId}/payment-methods/LightningNetwork | Get store Lightning Network payment methods
+*StorePaymentMethodsLightningNetworkApi* | [**storeLightningNetworkPaymentMethodsUpdateLightningNetworkPaymentMethod**](docs/Api/StorePaymentMethodsLightningNetworkApi.md#storelightningnetworkpaymentmethodsupdatelightningnetworkpaymentmethod) | **PUT** /api/v1/stores/{storeId}/payment-methods/LightningNetwork/{cryptoCode} | Update store Lightning Network payment method
+*StorePaymentMethodsOnChainApi* | [**apiV1StoresStoreIdPaymentMethodsOnChainCryptoCodeDelete**](docs/Api/StorePaymentMethodsOnChainApi.md#apiv1storesstoreidpaymentmethodsonchaincryptocodedelete) | **DELETE** /api/v1/stores/{storeId}/payment-methods/OnChain/{cryptoCode} | Remove store on-chain payment method
+*StorePaymentMethodsOnChainApi* | [**storeOnChainPaymentMethodsGetOnChainPaymentMethod**](docs/Api/StorePaymentMethodsOnChainApi.md#storeonchainpaymentmethodsgetonchainpaymentmethod) | **GET** /api/v1/stores/{storeId}/payment-methods/OnChain/{cryptoCode} | Get store on-chain payment method
+*StorePaymentMethodsOnChainApi* | [**storeOnChainPaymentMethodsGetOnChainPaymentMethodPreview**](docs/Api/StorePaymentMethodsOnChainApi.md#storeonchainpaymentmethodsgetonchainpaymentmethodpreview) | **GET** /api/v1/stores/{storeId}/payment-methods/OnChain/{cryptoCode}/preview | Preview store on-chain payment method addresses
+*StorePaymentMethodsOnChainApi* | [**storeOnChainPaymentMethodsGetOnChainPaymentMethodPreview_0**](docs/Api/StorePaymentMethodsOnChainApi.md#storeonchainpaymentmethodsgetonchainpaymentmethodpreview_0) | **POST** /api/v1/stores/{storeId}/payment-methods/OnChain/{cryptoCode}/preview | Preview proposed store on-chain payment method addresses
+*StorePaymentMethodsOnChainApi* | [**storeOnChainPaymentMethodsGetOnChainPaymentMethods**](docs/Api/StorePaymentMethodsOnChainApi.md#storeonchainpaymentmethodsgetonchainpaymentmethods) | **GET** /api/v1/stores/{storeId}/payment-methods/OnChain | Get store on-chain payment methods
+*StorePaymentMethodsOnChainApi* | [**storeOnChainPaymentMethodsUpdateOnChainPaymentMethod**](docs/Api/StorePaymentMethodsOnChainApi.md#storeonchainpaymentmethodsupdateonchainpaymentmethod) | **PUT** /api/v1/stores/{storeId}/payment-methods/OnChain/{cryptoCode} | Update store on-chain payment method
+*StoreWalletOnChainApi* | [**storeOnChainWalletsCreateOnChainTransaction**](docs/Api/StoreWalletOnChainApi.md#storeonchainwalletscreateonchaintransaction) | **POST** /api/v1/stores/{storeId}/payment-methods/OnChain/{cryptoCode}/wallet/transactions | Create store on-chain wallet transaction
+*StoreWalletOnChainApi* | [**storeOnChainWalletsGetOnChainFeeRate**](docs/Api/StoreWalletOnChainApi.md#storeonchainwalletsgetonchainfeerate) | **GET** /api/v1/stores/{storeId}/payment-methods/OnChain/{cryptoCode}/wallet/feeRate | Get store on-chain wallet overview
+*StoreWalletOnChainApi* | [**storeOnChainWalletsGetOnChainWalletReceiveAddress**](docs/Api/StoreWalletOnChainApi.md#storeonchainwalletsgetonchainwalletreceiveaddress) | **GET** /api/v1/stores/{storeId}/payment-methods/OnChain/{cryptoCode}/wallet/address | Get store on-chain wallet address
+*StoreWalletOnChainApi* | [**storeOnChainWalletsGetOnChainWalletTransaction**](docs/Api/StoreWalletOnChainApi.md#storeonchainwalletsgetonchainwallettransaction) | **GET** /api/v1/stores/{storeId}/payment-methods/OnChain/{cryptoCode}/wallet/transactions/{transactionId} | Get store on-chain wallet transactions
+*StoreWalletOnChainApi* | [**storeOnChainWalletsGetOnChainWalletUTXOs**](docs/Api/StoreWalletOnChainApi.md#storeonchainwalletsgetonchainwalletutxos) | **GET** /api/v1/stores/{storeId}/payment-methods/OnChain/{cryptoCode}/wallet/utxos | Get store on-chain wallet UTXOS
+*StoreWalletOnChainApi* | [**storeOnChainWalletsShowOnChainWalletOverview**](docs/Api/StoreWalletOnChainApi.md#storeonchainwalletsshowonchainwalletoverview) | **GET** /api/v1/stores/{storeId}/payment-methods/OnChain/{cryptoCode}/wallet | Get store on-chain wallet overview
+*StoreWalletOnChainApi* | [**storeOnChainWalletsShowOnChainWalletTransactions**](docs/Api/StoreWalletOnChainApi.md#storeonchainwalletsshowonchainwallettransactions) | **GET** /api/v1/stores/{storeId}/payment-methods/OnChain/{cryptoCode}/wallet/transactions | Get store on-chain wallet transactions
+*StoreWalletOnChainApi* | [**storeOnChainWalletsUnReserveOnChainWalletReceiveAddress**](docs/Api/StoreWalletOnChainApi.md#storeonchainwalletsunreserveonchainwalletreceiveaddress) | **DELETE** /api/v1/stores/{storeId}/payment-methods/OnChain/{cryptoCode}/wallet/address | UnReserve last store on-chain wallet address
 *StoresApi* | [**apiV1StoresPost**](docs/Api/StoresApi.md#apiv1storespost) | **POST** /api/v1/stores | Create a new store
 *StoresApi* | [**apiV1StoresStoreIdDelete**](docs/Api/StoresApi.md#apiv1storesstoreiddelete) | **DELETE** /api/v1/stores/{storeId} | Remove Store
 *StoresApi* | [**storesGetStore**](docs/Api/StoresApi.md#storesgetstore) | **GET** /api/v1/stores/{storeId} | Get store
@@ -197,45 +225,92 @@ Class | Method | HTTP request | Description
 *StoresApi* | [**storesUpdateStore**](docs/Api/StoresApi.md#storesupdatestore) | **PUT** /api/v1/stores/{storeId} | Update store
 *UsersApi* | [**apiV1UsersPost**](docs/Api/UsersApi.md#apiv1userspost) | **POST** /api/v1/users | Create user
 *UsersApi* | [**usersGetCurrentUser**](docs/Api/UsersApi.md#usersgetcurrentuser) | **GET** /api/v1/users/me | Get current user information
+*WebhooksApi* | [**apiV1StoresStoreIdWebhooksPost**](docs/Api/WebhooksApi.md#apiv1storesstoreidwebhookspost) | **POST** /api/v1/stores/{storeId}/webhooks | Create a new webhook
+*WebhooksApi* | [**apiV1StoresStoreIdWebhooksWebhookIdDelete**](docs/Api/WebhooksApi.md#apiv1storesstoreidwebhookswebhookiddelete) | **DELETE** /api/v1/stores/{storeId}/webhooks/{webhookId} | Delete a webhook
+*WebhooksApi* | [**apiV1StoresStoreIdWebhooksWebhookIdDeliveriesDeliveryIdGet**](docs/Api/WebhooksApi.md#apiv1storesstoreidwebhookswebhookiddeliveriesdeliveryidget) | **GET** /api/v1/stores/{storeId}/webhooks/{webhookId}/deliveries/{deliveryId} | Get a webhook delivery
+*WebhooksApi* | [**apiV1StoresStoreIdWebhooksWebhookIdDeliveriesDeliveryIdRedeliverPost**](docs/Api/WebhooksApi.md#apiv1storesstoreidwebhookswebhookiddeliveriesdeliveryidredeliverpost) | **POST** /api/v1/stores/{storeId}/webhooks/{webhookId}/deliveries/{deliveryId}/redeliver | Redeliver the delivery
+*WebhooksApi* | [**apiV1StoresStoreIdWebhooksWebhookIdDeliveriesDeliveryIdRequestGet**](docs/Api/WebhooksApi.md#apiv1storesstoreidwebhookswebhookiddeliveriesdeliveryidrequestget) | **GET** /api/v1/stores/{storeId}/webhooks/{webhookId}/deliveries/{deliveryId}/request | Get the delivery&#x27;s request
+*WebhooksApi* | [**apiV1StoresStoreIdWebhooksWebhookIdDeliveriesGet**](docs/Api/WebhooksApi.md#apiv1storesstoreidwebhookswebhookiddeliveriesget) | **GET** /api/v1/stores/{storeId}/webhooks/{webhookId}/deliveries | Get latest deliveries
+*WebhooksApi* | [**apiV1StoresStoreIdWebhooksWebhookIdPut**](docs/Api/WebhooksApi.md#apiv1storesstoreidwebhookswebhookidput) | **PUT** /api/v1/stores/{storeId}/webhooks/{webhookId} | Update a webhook
+*WebhooksApi* | [**webhokksGetWebhook**](docs/Api/WebhooksApi.md#webhokksgetwebhook) | **GET** /api/v1/stores/{storeId}/webhooks/{webhookId} | Get a webhook of a store
+*WebhooksApi* | [**webhokksGetWebhooks**](docs/Api/WebhooksApi.md#webhokksgetwebhooks) | **GET** /api/v1/stores/{storeId}/webhooks | Get webhooks of a store
 
 ## Documentation For Models
 
  - [AddCustomerEmailRequest](docs/Model/AddCustomerEmailRequest.md)
+ - [AllOfApplicationUserDataCreated](docs/Model/AllOfApplicationUserDataCreated.md)
+ - [AllOfCheckoutOptionsExpirationMinutes](docs/Model/AllOfCheckoutOptionsExpirationMinutes.md)
+ - [AllOfCheckoutOptionsMonitoringMinutes](docs/Model/AllOfCheckoutOptionsMonitoringMinutes.md)
+ - [AllOfCreateLightningInvoiceRequestExpiry](docs/Model/AllOfCreateLightningInvoiceRequestExpiry.md)
+ - [AllOfLightningInvoiceDataExpiresAt](docs/Model/AllOfLightningInvoiceDataExpiresAt.md)
+ - [AllOfLightningInvoiceDataPaidAt](docs/Model/AllOfLightningInvoiceDataPaidAt.md)
+ - [AllOfNotificationDataCreatedTime](docs/Model/AllOfNotificationDataCreatedTime.md)
+ - [AllOfOnChainWalletTransactionDataTimestamp](docs/Model/AllOfOnChainWalletTransactionDataTimestamp.md)
+ - [AllOfOnChainWalletUTXODataTimestamp](docs/Model/AllOfOnChainWalletUTXODataTimestamp.md)
+ - [AllOfPaymentReceivedDate](docs/Model/AllOfPaymentReceivedDate.md)
+ - [AllOfPaymentRequestBaseDataExpiryDate](docs/Model/AllOfPaymentRequestBaseDataExpiryDate.md)
+ - [AllOfStoreBaseDataInvoiceExpiration](docs/Model/AllOfStoreBaseDataInvoiceExpiration.md)
+ - [AllOfStoreBaseDataMonitoringExpiration](docs/Model/AllOfStoreBaseDataMonitoringExpiration.md)
+ - [AllOfWebhookDeliveryDataTimestamp](docs/Model/AllOfWebhookDeliveryDataTimestamp.md)
+ - [AllOfWebhookEventTimestamp](docs/Model/AllOfWebhookEventTimestamp.md)
+ - [AnyOfInvoiceMetadata](docs/Model/AnyOfInvoiceMetadata.md)
  - [ApiKeyData](docs/Model/ApiKeyData.md)
  - [ApplicationHealthData](docs/Model/ApplicationHealthData.md)
  - [ApplicationServerInfoData](docs/Model/ApplicationServerInfoData.md)
  - [ApplicationServerInfoNodeStatusData](docs/Model/ApplicationServerInfoNodeStatusData.md)
  - [ApplicationServerInfoSyncStatusData](docs/Model/ApplicationServerInfoSyncStatusData.md)
  - [ApplicationUserData](docs/Model/ApplicationUserData.md)
- - [Body](docs/Model/Body.md)
- - [Body1](docs/Model/Body1.md)
- - [Body2](docs/Model/Body2.md)
- - [Body3](docs/Model/Body3.md)
  - [CheckoutOptions](docs/Model/CheckoutOptions.md)
  - [ConnectToNodeRequest](docs/Model/ConnectToNodeRequest.md)
  - [CreateInvoiceRequest](docs/Model/CreateInvoiceRequest.md)
  - [CreateLightningInvoiceRequest](docs/Model/CreateLightningInvoiceRequest.md)
+ - [CreateOnChainTransactionRequest](docs/Model/CreateOnChainTransactionRequest.md)
+ - [CreateOnChainTransactionRequestDestination](docs/Model/CreateOnChainTransactionRequestDestination.md)
+ - [CreatePayoutRequest](docs/Model/CreatePayoutRequest.md)
+ - [InlineResponse200](docs/Model/InlineResponse200.md)
+ - [InlineResponse2001](docs/Model/InlineResponse2001.md)
  - [InvoiceAdditionalStatus](docs/Model/InvoiceAdditionalStatus.md)
  - [InvoiceData](docs/Model/InvoiceData.md)
  - [InvoiceDataList](docs/Model/InvoiceDataList.md)
+ - [InvoiceMetadata](docs/Model/InvoiceMetadata.md)
+ - [InvoiceMetadataPosObject](docs/Model/InvoiceMetadataPosObject.md)
+ - [InvoiceMetadataPosString](docs/Model/InvoiceMetadataPosString.md)
+ - [InvoicePaymentMethodDataModel](docs/Model/InvoicePaymentMethodDataModel.md)
  - [InvoiceStatus](docs/Model/InvoiceStatus.md)
  - [InvoiceStatusMark](docs/Model/InvoiceStatusMark.md)
+ - [LabelData](docs/Model/LabelData.md)
  - [LightningChannelData](docs/Model/LightningChannelData.md)
  - [LightningInvoiceData](docs/Model/LightningInvoiceData.md)
  - [LightningInvoiceStatus](docs/Model/LightningInvoiceStatus.md)
+ - [LightningNetworkPaymentMethodData](docs/Model/LightningNetworkPaymentMethodData.md)
+ - [LightningNetworkPaymentMethodDataList](docs/Model/LightningNetworkPaymentMethodDataList.md)
  - [LightningNodeInformationData](docs/Model/LightningNodeInformationData.md)
  - [MarkInvoiceStatusRequest](docs/Model/MarkInvoiceStatusRequest.md)
  - [NetworkFeeMode](docs/Model/NetworkFeeMode.md)
+ - [NotificationData](docs/Model/NotificationData.md)
+ - [OnChainPaymentMethodData](docs/Model/OnChainPaymentMethodData.md)
+ - [OnChainPaymentMethodDataList](docs/Model/OnChainPaymentMethodDataList.md)
+ - [OnChainPaymentMethodPreviewResultAddressItem](docs/Model/OnChainPaymentMethodPreviewResultAddressItem.md)
+ - [OnChainPaymentMethodPreviewResultData](docs/Model/OnChainPaymentMethodPreviewResultData.md)
+ - [OnChainWalletAddressData](docs/Model/OnChainWalletAddressData.md)
+ - [OnChainWalletFeeRateData](docs/Model/OnChainWalletFeeRateData.md)
+ - [OnChainWalletOverviewData](docs/Model/OnChainWalletOverviewData.md)
+ - [OnChainWalletTransactionData](docs/Model/OnChainWalletTransactionData.md)
+ - [OnChainWalletUTXOData](docs/Model/OnChainWalletUTXOData.md)
  - [OneOfCheckoutOptionsSpeedPolicy](docs/Model/OneOfCheckoutOptionsSpeedPolicy.md)
  - [OneOfCreateInvoiceRequestCheckout](docs/Model/OneOfCreateInvoiceRequestCheckout.md)
  - [OneOfMarkInvoiceStatusRequestStatus](docs/Model/OneOfMarkInvoiceStatusRequestStatus.md)
+ - [OneOfinlineResponse2001](docs/Model/OneOfinlineResponse2001.md)
  - [OpenLightningChannelRequest](docs/Model/OpenLightningChannelRequest.md)
  - [PayLightningInvoiceRequest](docs/Model/PayLightningInvoiceRequest.md)
+ - [Payment](docs/Model/Payment.md)
  - [PaymentRequestBaseData](docs/Model/PaymentRequestBaseData.md)
  - [PaymentRequestData](docs/Model/PaymentRequestData.md)
  - [PaymentRequestDataList](docs/Model/PaymentRequestDataList.md)
+ - [PaymentStatus](docs/Model/PaymentStatus.md)
  - [PayoutData](docs/Model/PayoutData.md)
  - [PayoutDataList](docs/Model/PayoutDataList.md)
+ - [PayoutsPayoutIdBody](docs/Model/PayoutsPayoutIdBody.md)
  - [ProblemDetails](docs/Model/ProblemDetails.md)
  - [PullPaymentData](docs/Model/PullPaymentData.md)
  - [PullPaymentDataList](docs/Model/PullPaymentDataList.md)
@@ -243,8 +318,32 @@ Class | Method | HTTP request | Description
  - [StoreBaseData](docs/Model/StoreBaseData.md)
  - [StoreData](docs/Model/StoreData.md)
  - [StoreDataList](docs/Model/StoreDataList.md)
+ - [StoreIdPullpaymentsBody](docs/Model/StoreIdPullpaymentsBody.md)
+ - [TimeSpan](docs/Model/TimeSpan.md)
+ - [TimeSpanMinutes](docs/Model/TimeSpanMinutes.md)
+ - [TimeSpanSeconds](docs/Model/TimeSpanSeconds.md)
+ - [TransactionStatus](docs/Model/TransactionStatus.md)
+ - [UnixTimestamp](docs/Model/UnixTimestamp.md)
+ - [UpdateInvoiceRequest](docs/Model/UpdateInvoiceRequest.md)
+ - [UpdateNotification](docs/Model/UpdateNotification.md)
+ - [V1ApikeysBody](docs/Model/V1ApikeysBody.md)
+ - [V1UsersBody](docs/Model/V1UsersBody.md)
  - [ValidationProblemDetails](docs/Model/ValidationProblemDetails.md)
  - [ValidationProblemDetailsInner](docs/Model/ValidationProblemDetailsInner.md)
+ - [WebhookData](docs/Model/WebhookData.md)
+ - [WebhookDataBase](docs/Model/WebhookDataBase.md)
+ - [WebhookDataBaseAuthorizedEvents](docs/Model/WebhookDataBaseAuthorizedEvents.md)
+ - [WebhookDataCreate](docs/Model/WebhookDataCreate.md)
+ - [WebhookDataList](docs/Model/WebhookDataList.md)
+ - [WebhookDeliveryData](docs/Model/WebhookDeliveryData.md)
+ - [WebhookDeliveryList](docs/Model/WebhookDeliveryList.md)
+ - [WebhookEvent](docs/Model/WebhookEvent.md)
+ - [WebhookInvoiceEvent](docs/Model/WebhookInvoiceEvent.md)
+ - [WebhookInvoiceExpiredEvent](docs/Model/WebhookInvoiceExpiredEvent.md)
+ - [WebhookInvoiceInvalidEvent](docs/Model/WebhookInvoiceInvalidEvent.md)
+ - [WebhookInvoiceProcessingEvent](docs/Model/WebhookInvoiceProcessingEvent.md)
+ - [WebhookInvoiceReceivedPaymentEvent](docs/Model/WebhookInvoiceReceivedPaymentEvent.md)
+ - [WebhookInvoiceSettledEvent](docs/Model/WebhookInvoiceSettledEvent.md)
 
 ## Documentation For Authorization
 
