@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace BTCPayServer\Result;
 
-class PaymentMethod extends AbstractResult
-{
+class Store extends AbstractResult {
 
 }

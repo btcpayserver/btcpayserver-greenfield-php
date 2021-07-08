@@ -4,17 +4,22 @@ declare(strict_types=1);
 
 namespace BTCPayServer\Http;
 
-class Client
+/**
+ * HTTP Client using cURL to communicate.
+ */
+class CurlClient implements ClientInterface
 {
 
+    /**
+     * @inheritdoc
+     */
     public static function request(
         string $method,
         string $url,
-        string $body = '',
-        array $headers = []
-    ): \BTCPayServer\Http\Response
+        array $headers = [],
+        string $body = ''
+    ): ResponseInterface
     {
-
         $flatHeaders = [];
         foreach ($headers as $key => $value) {
             $flatHeaders[] = $key . ': ' . $value;
@@ -25,7 +30,9 @@ class Client
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_HEADER, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
+        if (!empty($body)) {
+          curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
+        }
         curl_setopt($ch, CURLOPT_HTTPHEADER, $flatHeaders);
 
         $responseString = curl_exec($ch);

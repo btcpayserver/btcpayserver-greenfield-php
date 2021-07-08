@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace BTCPayServer\Client;
 
-use BTCPayServer\Http\Client;
+use BTCPayServer\Http\CurlClient;
 use BTCPayServer\Result\PaymentMethod;
 
 class Invoice extends AbstractClient
@@ -12,10 +12,10 @@ class Invoice extends AbstractClient
 
     public function getInvoice(string $storeId, string $invoiceId): \BTCPayServer\Result\Invoice
     {
-        $url = $this->getBaseUrl() . '/api/v1/stores/' . urlencode($storeId) . '/invoices/' . urlencode($invoiceId);
+        $url = $this->getBaseUrl() . 'stores/' . urlencode($storeId) . '/invoices/' . urlencode($invoiceId);
         $headers = $this->getRequestHeaders();
         $method = 'GET';
-        $response = Client::request($method, $url, '', $headers);
+        $response = CurlClient::request($method, $url, $headers);
 
         if ($response->getStatus() === 200) {
             return new \BTCPayServer\Result\Invoice(json_decode($response->getBody(), true));
@@ -32,11 +32,11 @@ class Invoice extends AbstractClient
     public function getPaymentMethods(string $storeId, string $invoiceId): array
     {
         $method = 'GET';
-        $url = $this->getBaseUrl() . '/api/v1/stores/' . urlencode($storeId) . '/invoices/' . urlencode(
+        $url = $this->getBaseUrl() . 'stores/' . urlencode($storeId) . '/invoices/' . urlencode(
                 $invoiceId
             ) . '/payment-methods';
         $headers = $this->getRequestHeaders();
-        $response = Client::request($method, $url, '', $headers);
+        $response = CurlClient::request($method, $url, $headers);
 
         if ($response->getStatus() === 200) {
             $r = [];

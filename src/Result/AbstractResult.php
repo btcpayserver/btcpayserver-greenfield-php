@@ -6,9 +6,8 @@ namespace BTCPayServer\Result;
 
 abstract class AbstractResult
 {
-    /**
-     * @var array
-     */
+
+    /** @var array */
     private $data;
 
     public function __construct(array $data)
