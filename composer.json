@@ -1,0 +1,26 @@
+{
+    "name": "btcpayserver/btcpayserver-greenfield-php",
+    "description": "BTCPay Server Greenfield API PHP client library.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Wouter Samaey",
+            "email": "wouter.samaey@storefront.be"
+        },
+        {
+            "name": "Andreas Tasch",
+            "email": "andy.tasch@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=7.3.0",
+        "ext-curl": "*",
+        "ext-json": "*",
+        "ext-mbstring": "*"
+    },
+    "autoload": {
+        "psr-4": {"BTCPayServer\\": "src/"}
+    }
+}
