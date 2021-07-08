@@ -6,5 +6,5 @@ namespace BTCPayServer\Exception;
 
 class ForbiddenException extends BTCPayException
 {
-    public const STATUS = 401;
+    public const STATUS = 403;
 }

@@ -12,12 +12,12 @@ interface ResponseInterface {
   public function getStatus(): int;
 
   /**
-   * JSON encoded string.
+   * Response data.
    */
   public function getBody(): string;
 
   /**
-   * HTTP headers of the response.
+   * HTTP headers as an associative array of the response.
    */
   public function getHeaders(): array;
 }

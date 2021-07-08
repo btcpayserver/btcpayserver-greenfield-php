@@ -15,6 +15,6 @@ try {
   $client = new Store($host, $apiKey);
   var_dump($client->getStore($storeId));
 }
-catch (\Exception $e) {
+catch (\Throwable $e) {
   echo "Error: " . $e->getMessage();
 }
