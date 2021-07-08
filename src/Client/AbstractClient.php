@@ -12,8 +12,12 @@ use BTCPayServer\Http\Response;
 class AbstractClient
 {
 
-    private string $apiKey;
-    private string $baseUrl;
+    /** @var string */
+    private $apiKey;
+    /** @var string */
+    private $baseUrl;
+    /** @var string */
+    private $apiPath = '/api/v1/';
 
     public function __construct(string $baseUrl, string $apiKey)
     {
@@ -23,7 +27,7 @@ class AbstractClient
 
     protected function getBaseUrl(): string
     {
-        return $this->baseUrl;
+        return $this->baseUrl . $this->apiPath;
     }
 
     protected function getApiKey(): string

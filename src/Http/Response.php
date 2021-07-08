@@ -4,22 +4,16 @@ declare(strict_types=1);
 
 namespace BTCPayServer\Http;
 
-class Response
+class Response implements ResponseInterface
 {
 
-  /**
-   * @var int
-   */
+  /** @var int */
   private $status;
 
-  /**
-   * @var string
-   */
+  /** @var string */
   private $body;
 
-  /**
-   * @var array
-   */
+  /** @var array */
   private $headers;
 
   public function __construct(int $status, string $body, array $headers)
@@ -29,25 +23,16 @@ class Response
     $this->headers = $headers;
   }
 
-  /**
-   * @return int
-   */
   public function getStatus(): int
   {
     return $this->status;
   }
 
-  /**
-   * @return string
-   */
   public function getBody(): string
   {
     return $this->body;
   }
 
-  /**
-   * @return array
-   */
   public function getHeaders(): array
   {
     return $this->headers;
