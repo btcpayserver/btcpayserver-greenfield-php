@@ -18,7 +18,8 @@
         "php": ">=7.3.0",
         "ext-curl": "*",
         "ext-json": "*",
-        "ext-mbstring": "*"
+        "ext-mbstring": "*",
+        "ext-bcmath": "*"
     },
     "autoload": {
         "psr-4": {"BTCPayServer\\": "src/"}
