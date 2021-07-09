@@ -6,7 +6,7 @@ namespace BTCPayServer\Http;
 
 class Response implements ResponseInterface
 {
-  /** @var int */
+    /** @var int */
     private $status;
 
     /** @var string */
