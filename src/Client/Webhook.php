@@ -82,4 +82,23 @@ class Webhook extends AbstractClient
         }
     }
 
+    /**
+     * Check if the request your received from a webhook is authentic and can be trusted.
+     * @param string $requestBody Most likely you will use `$requestBody = file_get_contents('php://input');`
+     * @param string $btcpaySigHeader Most likely you will use `$_SERVER['HTTP_BTCPay-Sig']` for this.
+     * @param string $secret The secret that's registered with the webhook in BTCPay Server as a security precaution.
+     * @return bool
+     */
+    public function isIncomingWebhookRequestValid(string $requestBody, string $btcpaySigHeader, string $secret): bool
+    {
+        if ($requestBody && $btcpaySigHeader) {
+            $expectedHeader = 'sha256=' . hash_hmac('sha256', $requestBody, $secret);
+
+            if ($expectedHeader === $btcpaySigHeader) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
