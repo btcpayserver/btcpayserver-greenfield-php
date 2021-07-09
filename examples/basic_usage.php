@@ -12,9 +12,8 @@ $invoiceId = '';
 
 // Get information about store on BTCPay Server.
 try {
-  $client = new Store($host, $apiKey);
-  var_dump($client->getStore($storeId));
-}
-catch (\Throwable $e) {
-  echo "Error: " . $e->getMessage();
+    $client = new Store($host, $apiKey);
+    var_dump($client->getStore($storeId));
+} catch (\Throwable $e) {
+    echo "Error: " . $e->getMessage();
 }

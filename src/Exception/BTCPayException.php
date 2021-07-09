@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace BTCPayServer\Exception;
@@ -12,5 +13,4 @@ class BTCPayException extends \RuntimeException
         $message = 'Error during '.$method.' to '.$url.'. Got response ('.$response->getStatus().'): '.$response->getBody();
         parent::__construct($message, $response->getStatus());
     }
-
 }

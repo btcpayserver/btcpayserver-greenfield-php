@@ -8,7 +8,6 @@ use BTCPayServer\Http\CurlClient;
 
 class Webhook extends AbstractClient
 {
-
     /**
      * @param string $storeId
      * @return \BTCPayServer\Result\Webhook[]
@@ -29,7 +28,6 @@ class Webhook extends AbstractClient
                 $r[] = $item;
             }
             return $r;
-
         } else {
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }
@@ -57,9 +55,9 @@ class Webhook extends AbstractClient
             ];
         }
 
-        if($secret === '') {
+        if ($secret === '') {
             throw new \InvalidArgumentException('Argument $secret should be NULL (let BTCPay Server auto-generate a secret) or you should provide a long and safe secret string.');
-        }elseif($secret !== null){
+        } elseif ($secret !== null) {
             $data['secret'] = $secret;
         }
 
@@ -76,7 +74,6 @@ class Webhook extends AbstractClient
                 $r[] = $item;
             }
             return $r;
-
         } else {
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }
@@ -100,5 +97,4 @@ class Webhook extends AbstractClient
         }
         return false;
     }
-
 }

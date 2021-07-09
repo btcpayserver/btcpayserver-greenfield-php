@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace BTCPayServer\Http;
 
-interface ClientInterface {
-
+interface ClientInterface
+{
   /**
    * Sends the HTTP request to API server.
    *
@@ -16,5 +16,5 @@ interface ClientInterface {
    *
    * @return \BTCPayServer\Http\ResponseInterface
    */
-  public static function request(string $method, string $url, array $headers = [], string $body = ''): ResponseInterface;
+    public static function request(string $method, string $url, array $headers = [], string $body = ''): ResponseInterface;
 }
