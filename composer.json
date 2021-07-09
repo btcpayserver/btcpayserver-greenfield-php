@@ -28,6 +28,6 @@
         "friendsofphp/php-cs-fixer": "^3.0"
     },
     "scripts": {
-        "format": [ "vendor/bin/php-cs-fixer fix" ]
+        "format": [ "vendor/bin/php-cs-fixer fix --allow-risky=yes" ]
     }
 }
