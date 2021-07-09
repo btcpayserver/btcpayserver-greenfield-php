@@ -6,9 +6,9 @@ namespace BTCPayServer\Http;
 
 interface ResponseInterface
 {
-  /**
-   * HTTP status code.
-   */
+    /**
+     * HTTP status code.
+     */
     public function getStatus(): int;
 
     /**
