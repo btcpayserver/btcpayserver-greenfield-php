@@ -1,11 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace BTCPayServer\Util;
 
 class PreciseNumber
 {
-
     public static function parseFloat(float $value): PreciseNumber
     {
         return new self((string)$value);
@@ -34,5 +34,4 @@ class PreciseNumber
     {
         return $this->value;
     }
-
 }

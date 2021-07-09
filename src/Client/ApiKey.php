@@ -8,7 +8,6 @@ use BTCPayServer\Http\CurlClient;
 
 class ApiKey extends AbstractClient
 {
-
     /**
      * Create a URL you can send the user to. He/she will be prompted to create an API key that corresponds with your needs.
      */
@@ -26,7 +25,7 @@ class ApiKey extends AbstractClient
         $params['applicationIdentifier'] = $applicationIdentifier;
 
         // Take out NULL values
-        $params = array_filter($params, function($value){
+        $params = array_filter($params, function ($value) {
             return $value !== null;
         });
 
@@ -49,5 +48,4 @@ class ApiKey extends AbstractClient
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }
     }
-
 }
