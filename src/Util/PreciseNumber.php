@@ -6,6 +6,9 @@ namespace BTCPayServer\Util;
 
 class PreciseNumber
 {
+    /** @var string  */
+    private $value;
+
     public static function parseFloat(float $value): PreciseNumber
     {
         return new self((string)$value);
