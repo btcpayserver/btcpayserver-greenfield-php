@@ -6,7 +6,6 @@ namespace BTCPayServer\Result;
 
 abstract class AbstractResult
 {
-
     /** @var array */
     private $data;
 
@@ -19,5 +18,4 @@ abstract class AbstractResult
     {
         return $this->data;
     }
-
 }

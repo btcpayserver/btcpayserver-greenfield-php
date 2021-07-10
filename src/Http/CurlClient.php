@@ -9,7 +9,6 @@ namespace BTCPayServer\Http;
  */
 class CurlClient implements ClientInterface
 {
-
     /**
      * @inheritdoc
      */
@@ -18,8 +17,7 @@ class CurlClient implements ClientInterface
         string $url,
         array $headers = [],
         string $body = ''
-    ): ResponseInterface
-    {
+    ): ResponseInterface {
         $flatHeaders = [];
         foreach ($headers as $key => $value) {
             $flatHeaders[] = $key . ': ' . $value;
@@ -31,7 +29,7 @@ class CurlClient implements ClientInterface
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_HEADER, 1);
         if ($body !== '') {
-          curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
         }
         curl_setopt($ch, CURLOPT_HTTPHEADER, $flatHeaders);
 
@@ -57,5 +55,4 @@ class CurlClient implements ClientInterface
 
         return new Response($status, $responseBody, $responseHeaders);
     }
-
 }

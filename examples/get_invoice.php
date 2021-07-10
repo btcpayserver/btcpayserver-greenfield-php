@@ -14,9 +14,8 @@ $invoiceId = '';
 
 // Get information about a specific invoice.
 try {
-  $client = new Invoice($host, $apiKey);
-  var_dump($client->getInvoice($storeId, $invoiceId));
-}
-catch (\Throwable $e) {
-  echo "Error: " . $e->getMessage();
+    $client = new Invoice($host, $apiKey);
+    var_dump($client->getInvoice($storeId, $invoiceId));
+} catch (\Throwable $e) {
+    echo "Error: " . $e->getMessage();
 }

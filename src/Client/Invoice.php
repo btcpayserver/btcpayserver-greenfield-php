@@ -10,7 +10,6 @@ use BTCPayServer\Util\PreciseNumber;
 
 class Invoice extends AbstractClient
 {
-
     public function createInvoice(string $storeId, PreciseNumber $amount, string $currency, ?string $orderId, ?string $customerEmail): \BTCPayServer\Result\Invoice
     {
         // TODO test & finish this
@@ -60,8 +59,8 @@ class Invoice extends AbstractClient
     {
         $method = 'GET';
         $url = $this->getBaseUrl() . 'stores/' . urlencode($storeId) . '/invoices/' . urlencode(
-                $invoiceId
-            ) . '/payment-methods';
+            $invoiceId
+        ) . '/payment-methods';
         $headers = $this->getRequestHeaders();
         $response = CurlClient::request($method, $url, $headers);
 
@@ -77,5 +76,4 @@ class Invoice extends AbstractClient
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }
     }
-
 }
