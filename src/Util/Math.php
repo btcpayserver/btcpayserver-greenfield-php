@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace BTCPayServer\Util;
@@ -20,5 +21,4 @@ class Math
 
         return PreciseNumber::parseString($newValue);
     }
-
 }

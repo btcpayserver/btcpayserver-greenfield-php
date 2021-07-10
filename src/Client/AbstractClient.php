@@ -11,7 +11,6 @@ use BTCPayServer\Http\Response;
 
 class AbstractClient
 {
-
     /** @var string */
     private $apiKey;
     /** @var string */
@@ -58,5 +57,4 @@ class AbstractClient
         $e = new $class($method, $url, $response);
         return $e;
     }
-
 }

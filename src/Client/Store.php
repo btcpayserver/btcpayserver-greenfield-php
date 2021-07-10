@@ -8,19 +8,19 @@ use BTCPayServer\Http\CurlClient;
 
 class Store extends AbstractClient
 {
-  public function getStore($storeId): \BTCPayServer\Result\Store
-  {
-    $url = $this->getBaseUrl() . 'stores/' . urlencode($storeId);
-    $headers = $this->getRequestHeaders();
-    $method = 'GET';
-    $response = CurlClient::request($method, $url, $headers);
+    public function getStore($storeId): \BTCPayServer\Result\Store
+    {
+        $url = $this->getBaseUrl() . 'stores/' . urlencode($storeId);
+        $headers = $this->getRequestHeaders();
+        $method = 'GET';
+        $response = CurlClient::request($method, $url, $headers);
 
-    if ($response->getStatus() === 200) {
-      return new \BTCPayServer\Result\Store(json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR));
-    } else {
-      throw $this->getExceptionByStatusCode($method, $url, $response);
+        if ($response->getStatus() === 200) {
+            return new \BTCPayServer\Result\Store(json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR));
+        } else {
+            throw $this->getExceptionByStatusCode($method, $url, $response);
+        }
     }
-  }
 
     /**
      * @return \BTCPayServer\Result\Store[]
