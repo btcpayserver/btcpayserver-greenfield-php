@@ -29,6 +29,7 @@
         "vimeo/psalm": "^4.8"
     },
     "scripts": {
-        "format": [ "vendor/bin/php-cs-fixer fix --allow-risky=yes" ]
+        "format": [ "vendor/bin/php-cs-fixer fix --allow-risky=yes" ],
+        "psalm": [ "vendor/bin/psalm" ]
     }
 }
