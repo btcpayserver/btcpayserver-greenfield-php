@@ -67,13 +67,8 @@ class Webhook extends AbstractClient
         $response = CurlClient::request($method, $url, $headers, json_encode($data, JSON_THROW_ON_ERROR));
 
         if ($response->getStatus() === 200) {
-            $r = [];
             $data = json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
-            foreach ($data as $item) {
-                $item = new \BTCPayServer\Result\Webhook($item);
-                $r[] = $item;
-            }
-            return $r;
+            return new \BTCPayServer\Result\Webhook($data);
         } else {
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }
