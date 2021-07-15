@@ -6,7 +6,6 @@ namespace BTCPayServer\Client;
 
 class InvoiceCheckoutOptions
 {
-
     /** @var string */
     protected $speedPolicy;
 
@@ -32,14 +31,14 @@ class InvoiceCheckoutOptions
     protected $defaultLanguage;
 
     public function create(
-      ?string $speedPolicy,
-      ?array $paymentMethods,
-      ?int $expirationMinutes,
-      ?int $monitoringMinutes,
-      ?int $paymentTolerance,
-      ?string $redirectURL,
-      ?bool $redirectAutomatically,
-      ?string $defaultLanguage
+        ?string $speedPolicy,
+        ?array $paymentMethods,
+        ?int $expirationMinutes,
+        ?int $monitoringMinutes,
+        ?int $paymentTolerance,
+        ?string $redirectURL,
+        ?bool $redirectAutomatically,
+        ?string $defaultLanguage
     ) {
         $this->speedPolicy = $speedPolicy;
         $this->paymentMethods = $paymentMethods;
@@ -83,7 +82,8 @@ class InvoiceCheckoutOptions
      *
      * @return InvoiceCheckoutOptions
      */
-    public function setPaymentMethods(?array $paymentMethods
+    public function setPaymentMethods(
+        ?array $paymentMethods
     ): InvoiceCheckoutOptions {
         $this->paymentMethods = $paymentMethods;
         return $this;
@@ -102,7 +102,8 @@ class InvoiceCheckoutOptions
      *
      * @return InvoiceCheckoutOptions
      */
-    public function setExpirationMinutes(?int $expirationMinutes
+    public function setExpirationMinutes(
+        ?int $expirationMinutes
     ): InvoiceCheckoutOptions {
         $this->expirationMinutes = $expirationMinutes;
         return $this;
@@ -121,7 +122,8 @@ class InvoiceCheckoutOptions
      *
      * @return InvoiceCheckoutOptions
      */
-    public function setMonitoringMinutes(?int $monitoringMinutes
+    public function setMonitoringMinutes(
+        ?int $monitoringMinutes
     ): InvoiceCheckoutOptions {
         $this->monitoringMinutes = $monitoringMinutes;
         return $this;
@@ -140,7 +142,8 @@ class InvoiceCheckoutOptions
      *
      * @return InvoiceCheckoutOptions
      */
-    public function setPaymentTolerance(?int $paymentTolerance
+    public function setPaymentTolerance(
+        ?int $paymentTolerance
     ): InvoiceCheckoutOptions {
         $this->paymentTolerance = $paymentTolerance;
         return $this;
@@ -178,7 +181,8 @@ class InvoiceCheckoutOptions
      *
      * @return InvoiceCheckoutOptions
      */
-    public function setRedirectAutomatically(?bool $redirectAutomatically
+    public function setRedirectAutomatically(
+        ?bool $redirectAutomatically
     ): InvoiceCheckoutOptions {
         $this->redirectAutomatically = $redirectAutomatically;
         return $this;
@@ -197,10 +201,10 @@ class InvoiceCheckoutOptions
      *
      * @return InvoiceCheckoutOptions
      */
-    public function setDefaultLanguage(?string $defaultLanguage
+    public function setDefaultLanguage(
+        ?string $defaultLanguage
     ): InvoiceCheckoutOptions {
         $this->defaultLanguage = $defaultLanguage;
         return $this;
     }
 }
-
