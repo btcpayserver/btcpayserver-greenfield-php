@@ -21,12 +21,12 @@ $customerEmail = 'john@example.com';
 try {
     $client = new Invoice($host, $apiKey);
     var_dump(
-      $client->createInvoice(
-        $storeId,
-        PreciseNumber::parseString($amount),
-        $currency,
-        $orderId,
-        $customerEmail
+        $client->createInvoice(
+          $storeId,
+          PreciseNumber::parseString($amount),
+          $currency,
+          $orderId,
+          $customerEmail
       )
     );
 } catch (\Throwable $e) {
@@ -64,14 +64,14 @@ try {
 
     var_dump(
         $client->createInvoice(
-          $storeId,
-          PreciseNumber::parseString($amount),
-          $currency,
-          $orderId,
-          $customerEmail,
-          $metaData,
-          $checkoutOptions
-      )
+            $storeId,
+            PreciseNumber::parseString($amount),
+            $currency,
+            $orderId,
+            $customerEmail,
+            $metaData,
+            $checkoutOptions
+        )
     );
 } catch (\Throwable $e) {
     echo "Error: " . $e->getMessage();
