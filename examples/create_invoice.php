@@ -64,14 +64,14 @@ try {
       ->setRedirectURL('https://shop.yourdomain.tld?order=38338');
 
     var_dump(
-      $client->createInvoice(
-        $storeId,
-        PreciseNumber::parseString($amount),
-        $currency,
-        $orderId,
-        $customerEmail,
-        $metaData,
-        $checkoutOptions
+        $client->createInvoice(
+          $storeId,
+          PreciseNumber::parseString($amount),
+          $currency,
+          $orderId,
+          $customerEmail,
+          $metaData,
+          $checkoutOptions
       )
     );
 } catch (\Throwable $e) {

@@ -6,7 +6,6 @@ namespace BTCPayServer\Util;
 
 class Formatter
 {
-
     /**
      * Convert an object with private properties to an array while skipping
      * empty/unset object properties.
