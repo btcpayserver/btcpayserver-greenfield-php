@@ -11,29 +11,15 @@ use BTCPayServer\Util\PreciseNumber;
 
 class Invoice extends AbstractClient
 {
-    /**
-     * @param string                                           $storeId
-     * @param \BTCPayServer\Util\PreciseNumber                 $amount
-     * @param string                                           $currency
-     * @param string|null                                      $orderId
-     * @param string|null                                      $customerEmail
-     * @param array|null                                       $metaData
-     * @param \BTCPayServer\Client\InvoiceCheckoutOptions|null $checkoutOptions
-     *
-     * @return \BTCPayServer\Result\Invoice
-     * @throws \JsonException
-     */
     public function createInvoice(
         string $storeId,
         PreciseNumber $amount,
         string $currency,
-        ?string $orderId = '',
-        ?string $customerEmail = '',
-        ?array $metaData = [],
+        ?string $orderId = null,
+        ?string $buyerEmail = null,
+        ?array $metaData = null,
         ?InvoiceCheckoutOptions $checkoutOptions = null
     ): \BTCPayServer\Result\Invoice {
-        // TODO test & finish this
-        // TODO add parameter for metadata and merge with orderId and buyerEmail
         $url = $this->getBaseUrl() . 'stores/' . urlencode(
             $storeId
         ) . '/invoices';
@@ -41,9 +27,6 @@ class Invoice extends AbstractClient
         $method = 'POST';
 
         // Prepare metadata.
-        // Todo: decide if explicit param or metadata array takes precedence for
-        // email and order id doing array_merge or similar. Current rule explicit
-        // params take precedence.
         $metaDataMerged = [];
 
         // Set metaData if any.
@@ -51,21 +34,27 @@ class Invoice extends AbstractClient
             $metaDataMerged = $metaData;
         }
 
-        // We need to check $orderId and $customerEmail explicitly as they are optional.
-        // Overwrites existing data passed by $metaData.
+        // $orderId and $buyerEmail are checked explicitly as they are optional.
+        // Make sure that both are only passed either as param or via metadata array.
         if ($orderId) {
+            if (array_key_exists('orderId', $metaDataMerged)) {
+                throw new \InvalidArgumentException('You cannot pass $orderId and define it in the metadata array as it is ambiguous.');
+            }
             $metaDataMerged['orderId'] = $orderId;
         }
-        if ($customerEmail) {
-            $metaDataMerged['buyerEmail'] = $customerEmail;
+        if ($buyerEmail) {
+            if (array_key_exists('buyerEmail', $metaDataMerged)) {
+                throw new \InvalidArgumentException('You cannot pass $buyerEmail and define it in the metadata array as it is ambiguous.');
+            }
+            $metaDataMerged['buyerEmail'] = $buyerEmail;
         }
 
         $body = json_encode(
             [
             'amount'   => $amount->__toString(),
             'currency' => $currency,
-            'metadata' => !empty($metaDataMerged) ? $metaDataMerged : new \stdClass(),
-            'checkout' => $checkoutOptions ? Formatter::objectToArrayNoEmpty($checkoutOptions) : new \stdClass()
+            'metadata' => !empty($metaDataMerged) ? $metaDataMerged : null,
+            'checkout' => $checkoutOptions ? Formatter::objectToArrayNoEmpty($checkoutOptions) : null
           ],
             JSON_THROW_ON_ERROR
         );
@@ -98,9 +87,6 @@ class Invoice extends AbstractClient
     }
 
     /**
-     * @param string $storeId
-     * @param string $invoiceId
-     *
      * @return PaymentMethod[]
      */
     public function getPaymentMethods(string $storeId, string $invoiceId): array

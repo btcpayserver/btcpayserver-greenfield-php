@@ -6,6 +6,15 @@ namespace BTCPayServer\Client;
 
 class InvoiceCheckoutOptions
 {
+
+    public const HIGHSPEED = 'HighSpeed';
+
+    public const MEDIUMSPEED = 'MediumSpeed';
+
+    public const LOWSPEED = 'LowSpeed';
+
+    public const LOWMEDIUMSPEED = 'LowMediumSpeed';
+
     /** @var string */
     protected $speedPolicy;
 
@@ -40,7 +49,7 @@ class InvoiceCheckoutOptions
         ?bool $redirectAutomatically,
         ?string $defaultLanguage
     ) {
-        $this->speedPolicy = $speedPolicy;
+        $this->setSpeedPolicy($speedPolicy);
         $this->paymentMethods = $paymentMethods;
         $this->expirationMinutes = $expirationMinutes;
         $this->monitoringMinutes = $monitoringMinutes;
@@ -50,160 +59,95 @@ class InvoiceCheckoutOptions
         $this->defaultLanguage = $defaultLanguage;
     }
 
-    /**
-     * @return string
-     */
     public function getSpeedPolicy(): ?string
     {
         return $this->speedPolicy;
     }
 
-    /**
-     * @param string $speedPolicy
-     *
-     * @return InvoiceCheckoutOptions
-     */
-    public function setSpeedPolicy(?string $speedPolicy): InvoiceCheckoutOptions
+    public function setSpeedPolicy(?string $speedPolicy): self
     {
+        if (!in_array($speedPolicy,
+          [self::HIGHSPEED, self::MEDIUMSPEED, self::LOWSPEED, self::LOWMEDIUMSPEED]
+        )) {
+            throw new \InvalidArgumentException('Passed value for speedPolicy is not allowed.');
+        }
         $this->speedPolicy = $speedPolicy;
         return $this;
     }
 
-    /**
-     * @return array
-     */
     public function getPaymentMethods(): ?array
     {
         return $this->paymentMethods;
     }
 
-    /**
-     * @param array $paymentMethods
-     *
-     * @return InvoiceCheckoutOptions
-     */
-    public function setPaymentMethods(
-        ?array $paymentMethods
-    ): InvoiceCheckoutOptions {
+    public function setPaymentMethods(?array $paymentMethods): self
+    {
         $this->paymentMethods = $paymentMethods;
         return $this;
     }
 
-    /**
-     * @return int
-     */
     public function getExpirationMinutes(): ?int
     {
         return $this->expirationMinutes;
     }
 
-    /**
-     * @param int $expirationMinutes
-     *
-     * @return InvoiceCheckoutOptions
-     */
-    public function setExpirationMinutes(
-        ?int $expirationMinutes
-    ): InvoiceCheckoutOptions {
+    public function setExpirationMinutes(?int $expirationMinutes): self
+    {
         $this->expirationMinutes = $expirationMinutes;
         return $this;
     }
 
-    /**
-     * @return int
-     */
     public function getMonitoringMinutes(): ?int
     {
         return $this->monitoringMinutes;
     }
 
-    /**
-     * @param int $monitoringMinutes
-     *
-     * @return InvoiceCheckoutOptions
-     */
-    public function setMonitoringMinutes(
-        ?int $monitoringMinutes
-    ): InvoiceCheckoutOptions {
+    public function setMonitoringMinutes(?int $monitoringMinutes): self
+    {
         $this->monitoringMinutes = $monitoringMinutes;
         return $this;
     }
 
-    /**
-     * @return int
-     */
     public function getPaymentTolerance(): ?int
     {
         return $this->paymentTolerance;
     }
 
-    /**
-     * @param int $paymentTolerance
-     *
-     * @return InvoiceCheckoutOptions
-     */
-    public function setPaymentTolerance(
-        ?int $paymentTolerance
-    ): InvoiceCheckoutOptions {
+    public function setPaymentTolerance(?int $paymentTolerance): self
+    {
         $this->paymentTolerance = $paymentTolerance;
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getRedirectURL(): ?string
     {
         return $this->redirectURL;
     }
 
-    /**
-     * @param string $redirectURL
-     *
-     * @return InvoiceCheckoutOptions
-     */
-    public function setRedirectURL(?string $redirectURL): InvoiceCheckoutOptions
+    public function setRedirectURL(?string $redirectURL): self
     {
         $this->redirectURL = $redirectURL;
         return $this;
     }
 
-    /**
-     * @return bool
-     */
     public function isRedirectAutomatically(): ?bool
     {
         return $this->redirectAutomatically;
     }
 
-    /**
-     * @param bool $redirectAutomatically
-     *
-     * @return InvoiceCheckoutOptions
-     */
-    public function setRedirectAutomatically(
-        ?bool $redirectAutomatically
-    ): InvoiceCheckoutOptions {
+    public function setRedirectAutomatically(?bool $redirectAutomatically): self
+    {
         $this->redirectAutomatically = $redirectAutomatically;
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getDefaultLanguage(): ?string
     {
         return $this->defaultLanguage;
     }
 
-    /**
-     * @param string $defaultLanguage
-     *
-     * @return InvoiceCheckoutOptions
-     */
-    public function setDefaultLanguage(
-        ?string $defaultLanguage
-    ): InvoiceCheckoutOptions {
+    public function setDefaultLanguage(?string $defaultLanguage): self
+    {
         $this->defaultLanguage = $defaultLanguage;
         return $this;
     }
