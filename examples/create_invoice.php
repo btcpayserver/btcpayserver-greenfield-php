@@ -17,7 +17,6 @@ $currency = 'USD';
 $orderId = 'Test39939' . mt_rand(0, 1000);
 $customerEmail = 'john@example.com';
 
-/*
 // Create a basic invoice.
 try {
     $client = new Invoice($host, $apiKey);
@@ -33,7 +32,7 @@ try {
 } catch (\Throwable $e) {
     echo "Error: " . $e->getMessage();
 }
-*/
+
 // Create a more complex invoice with redirect url and metadata.
 try {
     $client = new Invoice($host, $apiKey);
