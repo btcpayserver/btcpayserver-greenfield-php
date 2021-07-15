@@ -22,12 +22,12 @@ try {
     $client = new Invoice($host, $apiKey);
     var_dump(
         $client->createInvoice(
-          $storeId,
-          PreciseNumber::parseString($amount),
-          $currency,
-          $orderId,
-          $buyerEmail
-      )
+            $storeId,
+            PreciseNumber::parseString($amount),
+            $currency,
+            $orderId,
+            $buyerEmail
+        )
     );
 } catch (\Throwable $e) {
     echo "Error: " . $e->getMessage();
