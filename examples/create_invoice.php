@@ -15,7 +15,7 @@ $storeId = '';
 $amount = 5.15 + mt_rand(0, 20);
 $currency = 'USD';
 $orderId = 'Test39939' . mt_rand(0, 1000);
-$customerEmail = 'john@example.com';
+$buyerEmail = 'john@example.com';
 
 // Create a basic invoice.
 try {
@@ -26,7 +26,7 @@ try {
           PreciseNumber::parseString($amount),
           $currency,
           $orderId,
-          $customerEmail
+          $buyerEmail
       )
     );
 } catch (\Throwable $e) {
@@ -51,7 +51,7 @@ try {
       'buyerPhone' => '001555664123456',
       'posData' => 'Data shown on the invoice details go here. Can be JSON encoded string',
       'itemDesc' => 'Can be a description of the purchased item.',
-      'itemCode' => 'Can SKU or item number',
+      'itemCode' => 'Can be SKU or item number',
       'physical' => false, // indicates if physical product
       'taxIncluded' => 2.15, // tax amount (included in the total amount).
     ];
@@ -59,6 +59,7 @@ try {
     // Setup custom checkout options, defaults get picked from store config.
     $checkoutOptions = new InvoiceCheckoutOptions();
     $checkoutOptions
+      ->setSpeedPolicy($checkoutOptions::HIGHSPEED)
       ->setPaymentMethods(['BTC'])
       ->setRedirectURL('https://shop.yourdomain.tld?order=38338');
 
@@ -68,7 +69,7 @@ try {
             PreciseNumber::parseString($amount),
             $currency,
             $orderId,
-            $customerEmail,
+            $buyerEmail,
             $metaData,
             $checkoutOptions
         )
