@@ -6,13 +6,13 @@ namespace BTCPayServer\Client;
 
 class InvoiceCheckoutOptions
 {
-    public const HIGHSPEED = 'HighSpeed';
+    public const SPEED_HIGH = 'HighSpeed';
 
-    public const MEDIUMSPEED = 'MediumSpeed';
+    public const SPEED_MEDIUM = 'MediumSpeed';
 
-    public const LOWSPEED = 'LowSpeed';
+    public const SPEED_LOW = 'LowSpeed';
 
-    public const LOWMEDIUMSPEED = 'LowMediumSpeed';
+    public const SPEED_LOWMEDIUM = 'LowMediumSpeed';
 
     /** @var string */
     protected $speedPolicy;
@@ -67,7 +67,7 @@ class InvoiceCheckoutOptions
     {
         if (!in_array(
             $speedPolicy,
-            [self::HIGHSPEED, self::MEDIUMSPEED, self::LOWSPEED, self::LOWMEDIUMSPEED], true
+            [self::SPEED_HIGH, self::SPEED_MEDIUM, self::SPEED_LOW, self::SPEED_LOWMEDIUM], true
         )) {
             throw new \InvalidArgumentException('Passed value for speedPolicy is not allowed.');
         }
