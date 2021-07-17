@@ -59,7 +59,7 @@ try {
     // Setup custom checkout options, defaults get picked from store config.
     $checkoutOptions = new InvoiceCheckoutOptions();
     $checkoutOptions
-      ->setSpeedPolicy($checkoutOptions::HIGHSPEED)
+      ->setSpeedPolicy($checkoutOptions::SPEED_HIGH)
       ->setPaymentMethods(['BTC'])
       ->setRedirectURL('https://shop.yourdomain.tld?order=38338');
 
