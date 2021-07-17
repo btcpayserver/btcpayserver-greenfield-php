@@ -67,7 +67,8 @@ class InvoiceCheckoutOptions
     {
         if (!in_array(
             $speedPolicy,
-            [self::SPEED_HIGH, self::SPEED_MEDIUM, self::SPEED_LOW, self::SPEED_LOWMEDIUM], true
+            [self::SPEED_HIGH, self::SPEED_MEDIUM, self::SPEED_LOW, self::SPEED_LOWMEDIUM],
+            true
         )) {
             throw new \InvalidArgumentException('Passed value for speedPolicy is not allowed.');
         }
