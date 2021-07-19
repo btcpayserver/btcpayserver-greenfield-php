@@ -38,7 +38,7 @@ class InvoiceCheckoutOptions
     /** @var string */
     protected $defaultLanguage;
 
-    public function create(
+    public static function create(
         ?string $speedPolicy,
         ?array $paymentMethods,
         ?int $expirationMinutes,
@@ -48,14 +48,16 @@ class InvoiceCheckoutOptions
         ?bool $redirectAutomatically,
         ?string $defaultLanguage
     ) {
-        $this->setSpeedPolicy($speedPolicy);
-        $this->paymentMethods = $paymentMethods;
-        $this->expirationMinutes = $expirationMinutes;
-        $this->monitoringMinutes = $monitoringMinutes;
-        $this->paymentTolerance = $paymentTolerance;
-        $this->redirectURL = $redirectURL;
-        $this->redirectAutomatically = $redirectAutomatically;
-        $this->defaultLanguage = $defaultLanguage;
+        $options = new InvoiceCheckoutOptions();
+        $options->setSpeedPolicy($speedPolicy);
+        $options->paymentMethods = $paymentMethods;
+        $options->expirationMinutes = $expirationMinutes;
+        $options->monitoringMinutes = $monitoringMinutes;
+        $options->paymentTolerance = $paymentTolerance;
+        $options->redirectURL = $redirectURL;
+        $options->redirectAutomatically = $redirectAutomatically;
+        $options->defaultLanguage = $defaultLanguage;
+        return $options;
     }
 
     public function getSpeedPolicy(): ?string
