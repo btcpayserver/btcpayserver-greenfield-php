@@ -6,7 +6,6 @@ namespace BTCPayServer\Client;
 
 use BTCPayServer\Http\CurlClient;
 use BTCPayServer\Result\PaymentMethod;
-use BTCPayServer\Util\Formatter;
 use BTCPayServer\Util\PreciseNumber;
 
 class Invoice extends AbstractClient
@@ -54,7 +53,7 @@ class Invoice extends AbstractClient
             'amount'   => $amount->__toString(),
             'currency' => $currency,
             'metadata' => !empty($metaDataMerged) ? $metaDataMerged : null,
-            'checkout' => $checkoutOptions ? Formatter::objectToArrayNoEmpty($checkoutOptions) : null
+            'checkout' => $checkoutOptions ? $checkoutOptions->toArray() : null
           ],
             JSON_THROW_ON_ERROR
         );
