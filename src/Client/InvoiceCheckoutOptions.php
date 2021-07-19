@@ -152,4 +152,25 @@ class InvoiceCheckoutOptions
         $this->defaultLanguage = $defaultLanguage;
         return $this;
     }
+
+    /**
+     * Converts the whole object incl. protected and private properties to an array.
+     */
+    public function toArray(): array
+    {
+        $array = [];
+        $objAsArray = (array) $this;
+        foreach ($objAsArray as $k => $v) {
+            $separator = "\0";
+            $k = rtrim($k, $separator);
+
+            $lastIndex = strrpos($k, $separator);
+            if($lastIndex !== false){
+                $k = substr($k, $lastIndex +1);
+            }
+            $array[$k] = $v;
+        }
+
+        return $array;
+    }
 }
