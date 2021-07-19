@@ -165,7 +165,7 @@ class InvoiceCheckoutOptions
             $k = rtrim($k, $separator);
 
             $lastIndex = strrpos($k, $separator);
-            if($lastIndex !== false){
+            if ($lastIndex !== false) {
                 $k = substr($k, $lastIndex +1);
             }
             $array[$k] = $v;
