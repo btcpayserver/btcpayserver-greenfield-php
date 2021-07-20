@@ -10,34 +10,69 @@ use BTCPayServer\Util\PreciseNumber;
 
 class Invoice extends AbstractClient
 {
-    public function createInvoice(string $storeId, PreciseNumber $amount, string $currency, ?string $orderId, ?string $customerEmail): \BTCPayServer\Result\Invoice
-    {
-        // TODO test & finish this
-        // TODO add parameter for metadata and merge with orderId and buyerEmail
-        $url = $this->getBaseUrl() . 'stores/' . urlencode($storeId) . '/invoices';
+    public function createInvoice(
+        string $storeId,
+        PreciseNumber $amount,
+        string $currency,
+        ?string $orderId = null,
+        ?string $buyerEmail = null,
+        ?array $metaData = null,
+        ?InvoiceCheckoutOptions $checkoutOptions = null
+    ): \BTCPayServer\Result\Invoice {
+        $url = $this->getBaseUrl() . 'stores/' . urlencode(
+            $storeId
+        ) . '/invoices';
         $headers = $this->getRequestHeaders();
         $method = 'POST';
 
-        $body = json_encode([
-            'amount' => $amount,
+        // Prepare metadata.
+        $metaDataMerged = [];
+
+        // Set metaData if any.
+        if ($metaData) {
+            $metaDataMerged = $metaData;
+        }
+
+        // $orderId and $buyerEmail are checked explicitly as they are optional.
+        // Make sure that both are only passed either as param or via metadata array.
+        if ($orderId) {
+            if (array_key_exists('orderId', $metaDataMerged)) {
+                throw new \InvalidArgumentException('You cannot pass $orderId and define it in the metadata array as it is ambiguous.');
+            }
+            $metaDataMerged['orderId'] = $orderId;
+        }
+        if ($buyerEmail) {
+            if (array_key_exists('buyerEmail', $metaDataMerged)) {
+                throw new \InvalidArgumentException('You cannot pass $buyerEmail and define it in the metadata array as it is ambiguous.');
+            }
+            $metaDataMerged['buyerEmail'] = $buyerEmail;
+        }
+
+        $body = json_encode(
+            [
+            'amount'   => $amount->__toString(),
             'currency' => $currency,
-            'metadata' => [
-                'orderId' => $orderId,
-                'buyerEmail' => $customerEmail
-            ]
-        ], JSON_THROW_ON_ERROR);
+            'metadata' => !empty($metaDataMerged) ? $metaDataMerged : null,
+            'checkout' => $checkoutOptions ? $checkoutOptions->toArray() : null
+          ],
+            JSON_THROW_ON_ERROR
+        );
 
         $response = CurlClient::request($method, $url, $headers, $body);
 
         if ($response->getStatus() === 200) {
-            return new \BTCPayServer\Result\Invoice(json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR));
+            return new \BTCPayServer\Result\Invoice(
+                json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR)
+            );
         } else {
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }
     }
 
-    public function getInvoice(string $storeId, string $invoiceId): \BTCPayServer\Result\Invoice
-    {
+    public function getInvoice(
+        string $storeId,
+        string $invoiceId
+    ): \BTCPayServer\Result\Invoice {
         $url = $this->getBaseUrl() . 'stores/' . urlencode($storeId) . '/invoices/' . urlencode($invoiceId);
         $headers = $this->getRequestHeaders();
         $method = 'GET';
@@ -51,22 +86,23 @@ class Invoice extends AbstractClient
     }
 
     /**
-     * @param string $storeId
-     * @param string $invoiceId
      * @return PaymentMethod[]
      */
     public function getPaymentMethods(string $storeId, string $invoiceId): array
     {
         $method = 'GET';
-        $url = $this->getBaseUrl() . 'stores/' . urlencode($storeId) . '/invoices/' . urlencode(
-            $invoiceId
-        ) . '/payment-methods';
+        $url = $this->getBaseUrl() . 'stores/' . urlencode($storeId) . '/invoices/' . urlencode($invoiceId) . '/payment-methods';
         $headers = $this->getRequestHeaders();
         $response = CurlClient::request($method, $url, $headers);
 
         if ($response->getStatus() === 200) {
             $r = [];
-            $data = json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
+            $data = json_decode(
+                $response->getBody(),
+                true,
+                512,
+                JSON_THROW_ON_ERROR
+            );
             foreach ($data as $item) {
                 $item = new \BTCPayServer\Result\PaymentMethod($item);
                 $r[] = $item;
