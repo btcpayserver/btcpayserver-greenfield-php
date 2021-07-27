@@ -11,10 +11,9 @@ class ApiKey extends AbstractClient
     /**
      * Create a URL you can send the user to. He/she will be prompted to create an API key that corresponds with your needs.
      */
-    public function getAuthorizeUrl(array $permissions, ?string $applicationName, ?bool $strict, ?bool $selectiveStores, ?string $redirectToUrlAfterCreation, ?string $applicationIdentifier): string
+    public static function getAuthorizeUrl(string $baseUrl, array $permissions, ?string $applicationName, ?bool $strict, ?bool $selectiveStores, ?string $redirectToUrlAfterCreation, ?string $applicationIdentifier): string
     {
-        // TODO test & finish
-        $url = $this->getBaseUrl() . 'api-keys/current';
+        $url = rtrim($baseUrl, '/') . '/api-keys/current';
 
         $params = [];
         $params['permissions'] = $permissions;
@@ -29,7 +28,7 @@ class ApiKey extends AbstractClient
             return $value !== null;
         });
 
-        $url .= '?'.http_build_query($params);
+        $url .= '?' . http_build_query($params);
 
         return $url;
     }
