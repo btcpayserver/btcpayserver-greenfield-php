@@ -1,6 +1,16 @@
 # BTCPay Server Greenfield API PHP client library
 This library makes it easier to integrate BTCPay Server in your PHP application.
 
+## Approach
+This library takes an opinionated approach to Greenfield with the aim of making your developer life as easy and convenient as possible.
+For this reason, we have decided to structure arguments a bit differently, but still allow full and advanced use cases.
+
+The general reasoning behind the arguments an API client takes are in this order:
+- First the required parameters => method arguments with NULL not allowed
+- Recommended parameters => method arguments with NULL as default
+- Optional parameters => arguments with NULL as default
+- Lastly the advanced parameters => Inside an extra class
+
 ## Features
 - No external dependancies. You can just drop this code in your project using composer or without composer.
 - Requires PHP 7.3 and up. End-of-life'd versions will not be actively supported.
