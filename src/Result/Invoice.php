@@ -22,7 +22,8 @@ class Invoice extends AbstractResult
         return $data['status'] === self::STATUS_SETTLED;
     }
 
-    public function getStatus(): string{
+    public function getStatus(): string
+    {
         return $this->getData()['status'];
     }
 }
