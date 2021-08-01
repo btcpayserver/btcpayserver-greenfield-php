@@ -85,6 +85,41 @@ class Invoice extends AbstractClient
         }
     }
 
+    public function getAllInvoices(): \BTCPayServer\Result\InvoiceList
+    {
+        return $this->_getAllInvoicesWithFilter($storeId, null);
+    }
+
+    public function getInvoicesByOrderId(string $storeId, string $orderId): \BTCPayServer\Result\InvoiceList
+    {
+        return $this->_getAllInvoicesWithFilter($storeId, $orderId);
+    }
+
+    private function _getAllInvoicesWithFilter(
+        string $storeId,
+        string $filterByOrderId = null
+    ): \BTCPayServer\Result\InvoiceList {
+        $url = $this->getBaseUrl() . 'stores/' . urlencode($storeId) . '/invoices?';
+        if ($filterByOrderId !== null) {
+            $url .= 'orderId=' . urlencode($filterByOrderId);
+        }
+
+        // Cleanup in case no filters are used
+        $url = rtrim($url, '?');
+
+        $headers = $this->getRequestHeaders();
+        $method = 'GET';
+        $response = CurlClient::request($method, $url, $headers);
+
+        if ($response->getStatus() === 200) {
+            return new \BTCPayServer\Result\InvoiceList(
+                json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR)
+            );
+        } else {
+            throw $this->getExceptionByStatusCode($method, $url, $response);
+        }
+    }
+
     /**
      * @return PaymentMethod[]
      */
