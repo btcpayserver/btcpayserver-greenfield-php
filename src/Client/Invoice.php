@@ -90,21 +90,24 @@ class Invoice extends AbstractClient
         return $this->_getAllInvoicesWithFilter($storeId, null);
     }
 
-    public function getInvoicesByOrderId(string $storeId, string $orderId): \BTCPayServer\Result\InvoiceList
+    public function getInvoicesByOrderIds(string $storeId, array $orderIds): \BTCPayServer\Result\InvoiceList
     {
-        return $this->_getAllInvoicesWithFilter($storeId, $orderId);
+        return $this->_getAllInvoicesWithFilter($storeId, $orderIds);
     }
 
     private function _getAllInvoicesWithFilter(
         string $storeId,
-        string $filterByOrderId = null
+        array $filterByOrderIds = null
     ): \BTCPayServer\Result\InvoiceList {
         $url = $this->getBaseUrl() . 'stores/' . urlencode($storeId) . '/invoices?';
-        if ($filterByOrderId !== null) {
-            $url .= 'orderId=' . urlencode($filterByOrderId);
+        if ($filterByOrderIds !== null) {
+            foreach($filterByOrderIds as $filterByOrderId) {
+                $url .= 'orderId=' . urlencode($filterByOrderId).'&';
+            }
         }
 
-        // Cleanup in case no filters are used
+        // Clean URL
+        $url = rtrim($url, '&');
         $url = rtrim($url, '?');
 
         $headers = $this->getRequestHeaders();
