@@ -101,7 +101,7 @@ class Invoice extends AbstractClient
     ): \BTCPayServer\Result\InvoiceList {
         $url = $this->getBaseUrl() . 'stores/' . urlencode($storeId) . '/invoices?';
         if ($filterByOrderIds !== null) {
-            foreach($filterByOrderIds as $filterByOrderId) {
+            foreach ($filterByOrderIds as $filterByOrderId) {
                 $url .= 'orderId=' . urlencode($filterByOrderId).'&';
             }
         }
