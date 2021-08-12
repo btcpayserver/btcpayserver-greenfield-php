@@ -11,12 +11,12 @@ class PreciseNumber
 
     public static function parseFloat(float $value, int $precision = 8): PreciseNumber
     {
-        return new self(number_format($value, $precision, '.', ''));
+        return self::parseString(number_format($value, $precision, '.', ''));
     }
 
     public static function parseInt(int $value): PreciseNumber
     {
-        return new self((string)$value);
+        return self::parseString((string)$value);
     }
 
     public static function parseString(string $value): PreciseNumber
