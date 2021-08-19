@@ -50,11 +50,11 @@ if (true === empty($ipn->invoiceId)) {
 }
 
 try {
-  $client = new Invoice($host, $apiKey);
-  $invoice = $client->getInvoice($storeId, $ipn->invoiceId);
+    $client = new Invoice($host, $apiKey);
+    $invoice = $client->getInvoice($storeId, $ipn->invoiceId);
 } catch (\Throwable $e) {
-  fwrite($myfile, "Error: " . $e->getMessage());
-  throw $e;
+    fwrite($myfile, "Error: " . $e->getMessage());
+    throw $e;
 }
 
 // optional: check whether your webhook is of the desired type
@@ -71,4 +71,3 @@ fwrite($myfile, "Raw IPN: " . $raw_post_data . "\n");
 // your own processing code goes here!
 
 header("HTTP/1.1 200 OK");
-?>
