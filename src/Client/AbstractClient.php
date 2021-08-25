@@ -26,6 +26,11 @@ class AbstractClient
 
     protected function getBaseUrl(): string
     {
+        return $this->baseUrl;
+    }
+
+    protected function getApiUrl(): string
+    {
         return $this->baseUrl . $this->apiPath;
     }
 
