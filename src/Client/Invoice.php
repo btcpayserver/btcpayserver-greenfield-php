@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace BTCPayServer\Client;
 
 use BTCPayServer\Http\CurlClient;
-use BTCPayServer\Result\PaymentMethod;
 use BTCPayServer\Util\PreciseNumber;
 
 class Invoice extends AbstractClient
@@ -19,7 +18,7 @@ class Invoice extends AbstractClient
         ?array $metaData = null,
         ?InvoiceCheckoutOptions $checkoutOptions = null
     ): \BTCPayServer\Result\Invoice {
-        $url = $this->getBaseUrl() . 'stores/' . urlencode(
+        $url = $this->getApiUrl() . 'stores/' . urlencode(
             $storeId
         ) . '/invoices';
         $headers = $this->getRequestHeaders();
@@ -73,7 +72,7 @@ class Invoice extends AbstractClient
         string $storeId,
         string $invoiceId
     ): \BTCPayServer\Result\Invoice {
-        $url = $this->getBaseUrl() . 'stores/' . urlencode($storeId) . '/invoices/' . urlencode($invoiceId);
+        $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/invoices/' . urlencode($invoiceId);
         $headers = $this->getRequestHeaders();
         $method = 'GET';
         $response = CurlClient::request($method, $url, $headers);
@@ -124,12 +123,12 @@ class Invoice extends AbstractClient
     }
 
     /**
-     * @return PaymentMethod[]
+     * @return \BTCPayServer\Result\InvoicePaymentMethod[]
      */
     public function getPaymentMethods(string $storeId, string $invoiceId): array
     {
         $method = 'GET';
-        $url = $this->getBaseUrl() . 'stores/' . urlencode($storeId) . '/invoices/' . urlencode($invoiceId) . '/payment-methods';
+        $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/invoices/' . urlencode($invoiceId) . '/payment-methods';
         $headers = $this->getRequestHeaders();
         $response = CurlClient::request($method, $url, $headers);
 
@@ -142,7 +141,7 @@ class Invoice extends AbstractClient
                 JSON_THROW_ON_ERROR
             );
             foreach ($data as $item) {
-                $item = new \BTCPayServer\Result\PaymentMethod($item);
+                $item = new \BTCPayServer\Result\InvoicePaymentMethod($item);
                 $r[] = $item;
             }
             return $r;

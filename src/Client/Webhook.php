@@ -15,7 +15,7 @@ class Webhook extends AbstractClient
     public function getWebhooks(string $storeId): array
     {
         // TODO test & finish
-        $url = $this->getBaseUrl() . 'stores/' . urlencode($storeId) . '/webhooks';
+        $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/webhooks';
         $headers = $this->getRequestHeaders();
         $method = 'GET';
         $response = CurlClient::request($method, $url, $headers);
@@ -61,7 +61,7 @@ class Webhook extends AbstractClient
             $data['secret'] = $secret;
         }
 
-        $url = $this->getBaseUrl() . 'stores/' . urlencode($storeId) . '/webhooks';
+        $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/webhooks';
         $headers = $this->getRequestHeaders();
         $method = 'GET';
         $response = CurlClient::request($method, $url, $headers, json_encode($data, JSON_THROW_ON_ERROR));
