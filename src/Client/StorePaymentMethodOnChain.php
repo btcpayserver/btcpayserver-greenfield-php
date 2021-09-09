@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace BTCPayServer\Client;
 
 use BTCPayServer\Http\CurlClient;
-use BTCPayServer\Client\AbstractStorePaymentMethodClient;
 
 /**
  * Handles stores on chain payment methods.
@@ -93,19 +92,18 @@ class StorePaymentMethodOnChain extends AbstractStorePaymentMethodClient
 
         if ($response->getStatus() === 200) {
             return json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
-            //return new \BTCPayServer\Result\StorePaymentMethodLightning(json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR));
+        //return new \BTCPayServer\Result\StorePaymentMethodLightning(json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR));
         } else {
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }
     }
 
     public function previewProposedPaymentMethodAddresses(
-      string $storeId,
-      string $cryptoCode,
-      string $derivationScheme,
-      string $accountKeyPath = null
-    ): array
-    {
+        string $storeId,
+        string $cryptoCode,
+        string $derivationScheme,
+        string $accountKeyPath = null
+    ): array {
         // todo: add offset + amount query parameters + check structure of derivationScheme etc.
 
         $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/payment-methods/OnChain/' . $cryptoCode . '/preview';
