@@ -91,8 +91,8 @@ class StorePaymentMethodOnChain extends AbstractStorePaymentMethodClient
         $response = CurlClient::request($method, $url, $headers);
 
         if ($response->getStatus() === 200) {
+            // todo: return list of addresses objects array
             return json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
-        //return new \BTCPayServer\Result\StorePaymentMethodLightning(json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR));
         } else {
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }
@@ -116,7 +116,7 @@ class StorePaymentMethodOnChain extends AbstractStorePaymentMethodClient
         $response = CurlClient::request($method, $url, $headers, $body);
 
         if ($response->getStatus() === 200) {
-            // todo: return list of addresses array
+            // todo: return list of addresses objects array
             return json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
         } else {
             throw $this->getExceptionByStatusCode($method, $url, $response);
