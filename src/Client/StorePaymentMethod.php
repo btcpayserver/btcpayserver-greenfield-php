@@ -5,12 +5,16 @@ declare(strict_types=1);
 namespace BTCPayServer\Client;
 
 use BTCPayServer\Http\CurlClient;
-use BTCPayServer\Client\StorePaymentMethodLightningNetwork;
-use BTCPayServer\Client\StorePaymentMethodOnChain;
 
+/**
+ * Global class to handle OnChain and LightningNetwork payment methods.
+ *
+ * Adds some boilerplate and makes sure the results for the global endpoint and
+ * the specific OnChain and LN endpoint are the same.
+ */
 class StorePaymentMethod extends AbstractClient
 {
-    public function getPaymentMethods($storeId): array
+    public function getPaymentMethods(string $storeId): array
     {
         $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/payment-methods';
         $headers = $this->getRequestHeaders();
@@ -25,14 +29,7 @@ class StorePaymentMethod extends AbstractClient
         }
     }
 
-    /**
-     * @param string $storeId
-     * @param string $paymentMethod
-     *  Payment method e.g. BTC, BTC-LightningNetwork
-     *
-     * @return mixed
-     */
-    public function getPaymentMethod(string $storeId, string $paymentMethod)
+    public function getPaymentMethod(string $storeId, string $paymentMethod): \BTCPayServer\Result\AbstractStorePaymentMethodResult
     {
         $paymentType = $this->determinePaymentType($paymentMethod);
         $pmObject = $this->getInstance($paymentType['type']);
@@ -51,16 +48,16 @@ class StorePaymentMethod extends AbstractClient
      * @see StorePaymentMethodLightningNetwork::updatePaymentMethod()
      * @see StorePaymentMethodOnChain::updatePaymentMethod()
      *
-     * @return mixed
+     * @return \BTCPayServer\Result\AbstractStorePaymentMethodResult
      */
-    public function updatePaymentMethod(string $storeId, string $paymentMethod, array $settings)
+    public function updatePaymentMethod(string $storeId, string $paymentMethod, array $settings): \BTCPayServer\Result\AbstractStorePaymentMethodResult
     {
         $paymentType = $this->determinePaymentType($paymentMethod);
         $pmObject = $this->getInstance($paymentType['type']);
         return $pmObject->updatePaymentMethod($storeId, $paymentType['code'], $settings);
     }
 
-    public function removePaymentMethod(string $storeId, string $paymentMethod)
+    public function removePaymentMethod(string $storeId, string $paymentMethod): bool
     {
         $paymentType = $this->determinePaymentType($paymentMethod);
         $pmObject = $this->getInstance($paymentType['type']);
@@ -98,13 +95,9 @@ class StorePaymentMethod extends AbstractClient
     }
 
     /**
-     * Instantiate the needed payment class.
-     *
-     * @param $paymentType
-     *
-     * @return mixed
+     * Instantiate the needed payment client object.
      */
-    private function getInstance($paymentType)
+    private function getInstance(string $paymentType): AbstractStorePaymentMethodClient
     {
         $className = '\BTCPayServer\Client\StorePaymentMethod' . $paymentType;
         return new $className($this->getBaseUrl(), $this->getApiKey());

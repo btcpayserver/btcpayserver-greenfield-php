@@ -13,7 +13,7 @@ $storeId = '';
 $cryptoCode = 'BTC';
 
 $updatePayload = [
-    'enabled' => true,
+    'enabled' => false,
     // Needs fixing see, https://github.com/btcpayserver/btcpayserver/issues/2860
     'connectionString' => 'Internal Node' // external would be 'type=clightning;server=tcp://1.1.1.1:27743/',
 ];
