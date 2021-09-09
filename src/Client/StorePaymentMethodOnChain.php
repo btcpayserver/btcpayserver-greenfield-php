@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace BTCPayServer\Client;
 
 use BTCPayServer\Http\CurlClient;
+use BTCPayServer\Client\AbstractStorePaymentMethodClient;
 
 /**
  * Handles stores on chain payment methods.
  *
  * @see https://docs.btcpayserver.org/API/Greenfield/v1/#tag/Store-Payment-Methods-(On-Chain)
  */
-class StorePaymentMethodOnChain extends AbstractClient
+class StorePaymentMethodOnChain extends AbstractStorePaymentMethodClient
 {
     public function getPaymentMethods(string $storeId): array
     {

@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace BTCPayServer\Client;
 
 use BTCPayServer\Http\CurlClient;
+use BTCPayServer\Client\AbstractStorePaymentMethodClient;
 
 /**
  * Handles a stores LightningNetwork payment methods.
  *
  * @see https://docs.btcpayserver.org/API/Greenfield/v1/#tag/Store-Payment-Methods-(Lightning-Network)
  */
-class StorePaymentMethodLightningNetwork extends AbstractClient
+class StorePaymentMethodLightningNetwork extends AbstractStorePaymentMethodClient
 {
     public function getPaymentMethods(string $storeId): array
     {
