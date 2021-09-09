@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace BTCPayServer\Client;
 
 use BTCPayServer\Http\CurlClient;
-use BTCPayServer\Client\AbstractStorePaymentMethodClient;
 
 /**
  * Handles a stores LightningNetwork payment methods.
