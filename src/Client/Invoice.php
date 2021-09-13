@@ -12,8 +12,8 @@ class Invoice extends AbstractClient
 {
     public function createInvoice(
         string $storeId,
-        PreciseNumber $amount,
         string $currency,
+        ?PreciseNumber $amount = null,
         ?string $orderId = null,
         ?string $buyerEmail = null,
         ?array $metaData = null,
@@ -50,7 +50,7 @@ class Invoice extends AbstractClient
 
         $body = json_encode(
             [
-            'amount'   => $amount->__toString(),
+            'amount' => !is_null($amount) ? $amount->__toString() : null,
             'currency' => $currency,
             'metadata' => !empty($metaDataMerged) ? $metaDataMerged : null,
             'checkout' => $checkoutOptions ? $checkoutOptions->toArray() : null
