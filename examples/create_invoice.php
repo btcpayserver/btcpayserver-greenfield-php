@@ -83,12 +83,12 @@ try {
     $client = new Invoice($host, $apiKey);
     var_dump(
         $client->createInvoice(
-          $storeId,
-          $currency,
-          null,
-          $orderId,
-          $buyerEmail
-      )
+            $storeId,
+            $currency,
+            null,
+            $orderId,
+            $buyerEmail
+        )
     );
 } catch (\Throwable $e) {
     echo "Error: " . $e->getMessage();
