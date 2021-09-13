@@ -50,7 +50,7 @@ class Invoice extends AbstractClient
 
         $body = json_encode(
             [
-            'amount' => !is_null($amount) ? $amount->__toString() : null,
+            'amount' => $amount !== null ? $amount->__toString() : null,
             'currency' => $currency,
             'metadata' => !empty($metaDataMerged) ? $metaDataMerged : null,
             'checkout' => $checkoutOptions ? $checkoutOptions->toArray() : null
