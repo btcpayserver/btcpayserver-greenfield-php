@@ -23,8 +23,8 @@ try {
     var_dump(
         $client->createInvoice(
             $storeId,
-            PreciseNumber::parseString($amount),
             $currency,
+            PreciseNumber::parseString($amount),
             $orderId,
             $buyerEmail
         )
@@ -66,12 +66,28 @@ try {
     var_dump(
         $client->createInvoice(
             $storeId,
-            PreciseNumber::parseString($amount),
             $currency,
+            PreciseNumber::parseString($amount),
             $orderId,
             $buyerEmail,
             $metaData,
             $checkoutOptions
+        )
+    );
+} catch (\Throwable $e) {
+    echo "Error: " . $e->getMessage();
+}
+
+// Create a top-up (0 initial amount) invoice.
+try {
+    $client = new Invoice($host, $apiKey);
+    var_dump(
+        $client->createInvoice(
+            $storeId,
+            $currency,
+            null,
+            $orderId,
+            $buyerEmail
         )
     );
 } catch (\Throwable $e) {
