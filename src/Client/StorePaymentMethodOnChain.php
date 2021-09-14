@@ -13,7 +13,6 @@ use BTCPayServer\Http\CurlClient;
  */
 class StorePaymentMethodOnChain extends AbstractStorePaymentMethodClient
 {
-
     /**
      * @param string $storeId
      *
@@ -107,7 +106,7 @@ class StorePaymentMethodOnChain extends AbstractStorePaymentMethodClient
 
         if ($response->getStatus() === 200) {
             $addressList = new \BTCPayServer\Result\AddressList(
-              json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR)
+                json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR)
             );
             return $addressList->getAddresses();
         } else {
@@ -149,7 +148,7 @@ class StorePaymentMethodOnChain extends AbstractStorePaymentMethodClient
 
         if ($response->getStatus() === 200) {
             $addressList = new \BTCPayServer\Result\AddressList(
-              json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR)
+                json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR)
             );
             return $addressList->getAddresses();
         } else {

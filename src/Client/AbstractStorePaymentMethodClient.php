@@ -6,8 +6,8 @@ namespace BTCPayServer\Client;
 
 abstract class AbstractStorePaymentMethodClient extends AbstractClient
 {
-    const PAYMENT_TYPE_ONCHAIN = 'OnChain';
-    const PAYMENT_TYPE_LIGHTNING = 'LightningNetwork';
+    public const PAYMENT_TYPE_ONCHAIN = 'OnChain';
+    public const PAYMENT_TYPE_LIGHTNING = 'LightningNetwork';
 
     abstract public function getPaymentMethods(string $storeId): array;
     abstract public function getPaymentMethod(string $storeId, string $cryptoCode);
