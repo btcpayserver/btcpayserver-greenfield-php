@@ -67,12 +67,14 @@ class InvoiceCheckoutOptions
 
     public function setSpeedPolicy(?string $speedPolicy): self
     {
-        if (!in_array(
-            $speedPolicy,
-            [self::SPEED_HIGH, self::SPEED_MEDIUM, self::SPEED_LOW, self::SPEED_LOWMEDIUM],
-            true
-        )) {
-            throw new \InvalidArgumentException('Passed value for speedPolicy is not allowed.');
+        if ($speedPolicy) {
+            if (!in_array(
+                $speedPolicy,
+                [self::SPEED_HIGH, self::SPEED_MEDIUM, self::SPEED_LOW, self::SPEED_LOWMEDIUM],
+                true
+            )) {
+                throw new \InvalidArgumentException('Passed value for speedPolicy is not allowed.');
+            }
         }
         $this->speedPolicy = $speedPolicy;
         return $this;
