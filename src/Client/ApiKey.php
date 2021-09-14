@@ -66,7 +66,7 @@ class ApiKey extends AbstractClient
      */
     public function getCurrent(): \BTCPayServer\Result\ApiKey
     {
-        $url = $this->getBaseUrl() . 'api-keys/current';
+        $url = $this->getApiUrl() . 'api-keys/current';
         $headers = $this->getRequestHeaders();
         $method = 'GET';
         $response = CurlClient::request($method, $url, $headers);
