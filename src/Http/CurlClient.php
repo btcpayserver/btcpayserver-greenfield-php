@@ -38,7 +38,7 @@ class CurlClient implements ClientInterface
         $headerSize = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
 
         $responseHeaders = [];
-        $responseBody    = null;
+        $responseBody    = '';
 
         if ($response) {
             $responseString = is_string($response) ? $response : '';
