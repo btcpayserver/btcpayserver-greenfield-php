@@ -26,6 +26,8 @@ try {
     echo PHP_EOL . 'Fetch all OnChain payment methods:' . PHP_EOL;
     $clientOC = new StorePaymentMethodOnChain($host, $apiKey);
     var_dump($clientOC->getPaymentMethods($storeId));
+    echo PHP_EOL. 'Preview OnChain addresses for cryptoCode:' . PHP_EOL;
+    var_dump($clientOC->previewPaymentMethodAddresses($storeId, $cryptoCode));
     echo PHP_EOL. 'Fetch single OnChain payment method:' . PHP_EOL;
     var_dump($clientOC->getPaymentMethod($storeId, $cryptoCode));
     echo PHP_EOL . 'Fetch all LightningNetwork methods:' . PHP_EOL;

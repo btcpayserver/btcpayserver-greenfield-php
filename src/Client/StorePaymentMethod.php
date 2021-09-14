@@ -37,18 +37,20 @@ class StorePaymentMethod extends AbstractClient
     }
 
     /**
-     * @param string $storeId
-     * @param string $paymentMethod
-     *   Payment method e.g. BTC, BTC-LightningNetwork
-     * @param array  $settings
-     *   See updatePaymentMethod functions of StorePaymentMethodLightningNetwork
-     *   and StorePaymentMethodOnChain classes for what you can pass on each of
-     *   them.
+     * Updates OnChain or LightningNetwork payment methods. You can enable/disable
+     * them or change their settings.
      *
-     * @see StorePaymentMethodLightningNetwork::updatePaymentMethod()
-     * @see StorePaymentMethodOnChain::updatePaymentMethod()
+     * @param string $storeId
+     * @param string $paymentMethod Payment method e.g. BTC, BTC-LightningNetwork
+     * @param array $settings See updatePaymentMethod functions of
+     *                        StorePaymentMethodLightningNetwork and
+     *                        StorePaymentMethodOnChain classes for what you can
+     *                        pass on each of them.
      *
      * @return \BTCPayServer\Result\AbstractStorePaymentMethodResult
+     *
+     * @see StorePaymentMethodOnChain::updatePaymentMethod()
+     * @see StorePaymentMethodLightningNetwork::updatePaymentMethod()
      */
     public function updatePaymentMethod(string $storeId, string $paymentMethod, array $settings): \BTCPayServer\Result\AbstractStorePaymentMethodResult
     {
@@ -57,6 +59,15 @@ class StorePaymentMethod extends AbstractClient
         return $pmObject->updatePaymentMethod($storeId, $paymentType['code'], $settings);
     }
 
+    /**
+     * Disable the corresponding payment method. For OnChain payment methods
+     * this will also delete your configured xpub and/or hot wallet.
+     *
+     * @param string $storeId
+     * @param string $paymentMethod Payment method e.g. BTC, BTC-LightningNetwork
+     *
+     * @return bool
+     */
     public function removePaymentMethod(string $storeId, string $paymentMethod): bool
     {
         $paymentType = $this->determinePaymentType($paymentMethod);
@@ -67,8 +78,7 @@ class StorePaymentMethod extends AbstractClient
     /**
      * Helper function to extract cryptoCode and payment type from the string.
      *
-     * @param string $paymentMethod
-     *  Payment method e.g. BTC, BTC-LightningNetwork
+     * @param string $paymentMethod Payment method e.g. BTC, BTC-LightningNetwork
      *
      * @return array
      */
