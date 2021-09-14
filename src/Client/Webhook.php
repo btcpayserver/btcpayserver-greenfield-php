@@ -93,8 +93,8 @@ class Webhook extends AbstractClient
         return false;
     }
 
-    public function deleteWebhook(string $storeId, string $webhookId){
-
+    public function deleteWebhook(string $storeId, string $webhookId)
+    {
         $url = $this->getBaseUrl() . 'stores/' . urlencode($storeId) . '/webhooks/' . urlencode($webhookId);
         $headers = $this->getRequestHeaders();
         $method = 'DELETE';
@@ -102,7 +102,6 @@ class Webhook extends AbstractClient
 
         if ($response->getStatus() === 200) {
             return true;
-
         } else {
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }
