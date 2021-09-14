@@ -10,7 +10,7 @@ class Store extends AbstractClient
 {
     public function getStore($storeId): \BTCPayServer\Result\Store
     {
-        $url = $this->getBaseUrl() . 'stores/' . urlencode($storeId);
+        $url = $this->getApiUrl() . 'stores/' . urlencode($storeId);
         $headers = $this->getRequestHeaders();
         $method = 'GET';
         $response = CurlClient::request($method, $url, $headers);
@@ -27,7 +27,7 @@ class Store extends AbstractClient
      */
     public function getStores(): array
     {
-        $url = $this->getBaseUrl() . 'stores';
+        $url = $this->getApiUrl() . 'stores';
         $headers = $this->getRequestHeaders();
         $method = 'GET';
         $response = CurlClient::request($method, $url, $headers);
