@@ -31,7 +31,6 @@ class ApiKey extends AbstractClient
         $queryParams = [];
 
         foreach ($params as $param => $value) {
-
             if ($value === true) {
                 $value = 'true';
             }
