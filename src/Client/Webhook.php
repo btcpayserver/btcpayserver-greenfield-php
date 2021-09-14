@@ -92,4 +92,19 @@ class Webhook extends AbstractClient
         }
         return false;
     }
+
+    public function deleteWebhook(string $storeId, string $webhookId){
+
+        $url = $this->getBaseUrl() . 'stores/' . urlencode($storeId) . '/webhooks/' . urlencode($webhookId);
+        $headers = $this->getRequestHeaders();
+        $method = 'DELETE';
+        $response = CurlClient::request($method, $url, $headers);
+
+        if ($response->getStatus() === 200) {
+            return true;
+
+        } else {
+            throw $this->getExceptionByStatusCode($method, $url, $response);
+        }
+    }
 }

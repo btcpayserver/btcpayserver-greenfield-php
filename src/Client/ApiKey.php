@@ -13,7 +13,7 @@ class ApiKey extends AbstractClient
      */
     public static function getAuthorizeUrl(string $baseUrl, array $permissions, ?string $applicationName, ?bool $strict, ?bool $selectiveStores, ?string $redirectToUrlAfterCreation, ?string $applicationIdentifier): string
     {
-        $url = rtrim($baseUrl, '/') . '/api-keys/current';
+        $url = rtrim($baseUrl, '/') . '/api-keys/authorize';
 
         $params = [];
         $params['permissions'] = $permissions;
@@ -28,14 +28,45 @@ class ApiKey extends AbstractClient
             return $value !== null;
         });
 
-        $url .= '?' . http_build_query($params);
+        $queryParams = [];
+
+        foreach ($params as $param => $value) {
+
+            if ($value === true) {
+                $value = 'true';
+            }
+            if ($value === false) {
+                $value = 'false';
+            }
+
+            if (is_array($value)) {
+                foreach ($value as $item) {
+                    if ($item === true) {
+                        $item = 'true';
+                    }
+                    if ($item === false) {
+                        $item = 'false';
+                    }
+                    $queryParams[] = $param . '=' . urlencode((string)$item);
+                }
+            } else {
+                $queryParams[] = $param . '=' . urlencode((string)$value);
+            }
+        }
+
+        $queryParams = implode("&", $queryParams);
+
+
+        $url = $url . '?' . $queryParams;
 
         return $url;
     }
 
-    public function getCurrent(string $storeId, string $invoiceId): \BTCPayServer\Result\ApiKey
+    /**
+     * Get the current API Key information
+     */
+    public function getCurrent(): \BTCPayServer\Result\ApiKey
     {
-        // TODO test & finish
         $url = $this->getBaseUrl() . 'api-keys/current';
         $headers = $this->getRequestHeaders();
         $method = 'GET';
