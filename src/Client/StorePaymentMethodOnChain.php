@@ -13,9 +13,16 @@ use BTCPayServer\Http\CurlClient;
  */
 class StorePaymentMethodOnChain extends AbstractStorePaymentMethodClient
 {
+
+    /**
+     * @param string $storeId
+     *
+     * @return \BTCPayServer\Result\StorePaymentMethodOnChain[]
+     * @throws \JsonException
+     */
     public function getPaymentMethods(string $storeId): array
     {
-        $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/payment-methods/OnChain';
+        $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/payment-methods/' . self::PAYMENT_TYPE_ONCHAIN;
         $headers = $this->getRequestHeaders();
         $method = 'GET';
         $response = CurlClient::request($method, $url, $headers);
@@ -34,7 +41,7 @@ class StorePaymentMethodOnChain extends AbstractStorePaymentMethodClient
 
     public function getPaymentMethod(string $storeId, string $cryptoCode): \BTCPayServer\Result\StorePaymentMethodOnChain
     {
-        $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/payment-methods/OnChain/' . $cryptoCode;
+        $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/payment-methods/' . self::PAYMENT_TYPE_ONCHAIN . '/' . $cryptoCode;
         $headers = $this->getRequestHeaders();
         $method = 'GET';
         $response = CurlClient::request($method, $url, $headers);
@@ -48,19 +55,18 @@ class StorePaymentMethodOnChain extends AbstractStorePaymentMethodClient
     }
 
     /**
-     * Update a payment method.
+     * Update OnChain payment methods.
      *
      * @param string $storeId
      * @param string $cryptoCode
      *
-     * @param array $settings
-     *  Array of data to update. e.g.
-     *    [
-     *      'enabled' => true,
-     *      'derivationScheme' => 'xpub...',
-     *      'label' => 'string',
-     *      'accountKeyPath' => "abcd82a1/84'/0'/0'"
-     *    ]
+     * @param array $settings Array of data to update. e.g
+     *                        [
+     *                          'enabled' => true,
+     *                          'derivationScheme' => 'xpub...',
+     *                          'label' => 'string',
+     *                          'accountKeyPath' => "abcd82a1/84'/0'/0'"
+     *                        ]
      *
      * @return \BTCPayServer\Result\StorePaymentMethodOnChain
      * @throws \JsonException
@@ -68,7 +74,7 @@ class StorePaymentMethodOnChain extends AbstractStorePaymentMethodClient
      */
     public function updatePaymentMethod(string $storeId, string $cryptoCode, array $settings): \BTCPayServer\Result\StorePaymentMethodOnChain
     {
-        $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/payment-methods/OnChain/' . $cryptoCode;
+        $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/payment-methods/' . self::PAYMENT_TYPE_ONCHAIN . '/' . $cryptoCode;
         $headers = $this->getRequestHeaders();
         $method = 'PUT';
         $response = CurlClient::request($method, $url, $headers, json_encode($settings));
@@ -81,23 +87,49 @@ class StorePaymentMethodOnChain extends AbstractStorePaymentMethodClient
         }
     }
 
+    /**
+     * Gets a list of OnChain addresses for the current configured xpub/wallet.
+     *
+     * @param string $storeId
+     * @param string $cryptoCode
+     *
+     * @return \BTCPayServer\Result\Address[]
+     * @throws \JsonException
+     */
     public function previewPaymentMethodAddresses(string $storeId, string $cryptoCode): array
     {
         // todo: add offset + amount query parameters
 
-        $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/payment-methods/OnChain/' . $cryptoCode . '/preview';
+        $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/payment-methods/' . self::PAYMENT_TYPE_ONCHAIN . '/' . $cryptoCode . '/preview';
         $headers = $this->getRequestHeaders();
         $method = 'GET';
         $response = CurlClient::request($method, $url, $headers);
 
         if ($response->getStatus() === 200) {
-            // todo: return list of addresses objects array
-            return json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
+            $addressList = new \BTCPayServer\Result\AddressList(
+              json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR)
+            );
+            return $addressList->getAddresses();
         } else {
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }
     }
 
+    /**
+     * Returns OnChain addresses for any given xpub ($derivationScheme) and
+     * account key path.
+     *
+     * On how to format the account key path please check the Greenfield API
+     * docs.
+     *
+     * @param string      $storeId
+     * @param string      $cryptoCode
+     * @param string      $derivationScheme
+     * @param string|null $accountKeyPath
+     *
+     * @return \BTCPayServer\Result\Address[]
+     * @throws \JsonException
+     */
     public function previewProposedPaymentMethodAddresses(
         string $storeId,
         string $cryptoCode,
@@ -106,7 +138,7 @@ class StorePaymentMethodOnChain extends AbstractStorePaymentMethodClient
     ): array {
         // todo: add offset + amount query parameters + check structure of derivationScheme etc.
 
-        $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/payment-methods/OnChain/' . $cryptoCode . '/preview';
+        $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/payment-methods/' . self::PAYMENT_TYPE_ONCHAIN . '/' . $cryptoCode . '/preview';
         $headers = $this->getRequestHeaders();
         $method = 'POST';
         $body = json_encode([
@@ -116,16 +148,27 @@ class StorePaymentMethodOnChain extends AbstractStorePaymentMethodClient
         $response = CurlClient::request($method, $url, $headers, $body);
 
         if ($response->getStatus() === 200) {
-            // todo: return list of addresses objects array
-            return json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
+            $addressList = new \BTCPayServer\Result\AddressList(
+              json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR)
+            );
+            return $addressList->getAddresses();
         } else {
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }
     }
 
+    /**
+     * Disables the OnChain payment method. It also removes your configured
+     * xpub key.
+     *
+     * @param string $storeId
+     * @param string $cryptoCode e.g. BTC
+     *
+     * @return bool
+     */
     public function removePaymentMethod(string $storeId, string $cryptoCode): bool
     {
-        $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/payment-methods/OnChain/' . $cryptoCode;
+        $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/payment-methods/' . self::PAYMENT_TYPE_ONCHAIN . '/' . $cryptoCode;
         $headers = $this->getRequestHeaders();
         $method = 'DELETE';
         $response = CurlClient::request($method, $url, $headers);

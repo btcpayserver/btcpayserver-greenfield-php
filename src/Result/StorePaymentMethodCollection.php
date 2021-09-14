@@ -6,6 +6,10 @@ namespace BTCPayServer\Result;
 
 class StorePaymentMethodCollection extends AbstractListResult
 {
+
+    /**
+     * @return \BTCPayServer\Result\AbstractStorePaymentMethodResult[]
+     */
     public function getPaymentMethods(): array
     {
         $r = [];
