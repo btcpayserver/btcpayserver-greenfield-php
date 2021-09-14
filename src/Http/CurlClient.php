@@ -33,32 +33,32 @@ class CurlClient implements ClientInterface
         }
         curl_setopt($ch, CURLOPT_HTTPHEADER, $flatHeaders);
 
-        $response = curl_exec($ch);
-        $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $response   = curl_exec($ch);
+        $status     = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         $headerSize = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
 
         $responseHeaders = [];
-		$responseBody = null;
+        $responseBody    = null;
 
-        if($response) {
-			$responseString = is_string($response) ? $response : null;
-			if($responseString && $headerSize) {
-				$responseBody = substr( $responseString, $headerSize );
-        		$headerPart = substr($responseString, 0, $headerSize);
-				$headerParts   = explode( "\n", $headerPart );
-				foreach ( $headerParts as $headerLine ) {
-					$headerLine = trim($headerLine);
-					if ($headerLine) {
-						$parts = explode(':', $headerLine);
-						if (count($parts) === 2) {
-							$key = $parts[0];
-							$value = $parts[1];
-							$responseHeaders[$key] = $value;
-						}
-					}
-				}
-			}
-		}
+        if ($response) {
+            $responseString = is_string($response) ? $response : '';
+            if ($responseString && $headerSize) {
+                $responseBody = substr($responseString, $headerSize);
+                $headerPart   = substr($responseString, 0, $headerSize);
+                $headerParts  = explode("\n", $headerPart);
+                foreach ($headerParts as $headerLine) {
+                    $headerLine = trim($headerLine);
+                    if ($headerLine) {
+                        $parts = explode(':', $headerLine);
+                        if (count($parts) === 2) {
+                            $key                   = $parts[0];
+                            $value                 = $parts[1];
+                            $responseHeaders[$key] = $value;
+                        }
+                    }
+                }
+            }
+        }
 
         return new Response($status, $responseBody, $responseHeaders);
     }
