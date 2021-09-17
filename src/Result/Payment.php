@@ -29,5 +29,4 @@ class Payment extends AbstractResult
         $data = $this->getData();
         return $data['status'];
     }
-
 }

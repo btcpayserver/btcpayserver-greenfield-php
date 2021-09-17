@@ -11,7 +11,6 @@ class PaymentMethod extends AbstractResult
      */
     public function getPayments()
     {
-
         $r = [];
         $data = $this->getData();
         foreach ($data['payments'] as $payment) {

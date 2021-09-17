@@ -18,7 +18,10 @@ class InvoiceList extends AbstractListResult
         return $r;
     }
 
-    public function getInvoicesByStatus(string $status)
+    /**
+     * @return \BTCPayServer\Result\Invoice[]
+     */
+    public function getInvoicesByStatus(string $status): array
     {
         $r = array_filter(
             $this->getInvoices(),
