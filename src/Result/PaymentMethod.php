@@ -9,7 +9,7 @@ class PaymentMethod extends AbstractResult
     /**
      * @return Payment[]
      */
-    public function getPayments()
+    public function getPayments() :array
     {
         $r = [];
         $data = $this->getData();
