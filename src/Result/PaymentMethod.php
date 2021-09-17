@@ -9,7 +9,7 @@ class PaymentMethod extends AbstractResult
     /**
      * @return Payment[]
      */
-    public function getPayments() :array
+    public function getPayments(): array
     {
         $r = [];
         $data = $this->getData();
@@ -20,49 +20,49 @@ class PaymentMethod extends AbstractResult
         return $r;
     }
 
-    public function getDestination() :string
+    public function getDestination(): string
     {
         $data = $this->getData();
         return $data['destination'];
     }
 
-    public function getRate() :string
+    public function getRate(): string
     {
         $data = $this->getData();
         return $data['rate'];
     }
 
-    public function getPaymentMethodPaid() :string
+    public function getPaymentMethodPaid(): string
     {
         $data = $this->getData();
         return $data['paymentMethodPaid'];
     }
 
-    public function getTotalPaid() :string
+    public function getTotalPaid(): string
     {
         $data = $this->getData();
         return $data['totalPaid'];
     }
 
-    public function getDue() :string
+    public function getDue(): string
     {
         $data = $this->getData();
         return $data['due'];
     }
 
-    public function getAmount() :string
+    public function getAmount(): string
     {
         $data = $this->getData();
         return $data['amount'];
     }
 
-    public function getNetworkFee() :string
+    public function getNetworkFee(): string
     {
         $data = $this->getData();
         return $data['networkFee'];
     }
 
-    public function getPaymentMethod() :string
+    public function getPaymentMethod(): string
     {
         $data = $this->getData();
         return $data['paymentMethod'];

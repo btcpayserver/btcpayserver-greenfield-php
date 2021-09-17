@@ -63,7 +63,7 @@ class Invoice extends AbstractResult
         return $data['additionalStatus'] === self::ADDITIONAL_STATUS_PAID_PARTIAL;
     }
 
-    public function isMarked() :bool
+    public function isMarked(): bool
     {
         $data = $this->getData();
         return $data['additionalStatus'] === self::ADDITIONAL_STATUS_MARKED;
