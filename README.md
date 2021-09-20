@@ -22,7 +22,10 @@ The general reasoning behind the arguments an API client takes are in this order
 - Expand beyond the eCommerce related API calls and make this library 100% complete.
 
 ## How to use with composer
-TODO
+```
+composer install btcpayserver/btcpayserver-greenfield-php
+```
+
 
 ## How to use without composer
 TODO
@@ -35,3 +38,9 @@ TODO
 ## FAQ
 ### Where to get the API key from?
 The API keys for Greenfield API are *not* on the store level "Access Tokens" anymore. You need to go to your account profile: "My Settings" (user profile icon) -> "API Keys" instead. You can even redirect the users to generate the API keys there.
+
+## Contribute
+We run static analyzer [Psalm](https://psalm.dev/) and [PHP-CS-fixer](https://github.com/FriendsOfPhp/PHP-CS-Fixer) for codestyle when you open a pull-request. Please check if there are any errors and fix them accordingly.
+
+### Codestyle
+We use PSR-12 code style to ensure proper formatting and spacing. You can test and format your code using composer commands. Before doing a PR you can run `composer cs-check` and `composer cs-fix` which will run php-cs-fixer.
