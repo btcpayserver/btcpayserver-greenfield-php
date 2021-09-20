@@ -17,18 +17,37 @@ The general reasoning behind the arguments an API client takes are in this order
 - All calls needed for eCommerce are included, but there are more we still need to add.
 
 ## TODO
-- Autoloader just for our own files. Must not affect previously existing autoloaders.
+- convert examples to tests
 - Getters and setters
 - Expand beyond the eCommerce related API calls and make this library 100% complete.
 
 ## How to use with composer
+NOTE: this will only work after the first release, which will be soon :)
 ```
 composer install btcpayserver/btcpayserver-greenfield-php
 ```
+If you use some framework or other project you likely are ready to go. If you start from scratch make sure to include Composer autoloader.
+```
+require __DIR__ . '/../vendor/autoload.php';
+```
 
+## How to use without composer (not recommended)
+In the `src` directory we have a custom `autoload.php` which you can require and avoid using composer if needed.
+```
+// Require the autoload file.
+require __DIR__ . '/../src/autoload.php';
 
-## How to use without composer
-TODO
+// Example to get all stores.
+$apiKey = '';
+$host = ''; // e.g. https://your.btcpay-server.tld
+
+try {
+    $client = new \BTCPayServer\Client\Store($host, $apiKey);
+    var_dump($client->getStores());
+} catch (\Throwable $e) {
+    echo "Error: " . $e->getMessage();
+}
+```
 
 ## Best practices
 - Always use an API key with as little permissions as possible.
@@ -44,3 +63,6 @@ We run static analyzer [Psalm](https://psalm.dev/) and [PHP-CS-fixer](https://gi
 
 ### Codestyle
 We use PSR-12 code style to ensure proper formatting and spacing. You can test and format your code using composer commands. Before doing a PR you can run `composer cs-check` and `composer cs-fix` which will run php-cs-fixer.
+
+### Greenfield API coverage
+Currently implemented functionality is tracked in [this sheet](https://docs.google.com/spreadsheets/d/1A1tMWYHGVkFWRgqfkW9GSGBRjzKZzsu5XMIW1NLs-xg/edit#gid=0) and will be updated sporadically. Check to see which areas still need work in case you want to contribute.
