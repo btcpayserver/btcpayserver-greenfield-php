@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace BTCPayServer\Result;
 
-class Payment extends AbstractResult
+class InvoicePayment extends AbstractResult
 {
     public function getValue(): string
     {
