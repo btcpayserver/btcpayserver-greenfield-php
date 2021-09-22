@@ -2,23 +2,14 @@
 
 spl_autoload_register(function ($className) {
 
-    // Stop here if class already loaded to avoid filesystem I/O.
-    if (class_exists($className, false)) {
+    // Abort here if we do not try to load BTCPayServer namespace.
+    if (strpos($className, 'BTCPayServer') === false) {
         return;
     }
 
-    $dirs = [
-      'Client',
-      'Exception',
-      'Http',
-      'Result',
-      'Util',
-    ];
-
-    foreach ($dirs as $dir) {
-        $replace = 'BTCPayServer\\' . $dir . '\\';
-        $fileName = str_replace($replace, '', $className);
-        $filePath = __DIR__ . "/{$dir}/{$fileName}.php";
+    $parts = explode('\\', $className);
+    if (count($parts) === 3) {
+        $filePath = __DIR__ . "/{$parts[1]}/{$parts[2]}.php";
         if (file_exists($filePath)) {
             require_once($filePath);
             return;
