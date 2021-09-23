@@ -14,7 +14,6 @@ class Webhook extends AbstractClient
      */
     public function getWebhooks(string $storeId): array
     {
-        // TODO test & finish
         $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/webhooks';
         $headers = $this->getRequestHeaders();
         $method = 'GET';
@@ -35,7 +34,6 @@ class Webhook extends AbstractClient
 
     public function createWebhook(string $storeId, string $url, ?array $specificEvents, ?string $secret): \BTCPayServer\Result\Webhook
     {
-        // TODO test & finish
         $data = [
             'enabled' => true,
             'automaticRedelivery' => true,
@@ -63,7 +61,7 @@ class Webhook extends AbstractClient
 
         $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/webhooks';
         $headers = $this->getRequestHeaders();
-        $method = 'GET';
+        $method = 'POST';
         $response = CurlClient::request($method, $url, $headers, json_encode($data, JSON_THROW_ON_ERROR));
 
         if ($response->getStatus() === 200) {
