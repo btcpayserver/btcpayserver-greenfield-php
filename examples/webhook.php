@@ -42,7 +42,6 @@ if ($sig != "sha256=" . hash_hmac('sha256', $raw_post_data, $secret)) {
     throw new \Exception('Invalid BTCPayServer payment notification message received - signature did not match.');
 }
 
-
 if (true === empty($ipn->invoiceId)) {
     fwrite($myfile, $date . " : Error. Invalid BTCPayServer payment notification message received - did not receive invoice ID.\n");
     fclose($myfile);
@@ -65,7 +64,7 @@ if ($ipn->type != "InvoiceSettled") {
 $invoicePrice = $invoice->getData()['amount'];
 $buyerEmail = $invoice->getData()['metadata']['buyerEmail'];
 
-fwrite($myfile, $date . " : IPN received for BtcPay invoice " . $ipn->invoiceId . " Type: " . $ipn->type . " Price: " . $invoicePrice . " E-Mail: " . $buyerEmail  . "\n");
+fwrite($myfile, $date . " : IPN received for BtcPay invoice " . $ipn->invoiceId . " Type: " . $ipn->type . " Price: " . $invoicePrice . " E-Mail: " . $buyerEmail . "\n");
 fwrite($myfile, "Raw IPN: " . $raw_post_data . "\n");
 
 // your own processing code goes here!
