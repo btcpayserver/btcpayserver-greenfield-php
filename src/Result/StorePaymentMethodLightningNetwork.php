@@ -6,4 +6,9 @@ namespace BTCPayServer\Result;
 
 class StorePaymentMethodLightningNetwork extends AbstractStorePaymentMethodResult
 {
+    public function isEnabled(): bool
+    {
+        $data = $this->getData();
+        return $data['enabled'];
+    }
 }
