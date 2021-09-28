@@ -1,18 +1,16 @@
 <?php
 
 spl_autoload_register(function ($className) {
-
+    $searchPattern = 'BTCPayServer';
     // Abort here if we do not try to load BTCPayServer namespace.
-    if (strpos($className, 'BTCPayServer') === false) {
+    if (strpos($className, $searchPattern) !== 0) {
         return;
     }
 
-    $parts = explode('\\', $className);
-    if (count($parts) === 3) {
-        $filePath = __DIR__ . "/{$parts[1]}/{$parts[2]}.php";
-        if (file_exists($filePath)) {
-            require_once($filePath);
-            return;
-        }
+    // Convert namespace and class to file path.
+    $filePath =  __DIR__ . str_replace([$searchPattern, '\\'], ['', DIRECTORY_SEPARATOR], $className).'.php';
+    if (file_exists($filePath)) {
+        require_once($filePath);
+        return;
     }
 });
