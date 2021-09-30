@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace BTCPayServer\Client;
 
 use BTCPayServer\Http\CurlClient;
+use BTCPayServer\Result\InvoicePaymentMethod;
 use BTCPayServer\Util\PreciseNumber;
 
 class Invoice extends AbstractClient
@@ -49,11 +50,11 @@ class Invoice extends AbstractClient
 
         $body = json_encode(
             [
-            'amount' => $amount !== null ? $amount->__toString() : null,
-            'currency' => $currency,
-            'metadata' => !empty($metaDataMerged) ? $metaDataMerged : null,
-            'checkout' => $checkoutOptions ? $checkoutOptions->toArray() : null
-          ],
+                'amount' => $amount !== null ? $amount->__toString() : null,
+                'currency' => $currency,
+                'metadata' => !empty($metaDataMerged) ? $metaDataMerged : null,
+                'checkout' => $checkoutOptions ? $checkoutOptions->toArray() : null
+            ],
             JSON_THROW_ON_ERROR
         );
 
@@ -101,7 +102,7 @@ class Invoice extends AbstractClient
         $url = $this->getBaseUrl() . 'stores/' . urlencode($storeId) . '/invoices?';
         if ($filterByOrderIds !== null) {
             foreach ($filterByOrderIds as $filterByOrderId) {
-                $url .= 'orderId=' . urlencode($filterByOrderId).'&';
+                $url .= 'orderId=' . urlencode($filterByOrderId) . '&';
             }
         }
 
@@ -123,7 +124,7 @@ class Invoice extends AbstractClient
     }
 
     /**
-     * @return \BTCPayServer\Result\InvoicePaymentMethod[]
+     * @return InvoicePaymentMethod[]
      */
     public function getPaymentMethods(string $storeId, string $invoiceId): array
     {
@@ -145,6 +146,32 @@ class Invoice extends AbstractClient
                 $r[] = $item;
             }
             return $r;
+        } else {
+            throw $this->getExceptionByStatusCode($method, $url, $response);
+        }
+    }
+
+    public function markInvoiceStatus(string $storeId, string $invoiceId, string $markAs): \BTCPayServer\Result\Invoice
+    {
+        $url = $this->getBaseUrl() . 'stores/' . urlencode(
+            $storeId
+        ) . '/invoices/' . urlencode($invoiceId) . '/status';
+        $headers = $this->getRequestHeaders();
+        $method = 'POST';
+
+        $body = json_encode(
+            [
+                'status' => $markAs
+            ],
+            JSON_THROW_ON_ERROR
+        );
+
+        $response = CurlClient::request($method, $url, $headers, $body);
+
+        if ($response->getStatus() === 200) {
+            return new \BTCPayServer\Result\Invoice(
+                json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR)
+            );
         } else {
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }

@@ -15,4 +15,10 @@ abstract class AbstractStorePaymentMethodResult extends AbstractResult
 
         parent::__construct($data);
     }
+
+    public function isEnabled(): bool
+    {
+        $data = $this->getData();
+        return $data['enabled'];
+    }
 }
