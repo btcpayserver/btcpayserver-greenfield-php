@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace BTCPayServer\Client;
 
 use BTCPayServer\Exception\BadRequestException;
-use BTCPayServer\Exception\BTCPayException;
 use BTCPayServer\Exception\ForbiddenException;
+use BTCPayServer\Exception\RequestException;
 use BTCPayServer\Http\Response;
 
 class AbstractClient
@@ -52,13 +52,13 @@ class AbstractClient
         string $method,
         string $url,
         Response $response
-    ): BTCPayException {
+    ): RequestException {
         $exceptions = [
             ForbiddenException::STATUS => ForbiddenException::class,
             BadRequestException::STATUS => BadRequestException::class,
         ];
 
-        $class = $exceptions[$response->getStatus()] ?? BTCPayException::class;
+        $class = $exceptions[$response->getStatus()] ?? RequestException::class;
         $e = new $class($method, $url, $response);
         return $e;
     }
