@@ -99,7 +99,7 @@ class Invoice extends AbstractClient
         string $storeId,
         array $filterByOrderIds = null
     ): \BTCPayServer\Result\InvoiceList {
-        $url = $this->getBaseUrl() . 'stores/' . urlencode($storeId) . '/invoices?';
+        $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/invoices?';
         if ($filterByOrderIds !== null) {
             foreach ($filterByOrderIds as $filterByOrderId) {
                 $url .= 'orderId=' . urlencode($filterByOrderId) . '&';
@@ -153,7 +153,7 @@ class Invoice extends AbstractClient
 
     public function markInvoiceStatus(string $storeId, string $invoiceId, string $markAs): \BTCPayServer\Result\Invoice
     {
-        $url = $this->getBaseUrl() . 'stores/' . urlencode(
+        $url = $this->getApiUrl() . 'stores/' . urlencode(
             $storeId
         ) . '/invoices/' . urlencode($invoiceId) . '/status';
         $headers = $this->getRequestHeaders();
