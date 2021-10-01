@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace BTCPayServer\Http;
 
+use BTCPayServer\Exception\ConnectException;
+
 /**
  * HTTP Client using cURL to communicate.
  */
@@ -15,7 +17,7 @@ class CurlClient implements ClientInterface
     public static function request(
         string $method,
         string $url,
-        array $headers = [],
+        array  $headers = [],
         string $body = ''
     ): ResponseInterface {
         $flatHeaders = [];
@@ -34,6 +36,7 @@ class CurlClient implements ClientInterface
         curl_setopt($ch, CURLOPT_HTTPHEADER, $flatHeaders);
 
         $response = curl_exec($ch);
+
         $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         $headerSize = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
 
@@ -58,6 +61,10 @@ class CurlClient implements ClientInterface
                     }
                 }
             }
+        } else {
+            $errorMessage = curl_error($ch);
+            $errorCode = curl_errno($ch);
+            throw new ConnectException($errorMessage, $errorCode);
         }
 
         return new Response($status, $responseBody, $responseHeaders);
