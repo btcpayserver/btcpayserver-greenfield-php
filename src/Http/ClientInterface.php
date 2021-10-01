@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace BTCPayServer\Http;
 
+use BTCPayServer\Exception\ConnectException;
+use BTCPayServer\Exception\RequestException;
+
 interface ClientInterface
 {
     /**
@@ -14,7 +17,10 @@ interface ClientInterface
      * @param array  $headers
      * @param string $body
      *
-     * @return \BTCPayServer\Http\ResponseInterface
+     * @throws ConnectException
+     * @throws RequestException
+     *
+     * @return ResponseInterface
      */
     public static function request(string $method, string $url, array $headers = [], string $body = ''): ResponseInterface;
 }

@@ -56,7 +56,7 @@ class ApiKey extends AbstractClient
         $queryParams = implode("&", $queryParams);
 
 
-        $url = $url . '?' . $queryParams;
+        $url .= '?' . $queryParams;
 
         return $url;
     }
