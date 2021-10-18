@@ -22,5 +22,5 @@ interface ClientInterface
      *
      * @return ResponseInterface
      */
-    public static function request(string $method, string $url, array $headers = [], string $body = ''): ResponseInterface;
+    public function request(string $method, string $url, array $headers = [], string $body = ''): ResponseInterface;
 }

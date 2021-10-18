@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace BTCPayServer\Client;
 
-use BTCPayServer\Http\CurlClient;
 use BTCPayServer\Result\InvoicePaymentMethod;
 use BTCPayServer\Util\PreciseNumber;
 
@@ -58,7 +57,7 @@ class Invoice extends AbstractClient
             JSON_THROW_ON_ERROR
         );
 
-        $response = CurlClient::request($method, $url, $headers, $body);
+        $response = $this->getHttpClient()->request($method, $url, $headers, $body);
 
         if ($response->getStatus() === 200) {
             return new \BTCPayServer\Result\Invoice(
@@ -76,7 +75,7 @@ class Invoice extends AbstractClient
         $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/invoices/' . urlencode($invoiceId);
         $headers = $this->getRequestHeaders();
         $method = 'GET';
-        $response = CurlClient::request($method, $url, $headers);
+        $response = $this->getHttpClient()->request($method, $url, $headers);
 
         if ($response->getStatus() === 200) {
             return new \BTCPayServer\Result\Invoice(json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR));
@@ -112,7 +111,7 @@ class Invoice extends AbstractClient
 
         $headers = $this->getRequestHeaders();
         $method = 'GET';
-        $response = CurlClient::request($method, $url, $headers);
+        $response = $this->getHttpClient()->request($method, $url, $headers);
 
         if ($response->getStatus() === 200) {
             return new \BTCPayServer\Result\InvoiceList(
@@ -131,7 +130,7 @@ class Invoice extends AbstractClient
         $method = 'GET';
         $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/invoices/' . urlencode($invoiceId) . '/payment-methods';
         $headers = $this->getRequestHeaders();
-        $response = CurlClient::request($method, $url, $headers);
+        $response = $this->getHttpClient()->request($method, $url, $headers);
 
         if ($response->getStatus() === 200) {
             $r = [];
@@ -166,7 +165,7 @@ class Invoice extends AbstractClient
             JSON_THROW_ON_ERROR
         );
 
-        $response = CurlClient::request($method, $url, $headers, $body);
+        $response = $this->getHttpClient()->request($method, $url, $headers, $body);
 
         if ($response->getStatus() === 200) {
             return new \BTCPayServer\Result\Invoice(

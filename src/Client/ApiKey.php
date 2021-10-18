@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace BTCPayServer\Client;
 
-use BTCPayServer\Http\CurlClient;
-
 class ApiKey extends AbstractClient
 {
     /**
@@ -69,7 +67,7 @@ class ApiKey extends AbstractClient
         $url = $this->getApiUrl() . 'api-keys/current';
         $headers = $this->getRequestHeaders();
         $method = 'GET';
-        $response = CurlClient::request($method, $url, $headers);
+        $response = $this->getHttpClient()->request($method, $url, $headers);
 
         if ($response->getStatus() === 200) {
             return new \BTCPayServer\Result\ApiKey(json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR));
