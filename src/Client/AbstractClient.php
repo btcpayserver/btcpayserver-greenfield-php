@@ -19,7 +19,7 @@ class AbstractClient
     private $baseUrl;
     /** @var string */
     private $apiPath = '/api/v1/';
-    /** @var CurlClient */
+    /** @var ClientInterface */
     private $httpClient;
 
     public function __construct(string $baseUrl, string $apiKey)
