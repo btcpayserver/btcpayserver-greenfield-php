@@ -7,6 +7,8 @@ namespace BTCPayServer\Client;
 use BTCPayServer\Exception\BadRequestException;
 use BTCPayServer\Exception\ForbiddenException;
 use BTCPayServer\Exception\RequestException;
+use BTCPayServer\Http\ClientInterface;
+use BTCPayServer\Http\CurlClient;
 use BTCPayServer\Http\Response;
 
 class AbstractClient
@@ -17,11 +19,14 @@ class AbstractClient
     private $baseUrl;
     /** @var string */
     private $apiPath = '/api/v1/';
+    /** @var ClientInterface */
+    private $httpClient;
 
     public function __construct(string $baseUrl, string $apiKey)
     {
         $this->baseUrl = rtrim($baseUrl, '/');
         $this->apiKey = $apiKey;
+        $this->httpClient = new CurlClient();
     }
 
     protected function getBaseUrl(): string
@@ -37,6 +42,20 @@ class AbstractClient
     protected function getApiKey(): string
     {
         return $this->apiKey;
+    }
+
+    protected function getHttpClient(): ClientInterface
+    {
+        return $this->httpClient;
+    }
+
+    /**
+     * This method allows you to use a custom cURL client, for example if you need to disable CURLOPT_SSL_VERIFYHOST and CURLOPT_SSL_VERIFYPEER
+     * @param ClientInterface $client
+     */
+    public function setHttpClient(ClientInterface $client): void
+    {
+        $this->httpClient = $client;
     }
 
     protected function getRequestHeaders(): array

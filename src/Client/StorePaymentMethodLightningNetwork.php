@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace BTCPayServer\Client;
 
-use BTCPayServer\Http\CurlClient;
-
 /**
  * Handles a stores LightningNetwork payment methods.
  *
@@ -24,7 +22,7 @@ class StorePaymentMethodLightningNetwork extends AbstractStorePaymentMethodClien
         $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/payment-methods/' . self::PAYMENT_TYPE_LIGHTNING;
         $headers = $this->getRequestHeaders();
         $method = 'GET';
-        $response = CurlClient::request($method, $url, $headers);
+        $response = $this->getHttpClient()->request($method, $url, $headers);
 
         if ($response->getStatus() === 200) {
             $r = [];
@@ -43,7 +41,7 @@ class StorePaymentMethodLightningNetwork extends AbstractStorePaymentMethodClien
         $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/payment-methods/' . self::PAYMENT_TYPE_LIGHTNING . '/' . $cryptoCode;
         $headers = $this->getRequestHeaders();
         $method = 'GET';
-        $response = CurlClient::request($method, $url, $headers);
+        $response = $this->getHttpClient()->request($method, $url, $headers);
 
         if ($response->getStatus() === 200) {
             $data = json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
@@ -74,7 +72,7 @@ class StorePaymentMethodLightningNetwork extends AbstractStorePaymentMethodClien
         $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/payment-methods/' . self::PAYMENT_TYPE_LIGHTNING . '/' . $cryptoCode;
         $headers = $this->getRequestHeaders();
         $method = 'PUT';
-        $response = CurlClient::request($method, $url, $headers, json_encode($settings));
+        $response = $this->getHttpClient()->request($method, $url, $headers, json_encode($settings));
 
         if ($response->getStatus() === 200) {
             $data = json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
@@ -97,7 +95,7 @@ class StorePaymentMethodLightningNetwork extends AbstractStorePaymentMethodClien
         $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/payment-methods/' . self::PAYMENT_TYPE_LIGHTNING . '/' . $cryptoCode;
         $headers = $this->getRequestHeaders();
         $method = 'DELETE';
-        $response = CurlClient::request($method, $url, $headers);
+        $response = $this->getHttpClient()->request($method, $url, $headers);
 
         if ($response->getStatus() === 200) {
             return true;
