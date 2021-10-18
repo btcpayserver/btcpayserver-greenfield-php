@@ -22,11 +22,16 @@ class AbstractClient
     /** @var ClientInterface */
     private $httpClient;
 
-    public function __construct(string $baseUrl, string $apiKey)
+    public function __construct(string $baseUrl, string $apiKey, ClientInterface $client = null)
     {
         $this->baseUrl = rtrim($baseUrl, '/');
         $this->apiKey = $apiKey;
-        $this->httpClient = new CurlClient();
+
+        // Use the $client parameter to use a custom cURL client, for example if you need to disable CURLOPT_SSL_VERIFYHOST and CURLOPT_SSL_VERIFYPEER
+        if ($client === null) {
+            $client = new CurlClient();
+        }
+        $this->httpClient = $client;
     }
 
     protected function getBaseUrl(): string
@@ -47,15 +52,6 @@ class AbstractClient
     protected function getHttpClient(): ClientInterface
     {
         return $this->httpClient;
-    }
-
-    /**
-     * This method allows you to use a custom cURL client, for example if you need to disable CURLOPT_SSL_VERIFYHOST and CURLOPT_SSL_VERIFYPEER
-     * @param ClientInterface $client
-     */
-    public function setHttpClient(ClientInterface $client): void
-    {
-        $this->httpClient = $client;
     }
 
     protected function getRequestHeaders(): array
