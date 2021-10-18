@@ -22,9 +22,9 @@ The general reasoning behind the arguments an API client takes are in this order
 - Expand beyond the eCommerce related API calls and make this library 100% complete.
 
 ## How to use with composer
-NOTE: this will only work after the first release, which will be soon :)
+
 ```
-composer install btcpayserver/btcpayserver-greenfield-php
+composer require btcpayserver/btcpayserver-greenfield-php
 ```
 If you use some framework or other project you likely are ready to go. If you start from scratch make sure to include Composer autoloader.
 ```
