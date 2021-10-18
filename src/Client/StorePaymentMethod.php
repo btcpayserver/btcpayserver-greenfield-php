@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace BTCPayServer\Client;
 
-use BTCPayServer\Http\CurlClient;
-
 /**
  * Global class to handle OnChain and LightningNetwork payment methods.
  *
@@ -19,7 +17,7 @@ class StorePaymentMethod extends AbstractClient
         $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/payment-methods';
         $headers = $this->getRequestHeaders();
         $method = 'GET';
-        $response = CurlClient::request($method, $url, $headers);
+        $response = $this->getHttpClient()->request($method, $url, $headers);
 
         if ($response->getStatus() === 200) {
             $pm = new \BTCPayServer\Result\StorePaymentMethodCollection(json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR));
