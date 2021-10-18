@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace BTCPayServer\Client;
 
-use BTCPayServer\Http\CurlClient;
-
 /**
  * Handles stores on chain payment methods.
  *
@@ -24,7 +22,7 @@ class StorePaymentMethodOnChain extends AbstractStorePaymentMethodClient
         $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/payment-methods/' . self::PAYMENT_TYPE_ONCHAIN;
         $headers = $this->getRequestHeaders();
         $method = 'GET';
-        $response = CurlClient::request($method, $url, $headers);
+        $response = $this->getHttpClient()->request($method, $url, $headers);
 
         if ($response->getStatus() === 200) {
             $r = [];
@@ -43,7 +41,7 @@ class StorePaymentMethodOnChain extends AbstractStorePaymentMethodClient
         $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/payment-methods/' . self::PAYMENT_TYPE_ONCHAIN . '/' . $cryptoCode;
         $headers = $this->getRequestHeaders();
         $method = 'GET';
-        $response = CurlClient::request($method, $url, $headers);
+        $response = $this->getHttpClient()->request($method, $url, $headers);
 
         if ($response->getStatus() === 200) {
             $data = json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
@@ -76,7 +74,7 @@ class StorePaymentMethodOnChain extends AbstractStorePaymentMethodClient
         $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/payment-methods/' . self::PAYMENT_TYPE_ONCHAIN . '/' . $cryptoCode;
         $headers = $this->getRequestHeaders();
         $method = 'PUT';
-        $response = CurlClient::request($method, $url, $headers, json_encode($settings));
+        $response = $this->getHttpClient()->request($method, $url, $headers, json_encode($settings));
 
         if ($response->getStatus() === 200) {
             $data = json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
@@ -102,7 +100,7 @@ class StorePaymentMethodOnChain extends AbstractStorePaymentMethodClient
         $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/payment-methods/' . self::PAYMENT_TYPE_ONCHAIN . '/' . $cryptoCode . '/preview';
         $headers = $this->getRequestHeaders();
         $method = 'GET';
-        $response = CurlClient::request($method, $url, $headers);
+        $response = $this->getHttpClient()->request($method, $url, $headers);
 
         if ($response->getStatus() === 200) {
             $addressList = new \BTCPayServer\Result\AddressList(
@@ -144,7 +142,7 @@ class StorePaymentMethodOnChain extends AbstractStorePaymentMethodClient
               'derivationScheme' => $derivationScheme,
               'accountKeyPath' => $accountKeyPath,
         ]);
-        $response = CurlClient::request($method, $url, $headers, $body);
+        $response = $this->getHttpClient()->request($method, $url, $headers, $body);
 
         if ($response->getStatus() === 200) {
             $addressList = new \BTCPayServer\Result\AddressList(
@@ -170,7 +168,7 @@ class StorePaymentMethodOnChain extends AbstractStorePaymentMethodClient
         $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/payment-methods/' . self::PAYMENT_TYPE_ONCHAIN . '/' . $cryptoCode;
         $headers = $this->getRequestHeaders();
         $method = 'DELETE';
-        $response = CurlClient::request($method, $url, $headers);
+        $response = $this->getHttpClient()->request($method, $url, $headers);
 
         if ($response->getStatus() === 200) {
             return true;

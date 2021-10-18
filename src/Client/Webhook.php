@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace BTCPayServer\Client;
 
-use BTCPayServer\Http\CurlClient;
-
 class Webhook extends AbstractClient
 {
     /**
@@ -17,7 +15,7 @@ class Webhook extends AbstractClient
         $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/webhooks';
         $headers = $this->getRequestHeaders();
         $method = 'GET';
-        $response = CurlClient::request($method, $url, $headers);
+        $response = $this->getHttpClient()->request($method, $url, $headers);
 
         if ($response->getStatus() === 200) {
             $r = [];
@@ -62,7 +60,7 @@ class Webhook extends AbstractClient
         $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/webhooks';
         $headers = $this->getRequestHeaders();
         $method = 'POST';
-        $response = CurlClient::request($method, $url, $headers, json_encode($data, JSON_THROW_ON_ERROR));
+        $response = $this->getHttpClient()->request($method, $url, $headers, json_encode($data, JSON_THROW_ON_ERROR));
 
         if ($response->getStatus() === 200) {
             $data = json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
@@ -96,7 +94,7 @@ class Webhook extends AbstractClient
         $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/webhooks/' . urlencode($webhookId);
         $headers = $this->getRequestHeaders();
         $method = 'DELETE';
-        $response = CurlClient::request($method, $url, $headers);
+        $response = $this->getHttpClient()->request($method, $url, $headers);
 
         if ($response->getStatus() === 200) {
             return true;
