@@ -74,4 +74,12 @@ class Invoice extends AbstractResult
         $data = $this->getData();
         return $data['additionalStatus'] === self::ADDITIONAL_STATUS_MARKED;
     }
+
+    /**
+     * Get the statuses you can use to manually mark this invoice. Typically these are "Settled" and "Invalid".
+     */
+    public function getAvailableStatusesForManualMarking(): array
+    {
+        return $this->getData()['availableStatusesForManualMarking'];
+    }
 }
