@@ -76,7 +76,9 @@ class Invoice extends AbstractResult
     }
 
     /**
-     * Get the statuses you can use to manually mark this invoice. Typically these are "Settled" and "Invalid".
+     * Get the statuses you can use to manually mark this invoice.
+     * Available since BTCPay Server version x.x.x
+     * @return string[] Example: ["Settled", "Invalid"]
      */
     public function getAvailableStatusesForManualMarking(): array
     {
