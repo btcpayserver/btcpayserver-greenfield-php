@@ -7,25 +7,25 @@ namespace BTCPayServer\Result;
 class ServerInfo extends AbstractResult
 {
     public function getVersion(): string{
-        return $this['version'];
+        return $this->getData()['version'];
     }
 
     /**
      * @return string
      */
     public function getOnionUrl(): string{
-        return $this['onion'];
+        return $this->getData()['onion'];
     }
 
     public function isFullySynced(): bool{
-        return $this['fullySynched'];
+        return $this->getData()['fullySynched'];
     }
 
     /**
-     * @return string[] Example: BTC, BTC_LightningLike
+     * @return string[] Example: ['BTC', 'BTC_LightningLike']
      */
     public function getSupportedPaymentMethods(): array{
-        return $this['supportedPaymentMethods'];
+        return $this->getData()['supportedPaymentMethods'];
     }
 
     // TODO add "syncStatus" structure
