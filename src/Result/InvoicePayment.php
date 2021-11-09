@@ -29,4 +29,21 @@ class InvoicePayment extends AbstractResult
         $data = $this->getData();
         return $data['status'];
     }
+
+    public function getTransactionId(): string
+    {
+        $data = $this->getData();
+        $id = $data['id'];
+        $parts = explode('-', $id);
+        return $parts[0];
+    }
+
+    /**
+     * @return int Unix timestamp in seconds.
+     */
+    public function getReceivedTimestamp(): int
+    {
+        $data = $this->getData();
+        return (int) $data['receivedDate'];
+    }
 }
