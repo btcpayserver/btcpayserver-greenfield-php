@@ -11,6 +11,8 @@ The general reasoning behind the arguments an API client takes are in this order
 - Optional parameters => arguments with NULL as default
 - Lastly the advanced parameters => Inside an extra class
 
+Methods that return a Unix timestamp always end with `Timestamp` like `getReceivedTimestamp()` to avoid format and timezone confusion. These are always in seconds (not milliseconds).
+
 ## Features
 - No external dependencies. You can just drop this code in your project using composer or without composer.
 - Requires PHP 7.3 and up. End-of-life'd versions will not be actively supported.
