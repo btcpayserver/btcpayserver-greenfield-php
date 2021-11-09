@@ -67,4 +67,17 @@ class InvoicePaymentMethod extends AbstractResult
         $data = $this->getData();
         return $data['paymentMethod'];
     }
+
+    public function getCryptoCode(): string
+    {
+        $data = $this->getData();
+        // For future compatibility check if cryptoCode exists.
+        if (isset($data['cryptoCode'])) {
+            return $data['cryptoCode'];
+        } else {
+            // Extract cryptoCode from paymentMethod string.
+            $parts = explode('-', $data['paymentMethod']);
+            return $parts[0];
+        }
+    }
 }
