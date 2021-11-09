@@ -57,6 +57,12 @@ class Invoice extends AbstractResult
         return $data['status'] === self::STATUS_PROCESSING;
     }
 
+    public function isInvalid(): bool
+    {
+        $data = $this->getData();
+        return $data['status'] === self::STATUS_INVALID;
+    }
+
     public function isOverpaid(): bool
     {
         $data = $this->getData();
