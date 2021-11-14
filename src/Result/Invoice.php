@@ -21,7 +21,7 @@ class Invoice extends AbstractResult
     public const ADDITIONAL_STATUS_PAID_OVER = 'PaidOver';
 
     public const ADDITIONAL_STATUS_MARKED = 'Marked';
-    
+
     public const ADDITIONAL_STATUS_PAID_LATE = 'PaidLate';
 
     public function isPaid(): bool
