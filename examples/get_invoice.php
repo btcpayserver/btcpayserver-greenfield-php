@@ -14,8 +14,11 @@ $invoiceId = '';
 
 // Get information about a specific invoice.
 try {
+    echo 'Get invoice data:' . PHP_EOL;
     $client = new Invoice($host, $apiKey);
     var_dump($client->getInvoice($storeId, $invoiceId));
+    echo 'Get invoice payment methods:' . PHP_EOL;
+    var_dump($client->getPaymentMethods($storeId, $invoiceId));
 } catch (\Throwable $e) {
     echo "Error: " . $e->getMessage();
 }
