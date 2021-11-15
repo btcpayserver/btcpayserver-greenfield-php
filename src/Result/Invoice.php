@@ -22,6 +22,8 @@ class Invoice extends AbstractResult
 
     public const ADDITIONAL_STATUS_MARKED = 'Marked';
 
+    public const ADDITIONAL_STATUS_PAID_LATE = 'PaidLate';
+
     public function isPaid(): bool
     {
         $data = $this->getData();
@@ -79,6 +81,12 @@ class Invoice extends AbstractResult
     {
         $data = $this->getData();
         return $data['additionalStatus'] === self::ADDITIONAL_STATUS_MARKED;
+    }
+
+    public function isPaidLate(): bool
+    {
+        $data = $this->getData();
+        return $data['additionalStatus'] === self::ADDITIONAL_STATUS_PAID_LATE;
     }
 
     /**
