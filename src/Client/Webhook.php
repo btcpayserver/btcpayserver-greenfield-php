@@ -30,6 +30,21 @@ class Webhook extends AbstractClient
         }
     }
 
+    public function getWebhook(string $storeId, string $webhookId): \BTCPayServer\Result\Webhook
+    {
+        $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/webhooks/' . urlencode($webhookId);
+        $headers = $this->getRequestHeaders();
+        $method = 'GET';
+        $response = $this->getHttpClient()->request($method, $url, $headers);
+
+        if ($response->getStatus() === 200) {
+            $data = json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
+            return new \BTCPayServer\Result\Webhook($data);
+        } else {
+            throw $this->getExceptionByStatusCode($method, $url, $response);
+        }
+    }
+
     public function createWebhook(string $storeId, string $url, ?array $specificEvents, ?string $secret): \BTCPayServer\Result\Webhook
     {
         $data = [
