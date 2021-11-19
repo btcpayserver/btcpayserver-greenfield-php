@@ -92,7 +92,7 @@ class Webhook extends AbstractClient
      * @param string $secret The secret that's registered with the webhook in BTCPay Server as a security precaution.
      * @return bool
      */
-    public function isIncomingWebhookRequestValid(string $requestBody, string $btcpaySigHeader, string $secret): bool
+    public static function isIncomingWebhookRequestValid(string $requestBody, string $btcpaySigHeader, string $secret): bool
     {
         if ($requestBody && $btcpaySigHeader) {
             $expectedHeader = 'sha256=' . hash_hmac('sha256', $requestBody, $secret);
