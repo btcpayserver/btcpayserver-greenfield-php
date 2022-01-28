@@ -79,7 +79,6 @@ class Payout extends AbstractClient
         $url = $this->getApiUrl() . 'stores/' .
         urlencode($storeId) . '/' . 'pull-payments/' . urlencode($pullPaymentId);
         return $url;
-        /*
 
         $headers = $this->getRequestHeaders();
         $method = 'DELETE';
@@ -91,7 +90,6 @@ class Payout extends AbstractClient
         } else {
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }
-        */
     }
 
     public function cancelPayout(
