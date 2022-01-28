@@ -85,7 +85,7 @@ class Payout extends AbstractClient
         $response = $this->getHttpClient()->request($method, $url, $headers);
 
         if ($response->getStatus() === 200) {
-            return json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
+            return true;
         } else {
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }
