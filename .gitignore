@@ -3,3 +3,4 @@
 .php-cs-fixer.cache
 *.cache
 composer.lock
+/tools/
