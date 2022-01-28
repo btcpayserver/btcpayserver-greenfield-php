@@ -15,16 +15,17 @@ class Payout extends AbstractClient
         mixed $boltExpiration,
         mixed $startsAt,
         mixed $expiresAt,
-        array $paymentMethods)
-        {
-            $url = $this->getApiUrl() . 'stores/' . urlencode(
-                $storeId
-            ) . '/pull-payments';
-            $headers = $this->getRequestHeaders();
-            $method = 'POST';
+        array $paymentMethods
+    )
+    {
+        $url = $this->getApiUrl() . 'stores/' . urlencode(
+            $storeId
+        ) . '/pull-payments';
+        $headers = $this->getRequestHeaders();
+        $method = 'POST';
 
-            $body = json_encode(
-                [
+        $body = json_encode(
+            [
                     'name' => $paymentName,
                     'amount' => $paymentAmount,
                     'currency' => $paymentCurrency,
@@ -34,15 +35,15 @@ class Payout extends AbstractClient
                     'expiresAt' => $expiresAt,
                     'paymentMethods' => $paymentMethods
                 ],
-                JSON_THROW_ON_ERROR
-            );
+            JSON_THROW_ON_ERROR
+        );
 
-            $response = $this->getHttpClient()->request($method, $url, $headers, $body);
+        $response = $this->getHttpClient()->request($method, $url, $headers, $body);
 
-            if ($response->getStatus() === 200) {
-                return json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
-            } else {
-                throw $this->getExceptionByStatusCode($method, $url, $response);
-            }
+        if ($response->getStatus() === 200) {
+            return json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
+        } else {
+            throw $this->getExceptionByStatusCode($method, $url, $response);
         }
     }
+}
