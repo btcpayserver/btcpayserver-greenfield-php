@@ -13,7 +13,7 @@ $paymentPeriod = NULL;
 $boltExpiration = 1;
 $startsAt = NULL;
 $expiresAt = NULL;
-$paymentMethods = ['BTC']; 
+$paymentMethods = ['BTC', 'BTC-LightningNetwork']; 
 
 // Create a Payout
 try {
