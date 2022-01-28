@@ -13,7 +13,7 @@
             "email": "andy.tasch@gmail.com"
         }
     ],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "require": {
         "php": ">=7.3.0",
         "ext-curl": "*",
