@@ -9,8 +9,7 @@ class Payout extends AbstractClient
     public function getStorePullPayments(
         string $storeId,
         bool $includeArchived
-    )
-    {
+    ) {
         $url = $this->getApiUrl() . 'stores/' . urlencode(
             $storeId
         ) . '/pull-payments';
@@ -43,8 +42,7 @@ class Payout extends AbstractClient
         mixed $startsAt,
         mixed $expiresAt,
         array $paymentMethods
-    )
-    {
+    ) {
         $url = $this->getApiUrl() . 'stores/' . urlencode(
             $storeId
         ) . '/pull-payments';
@@ -77,9 +75,8 @@ class Payout extends AbstractClient
     public function archivePullPayment(
         string $storeId,
         string $pullPaymentId
-    )
-    {
-        $url = $this->getApiUrl() . 'stores/' . 
+    ) {
+        $url = $this->getApiUrl() . 'stores/' .
         urlencode($storeId) . '/' . 'pull-payments/' . $pullPaymentId;
 
         $headers = $this->getRequestHeaders();
@@ -97,12 +94,11 @@ class Payout extends AbstractClient
     public function cancelPayout(
         string $storeId,
         string $payoutId
-    )
-    {
+    ) {
         $url = $this->getApiUrl() . 'stores/' . urlencode(
             $storeId
         ) . '/payouts/' . $payoutId;
-        
+
         $headers = $this->getRequestHeaders();
         $method = 'DELETE';
 
@@ -118,12 +114,11 @@ class Payout extends AbstractClient
     public function markPayoutAsPaid(
         string $storeId,
         string $payoutId
-    )
-    {
+    ) {
         $url = $this->getApiUrl() . 'stores/' . urlencode(
             $storeId
         ) . '/payouts/' . $payoutId;
-        
+
         $headers = $this->getRequestHeaders();
         $method = 'POST';
 
