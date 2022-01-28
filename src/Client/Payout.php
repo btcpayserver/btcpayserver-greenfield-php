@@ -77,7 +77,7 @@ class Payout extends AbstractClient
         string $pullPaymentId
     ) {
         $url = $this->getApiUrl() . 'stores/' .
-        urlencode($storeId) . '/' . 'pull-payments/' . $pullPaymentId;
+        urlencode($storeId) . '/' . 'pull-payments/' . urlencode($pullPaymentId);
 
         $headers = $this->getRequestHeaders();
         $method = 'DELETE';
@@ -97,7 +97,7 @@ class Payout extends AbstractClient
     ) {
         $url = $this->getApiUrl() . 'stores/' . urlencode(
             $storeId
-        ) . '/payouts/' . $payoutId;
+        ) . '/' . 'payouts/' . urlencode($payoutId);
 
         $headers = $this->getRequestHeaders();
         $method = 'DELETE';
@@ -117,7 +117,7 @@ class Payout extends AbstractClient
     ) {
         $url = $this->getApiUrl() . 'stores/' . urlencode(
             $storeId
-        ) . '/payouts/' . $payoutId;
+        ) . '/' . 'payouts/' . urlencode($payoutId);
 
         $headers = $this->getRequestHeaders();
         $method = 'POST';
