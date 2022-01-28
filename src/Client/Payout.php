@@ -43,7 +43,7 @@ class Payout extends AbstractClient
         mixed $startsAt,
         mixed $expiresAt,
         array $paymentMethods
-    ) : Payout
+    )
     {
         $url = $this->getApiUrl() . 'stores/' . urlencode(
             $storeId
