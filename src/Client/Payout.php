@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Services\BTCPay\Client;
+namespace BTCPayServer\Client;
 
 class Payout extends AbstractClient
 {
