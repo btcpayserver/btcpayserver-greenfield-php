@@ -6,20 +6,36 @@ namespace BTCPayServer\Client;
 
 class PullPayment extends AbstractClient
 {
-/**
-* Management Pull Payment Methods.
-*
-* For management to get, create and archive a pull payment.
-* Approve, cancel or mark a payout as paid.
-*
-*/
+    /*
+    |--------------------------------------------------------------------------
+    | Management Pull Payment Methods.
+    |--------------------------------------------------------------------------
+    |
+    | For management to get, create and archive a pull payment.
+    | Approve, cancel or mark a payout as paid.
+    |
+    */
+
+    /**
+    * Get Store's Pull Payments
+    *
+    * @return string $id
+    * @return string $name
+    * @return string $currency
+    * @return int $amount
+    * @return int $period
+    * @return int $BOLT11Expiration
+    * @return bool $archived
+    * @return string $viewlink
+    */
+
     public function getStorePullPayments(
         string $storeId,
         bool $includeArchived
     ) {
-        $url = $this->getApiUrl() . 'stores/' . urlencode(
-            $storeId
-        ) . '/pull-payments';
+        $url = $this->getApiUrl() . 'stores/' . 
+                    urlencode($storeId) . '/pull-payments';
+
         $headers = $this->getRequestHeaders();
         $method = 'GET';
 
@@ -38,6 +54,19 @@ class PullPayment extends AbstractClient
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }
     }
+
+    /**
+    * Create a Pull Payment
+    *
+    * @return string $id
+    * @return string $name
+    * @return string $currency
+    * @return int $amount
+    * @return int $period
+    * @return int $BOLT11Expiration
+    * @return bool $archived
+    * @return string $viewlink
+    */
 
     public function createPullPayment(
         string $storeId,
@@ -79,6 +108,12 @@ class PullPayment extends AbstractClient
         }
     }
 
+    /**
+    * Archive a Pull Payment
+    *
+    * @return true on success, throws exception
+    */
+
     public function archivePullPayment(
         string $storeId,
         string $pullPaymentId
@@ -97,6 +132,21 @@ class PullPayment extends AbstractClient
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }
     }
+
+    /**
+    * Approve a Payout
+    *
+    * @return string $id
+    * @return int $revision
+    * @return string $pullPaymentId
+    * @return string $date
+    * @return string $destination
+    * @return int $amount
+    * @return string $paymentMethod
+    * @return string $cryptoCode
+    * @return int $paymentMethodAmount
+    * @return string $state
+    */
 
     public function approvePayout(
         string $storeId,
@@ -128,6 +178,12 @@ class PullPayment extends AbstractClient
         }
     }
 
+    /**
+    * Cancel a Pull Payment
+    *
+    * @return true on success, throws exception
+    */
+
     public function cancelPayout(
         string $storeId,
         string $payoutId
@@ -147,6 +203,12 @@ class PullPayment extends AbstractClient
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }
     }
+
+    /**
+    * Mark a Payout as Paid
+    *
+    * @return true on success, throws exception
+    */
 
     public function markPayoutAsPaid(
         string $storeId,
@@ -168,12 +230,13 @@ class PullPayment extends AbstractClient
         }
     }
 
-    /**
-    * Public Pull Payment Methods.
-    *
-    * For the public to get, create and archive a pull payment.
-    * Approve, cancel or mark a payout as paid.
-    *
+    /*
+    |--------------------------------------------------------------------------
+    | Public Pull Payment Methods.
+    |--------------------------------------------------------------------------
+    |
+    | For public interaction with their payouts.
+    |
     */
 
     public function getPullPayment(
