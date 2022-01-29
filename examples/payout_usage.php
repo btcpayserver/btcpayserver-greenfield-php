@@ -1,8 +1,8 @@
 <?
 
-use BTCPayServer\Client\Payout;
+use BTCPayServer\Client\PullPayment;
 
-class Payouts {
+class PullPayments {
 
     public function getStorePullPayments()
     {
@@ -12,7 +12,7 @@ class Payouts {
         $includeArchived = TRUE;
 
         try {
-            $client = new Payout($host, $apiKey);
+            $client = new PullPayment($host, $apiKey);
             var_dump($client->getStorePullPayments(
                                 $storeId, 
                                 $includeArchived));
@@ -36,7 +36,7 @@ class Payouts {
         $paymentMethods = ['BTC'];
 
         try {
-            $client = new Payout($host, $apiKey);
+            $client = new PullPayment($host, $apiKey);
             var_dump($client->createPullPayment(
                                 $storeId, 
                                 $paymentName, 
@@ -61,7 +61,7 @@ class Payouts {
         $pullPaymentId = '';
 
         try {
-            $client = new Payout($host, $apiKey);
+            $client = new PullPayment($host, $apiKey);
             var_dump($client->archivePullPayment(
                                 $storeId, 
                                 $pullPaymentId));
@@ -78,7 +78,7 @@ class Payouts {
         $payoutId = '';
 
         try {
-            $client = new Payout($host, $apiKey);
+            $client = new PullPayment($host, $apiKey);
             var_dump($client->cancelPayout(
                                 $storeId, 
                                 $payoutId));
@@ -95,7 +95,7 @@ class Payouts {
         $payoutId = '';
 
         try {
-            $client = new Payout($host, $apiKey);
+            $client = new PullPayment($host, $apiKey);
             var_dump($client->markPayoutAsPaid(
                                 $storeId, 
                                 $payoutId));
