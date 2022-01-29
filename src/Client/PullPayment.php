@@ -6,33 +6,10 @@ namespace BTCPayServer\Client;
 
 class PullPayment extends AbstractClient
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Management Pull Payment Methods.
-    |--------------------------------------------------------------------------
-    |
-    | For management to get, create and archive a pull payment.
-    | Approve, cancel or mark a payout as paid.
-    |
-    */
-
-    /**
-    * Get Store's Pull Payments
-    *
-    * @return string $id
-    * @return string $name
-    * @return string $currency
-    * @return int $amount
-    * @return int $period
-    * @return int $BOLT11Expiration
-    * @return bool $archived
-    * @return string $viewlink
-    */
-
     public function getStorePullPayments(
         string $storeId,
         bool $includeArchived
-    ) {
+    ): \BTCPayServer\Result\PullPaymentList {
         $url = $this->getApiUrl() . 'stores/' .
                     urlencode($storeId) . '/pull-payments';
 
@@ -49,24 +26,13 @@ class PullPayment extends AbstractClient
         $response = $this->getHttpClient()->request($method, $url, $headers, $body);
 
         if ($response->getStatus() === 200) {
-            return json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
+            return new \BTCPayServer\Result\PullPaymentList(
+                json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR)
+            );
         } else {
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }
     }
-
-    /**
-    * Create a Pull Payment
-    *
-    * @return string $id
-    * @return string $name
-    * @return string $currency
-    * @return int $amount
-    * @return int $period
-    * @return int $BOLT11Expiration
-    * @return bool $archived
-    * @return string $viewlink
-    */
 
     public function createPullPayment(
         string $storeId,
@@ -78,7 +44,7 @@ class PullPayment extends AbstractClient
         mixed $startsAt,
         mixed $expiresAt,
         array $paymentMethods
-    ) {
+    ): \BTCPayServer\Result\PullPayment {
         $url = $this->getApiUrl() . 'stores/' .
                     urlencode($storeId) . '/pull-payments';
 
@@ -102,22 +68,18 @@ class PullPayment extends AbstractClient
         $response = $this->getHttpClient()->request($method, $url, $headers, $body);
 
         if ($response->getStatus() === 200) {
-            return json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
+            return new \BTCPayServer\Result\PullPayment(
+                json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR)
+            );
         } else {
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }
     }
 
-    /**
-    * Archive a Pull Payment
-    *
-    * @return true on success, throws exception
-    */
-
     public function archivePullPayment(
         string $storeId,
         string $pullPaymentId
-    ) {
+    ): bool {
         $url = $this->getApiUrl() . 'stores/' .
         urlencode($storeId) . '/' . 'pull-payments/' .
         urlencode($pullPaymentId);
@@ -134,27 +96,12 @@ class PullPayment extends AbstractClient
         }
     }
 
-    /**
-    * Approve a Payout
-    *
-    * @return string $id
-    * @return int $revision
-    * @return string $pullPaymentId
-    * @return string $date
-    * @return string $destination
-    * @return int $amount
-    * @return string $paymentMethod
-    * @return string $cryptoCode
-    * @return int $paymentMethodAmount
-    * @return string $state
-    */
-
     public function approvePayout(
         string $storeId,
         string $payoutId,
         int $revision,
         mixed $rateRule
-    ) {
+    ): \BTCPayServer\Result\PullPaymentPayout {
         $url = $this->getApiUrl() . 'stores/' .
                     urlencode($storeId) . '/' . 'payouts/' .
                     urlencode($payoutId);
@@ -173,22 +120,18 @@ class PullPayment extends AbstractClient
         $response = $this->getHttpClient()->request($method, $url, $headers, $body);
 
         if ($response->getStatus() === 200) {
-            return json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
+            return new \BTCPayServer\Result\PullPaymentPayout(
+                json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR)
+            );
         } else {
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }
     }
 
-    /**
-    * Cancel a Pull Payment
-    *
-    * @return true on success, throws exception
-    */
-
     public function cancelPayout(
         string $storeId,
         string $payoutId
-    ) {
+    ): bool {
         $url = $this->getApiUrl() . 'stores/' .
                     urlencode($storeId) . '/' . 'payouts/' .
                     urlencode($payoutId);
@@ -205,16 +148,10 @@ class PullPayment extends AbstractClient
         }
     }
 
-    /**
-    * Mark a Payout as Paid
-    *
-    * @return true on success, throws exception
-    */
-
     public function markPayoutAsPaid(
         string $storeId,
         string $payoutId
-    ) {
+    ): bool {
         $url = $this->getApiUrl() . 'stores/' .
                     urlencode($storeId) . '/' . 'payouts/' .
                     urlencode($payoutId);
@@ -231,18 +168,9 @@ class PullPayment extends AbstractClient
         }
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | Public Pull Payment Methods.
-    |--------------------------------------------------------------------------
-    |
-    | For public interaction with their payouts.
-    |
-    */
-
     public function getPullPayment(
         string $pullPaymentId
-    ) {
+    ): \BTCPayServer\Result\PullPayment {
         $url = $this->getApiUrl() . 'pull-payments/' .
                     urlencode($pullPaymentId);
 
@@ -252,7 +180,9 @@ class PullPayment extends AbstractClient
         $response = $this->getHttpClient()->request($method, $url, $headers);
 
         if ($response->getStatus() === 200) {
-            return json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
+            return new \BTCPayServer\Result\PullPayment(
+                json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR)
+            );
         } else {
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }
@@ -261,7 +191,7 @@ class PullPayment extends AbstractClient
     public function getPayouts(
         string $pullPaymentId,
         bool $includeCancelled
-    ) {
+    ): \BTCPayServer\Result\PullPaymentPayoutList {
         $url = $this->getApiUrl() . 'pull-payments/' .
                     urlencode($pullPaymentId) . '/payouts';
 
@@ -278,7 +208,9 @@ class PullPayment extends AbstractClient
         $response = $this->getHttpClient()->request($method, $url, $headers, $body);
 
         if ($response->getStatus() === 200) {
-            return json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
+            return new \BTCPayServer\Result\PullPaymentPayoutList(
+                json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR)
+            );
         } else {
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }
@@ -289,7 +221,7 @@ class PullPayment extends AbstractClient
         string $destination,
         string $amount,
         string $paymentMethod
-    ) {
+    ): \BTCPayServer\Result\PullPaymentPayout {
         $url = $this->getApiUrl() . 'pull-payments/' .
                      urlencode($pullPaymentId) . '/payouts';
 
@@ -308,7 +240,9 @@ class PullPayment extends AbstractClient
         $response = $this->getHttpClient()->request($method, $url, $headers, $body);
 
         if ($response->getStatus() === 200) {
-            return json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
+            return new \BTCPayServer\Result\PullPaymentPayout(
+                json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR)
+            );
         } else {
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }
@@ -317,7 +251,7 @@ class PullPayment extends AbstractClient
     public function getPayout(
         string $pullPaymentId,
         string $payoutId
-    ) {
+    ): \BTCPayServer\Result\PullPaymentPayout {
         $url = $this->getApiUrl() . 'pull-payments/' .
                     urlencode($pullPaymentId) . '/payouts' . '/' .
                     urlencode($payoutId);
@@ -328,7 +262,9 @@ class PullPayment extends AbstractClient
         $response = $this->getHttpClient()->request($method, $url, $headers);
 
         if ($response->getStatus() === 200) {
-            return json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
+            return new \BTCPayServer\Result\PullPaymentPayout(
+                json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR)
+            );
         } else {
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }
