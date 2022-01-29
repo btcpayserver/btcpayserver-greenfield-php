@@ -33,7 +33,7 @@ class PullPayment extends AbstractClient
         string $storeId,
         bool $includeArchived
     ) {
-        $url = $this->getApiUrl() . 'stores/' . 
+        $url = $this->getApiUrl() . 'stores/' .
                     urlencode($storeId) . '/pull-payments';
 
         $headers = $this->getRequestHeaders();
@@ -79,9 +79,9 @@ class PullPayment extends AbstractClient
         mixed $expiresAt,
         array $paymentMethods
     ) {
-        $url = $this->getApiUrl() . 'stores/' . urlencode(
-            $storeId
-        ) . '/pull-payments';
+        $url = $this->getApiUrl() . 'stores/' .
+                    urlencode($storeId) . '/pull-payments';
+
         $headers = $this->getRequestHeaders();
         $method = 'POST';
 
@@ -119,7 +119,8 @@ class PullPayment extends AbstractClient
         string $pullPaymentId
     ) {
         $url = $this->getApiUrl() . 'stores/' .
-        urlencode($storeId) . '/' . 'pull-payments/' . urlencode($pullPaymentId);
+        urlencode($storeId) . '/' . 'pull-payments/' .
+        urlencode($pullPaymentId);
 
         $headers = $this->getRequestHeaders();
         $method = 'DELETE';
@@ -154,9 +155,9 @@ class PullPayment extends AbstractClient
         int $revision,
         mixed $rateRule
     ) {
-        $url = $this->getApiUrl() . 'stores/' . urlencode(
-            $storeId
-        ) . '/' . 'payouts/' . urlencode($payoutId);
+        $url = $this->getApiUrl() . 'stores/' .
+                    urlencode($storeId) . '/' . 'payouts/' .
+                    urlencode($payoutId);
 
         $headers = $this->getRequestHeaders();
         $method = 'POST';
@@ -188,9 +189,9 @@ class PullPayment extends AbstractClient
         string $storeId,
         string $payoutId
     ) {
-        $url = $this->getApiUrl() . 'stores/' . urlencode(
-            $storeId
-        ) . '/' . 'payouts/' . urlencode($payoutId);
+        $url = $this->getApiUrl() . 'stores/' .
+                    urlencode($storeId) . '/' . 'payouts/' .
+                    urlencode($payoutId);
 
         $headers = $this->getRequestHeaders();
         $method = 'DELETE';
@@ -214,9 +215,9 @@ class PullPayment extends AbstractClient
         string $storeId,
         string $payoutId
     ) {
-        $url = $this->getApiUrl() . 'stores/' . urlencode(
-            $storeId
-        ) . '/' . 'payouts/' . urlencode($payoutId);
+        $url = $this->getApiUrl() . 'stores/' .
+                    urlencode($storeId) . '/' . 'payouts/' .
+                    urlencode($payoutId);
 
         $headers = $this->getRequestHeaders();
         $method = 'POST';
@@ -242,9 +243,8 @@ class PullPayment extends AbstractClient
     public function getPullPayment(
         string $pullPaymentId
     ) {
-        $url = $this->getApiUrl() . 'pull-payments/' . urlencode(
-            $pullPaymentId
-        );
+        $url = $this->getApiUrl() . 'pull-payments/' .
+                    urlencode($pullPaymentId);
 
         $headers = $this->getRequestHeaders();
         $method = 'GET';
@@ -262,9 +262,8 @@ class PullPayment extends AbstractClient
         string $pullPaymentId,
         bool $includeCancelled
     ) {
-        $url = $this->getApiUrl() . 'pull-payments/' . urlencode(
-            $pullPaymentId
-        ) . '/payouts';
+        $url = $this->getApiUrl() . 'pull-payments/' .
+                    urlencode($pullPaymentId) . '/payouts';
 
         $headers = $this->getRequestHeaders();
         $method = 'GET';
@@ -291,9 +290,8 @@ class PullPayment extends AbstractClient
         string $amount,
         string $paymentMethod
     ) {
-        $url = $this->getApiUrl() . 'pull-payments/' . urlencode(
-            $pullPaymentId
-        ) . '/payouts';
+        $url = $this->getApiUrl() . 'pull-payments/' .
+                     urlencode($pullPaymentId) . '/payouts';
 
         $headers = $this->getRequestHeaders();
         $method = 'POST';
@@ -320,10 +318,9 @@ class PullPayment extends AbstractClient
         string $pullPaymentId,
         string $payoutId
     ) {
-        $url = $this->getApiUrl() . 'pull-payments/' . urlencode(
-            $pullPaymentId
-        ) . '/payouts' . '/' .
-            urlencode($payoutId);
+        $url = $this->getApiUrl() . 'pull-payments/' .
+                    urlencode($pullPaymentId) . '/payouts' . '/' .
+                    urlencode($payoutId);
 
         $headers = $this->getRequestHeaders();
         $method = 'GET';
