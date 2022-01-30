@@ -20,9 +20,6 @@ class PullPayments {
 
     public function getStorePullPayments()
     {
-        $apiKey = '';
-        $host = '';
-        $storeId = '';
         $includeArchived = TRUE;
 
         try {
@@ -37,9 +34,6 @@ class PullPayments {
     
     public function createPullPayment()
     {
-        $apiKey = '';
-        $host = '';
-        $storeId = '';
         $paymentName = 'TestPayout-' . rand(0,10000000);
         $paymentAmount = PreciseNumber::parseString('0.000001');
         $paymentCurrency = 'BTC';
@@ -69,9 +63,6 @@ class PullPayments {
 
     public function archivePullPayment()
     {
-        $apiKey = '';
-        $host = '';
-        $storeId = '';
         $pullPaymentId = '';
 
         try {
@@ -86,9 +77,6 @@ class PullPayments {
 
     public function cancelPayout()
     {
-        $apiKey = '';
-        $host = '';
-        $storeId = '';
         $payoutId = '';
 
         try {
@@ -103,9 +91,6 @@ class PullPayments {
 
     public function markPayoutAsPaid()
     {
-        $apiKey = '';
-        $host = '';
-        $storeId = '';
         $payoutId = '';
 
         try {
