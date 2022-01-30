@@ -13,7 +13,7 @@ class PullPaymentPayoutList extends AbstractListResult
     {
         $pullPaymentPayouts = [];
         foreach ($this->getData() as $pullPaymentPayoutData) {
-            $pullPaymentPayouts[] = new \BTCPayServer\Result\PullPayment($pullPaymentPayoutData);
+            $pullPaymentPayouts[] = new \BTCPayServer\Result\PullPaymentPayout($pullPaymentPayoutData);
         }
         return $pullPaymentPayouts;
     }
