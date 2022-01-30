@@ -221,7 +221,7 @@ class PullPayment extends AbstractClient
     public function createPayout(
         string $pullPaymentId,
         string $destination,
-        string $amount,
+        PreciseNumber $amount,
         string $paymentMethod
     ): \BTCPayServer\Result\PullPaymentPayout {
         $url = $this->getApiUrl() . 'pull-payments/' .
@@ -233,7 +233,7 @@ class PullPayment extends AbstractClient
         $body = json_encode(
             [
                 'destination' => $destination,
-                'amount' => $amount,
+                'amount' => $amount->__toString(),
                 'paymentMethod' => $paymentMethod,
             ],
             JSON_THROW_ON_ERROR
