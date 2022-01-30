@@ -11,7 +11,7 @@ use BTCPayServer\Exception\ConnectException;
  */
 class CurlClient implements ClientInterface
 {
-    protected $curl_options = [];
+    protected $curlOptions = [];
 
     /**
      * Inits curl session adding any additional curl options set.
@@ -21,8 +21,8 @@ class CurlClient implements ClientInterface
     {
         // We cannot set a return type here as it is "resource" for PHP < 8 and CurlHandle for PHP >= 8.
         $ch = curl_init();
-        if ($ch && count($this->curl_options)) {
-            curl_setopt_array($ch, $this->curl_options);
+        if ($ch && count($this->curlOptions)) {
+            curl_setopt_array($ch, $this->curlOptions);
         }
         return $ch;
     }
@@ -33,7 +33,7 @@ class CurlClient implements ClientInterface
      */
     public function setCurlOptions(array $options)
     {
-        $this->curl_options = $options;
+        $this->curlOptions = $options;
     }
 
     /**
