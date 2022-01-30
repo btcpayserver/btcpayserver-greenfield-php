@@ -1,8 +1,22 @@
-<?
+<?php
+
+require __DIR__ . '/../vendor/autoload.php';
 
 use BTCPayServer\Client\PullPayment;
+use BTCPayServer\Util\PreciseNumber;
 
 class PullPayments {
+
+    public $apiKey;
+    public $host;
+    public $storeId;
+
+    public function __construct()
+    {   
+        $this->apiKey = '';
+        $this->host = '';
+        $this->storeId = '';
+    }
 
     public function getStorePullPayments()
     {
@@ -27,7 +41,7 @@ class PullPayments {
         $host = '';
         $storeId = '';
         $paymentName = 'TestPayout-' . rand(0,10000000);
-        $paymentAmount = '0.000001';
+        $paymentAmount = PreciseNumber::parseString('0.000001');
         $paymentCurrency = 'BTC';
         $paymentPeriod = NULL;
         $boltExpiration = 1;
@@ -104,5 +118,13 @@ class PullPayments {
         }
     }
 }
+
+$pp = new PullPayments();
+//$pp->createPullPayment();
+//$pp->getStorePullPayments();
+//$pp->archivePullPayment();
+//$pp->cancelPayout();
+//$pp->markPayoutAsPaid();
+
 
 
