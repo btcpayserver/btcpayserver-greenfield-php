@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace BTCPayServer\Client;
 
+use BTCPayServer\Util\PreciseNumber;
+
 class PullPayment extends AbstractClient
 {
     public function getStorePullPayments(
@@ -36,13 +38,13 @@ class PullPayment extends AbstractClient
 
     public function createPullPayment(
         string $storeId,
-        string $paymentName,
-        string $paymentAmount,
-        string $paymentCurrency,
-        mixed $paymentPeriod,
-        mixed $boltExpiration,
-        mixed $startsAt,
-        mixed $expiresAt,
+        ?string $name = null,
+        PreciseNumber $amount,
+        string $currency,
+        ?int $period,
+        ?int $BOLT11Expiration,
+        ?int $startsAt,
+        ?int $expiresAt,
         array $paymentMethods
     ): \BTCPayServer\Result\PullPayment {
         $url = $this->getApiUrl() . 'stores/' .
@@ -53,11 +55,11 @@ class PullPayment extends AbstractClient
 
         $body = json_encode(
             [
-                'name' => $paymentName,
-                'amount' => $paymentAmount,
-                'currency' => $paymentCurrency,
-                'period' => $paymentPeriod,
-                'BOLT11Expiration' => $boltExpiration,
+                'name' => $name,
+                'amount' => $amount->__toString(),
+                'currency' => $currency,
+                'period' => $period,
+                'BOLT11Expiration' => $BOLT11Expiration,
                 'startsAt' => $startsAt,
                 'expiresAt' => $expiresAt,
                 'paymentMethods' => $paymentMethods
