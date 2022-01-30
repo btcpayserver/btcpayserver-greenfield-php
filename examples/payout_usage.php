@@ -173,9 +173,9 @@ $pp = new PullPayments();
 //$pp->archivePullPayment();
 //$pp->cancelPayout();
 //$pp->markPayoutAsPaid();
-//$pp->getPullPayment()
-//$pp->getPayouts()
-//$pp->createPayout()
-//$pp->getPayout()
+//$pp->getPullPayment();
+//$pp->getPayouts();
+//$pp->createPayout();
+//$pp->getPayout();
 
 
