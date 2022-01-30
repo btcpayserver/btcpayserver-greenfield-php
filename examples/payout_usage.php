@@ -23,9 +23,9 @@ class PullPayments {
         $includeArchived = TRUE;
 
         try {
-            $client = new PullPayment($host, $apiKey);
+            $client = new PullPayment($this->host, $this->apiKey);
             var_dump($client->getStorePullPayments(
-                                $storeId, 
+                                $this->storeId, 
                                 $includeArchived));
         } catch (\Throwable $e) {
             echo "Error: " . $e->getMessage();
@@ -44,9 +44,9 @@ class PullPayments {
         $paymentMethods = ['BTC'];
 
         try {
-            $client = new PullPayment($host, $apiKey);
+            $client = new PullPayment($this->host, $this->apiKey);
             var_dump($client->createPullPayment(
-                                $storeId, 
+                                $this->storeId, 
                                 $paymentName, 
                                 $paymentAmount, 
                                 $paymentCurrency, 
@@ -66,9 +66,9 @@ class PullPayments {
         $pullPaymentId = '';
 
         try {
-            $client = new PullPayment($host, $apiKey);
+            $client = new PullPayment($this->host, $this->apiKey);
             var_dump($client->archivePullPayment(
-                                $storeId, 
+                                $this->storeId, 
                                 $pullPaymentId));
         } catch (\Throwable $e) {
             echo "Error: " . $e->getMessage();
@@ -80,9 +80,9 @@ class PullPayments {
         $payoutId = '';
 
         try {
-            $client = new PullPayment($host, $apiKey);
+            $client = new PullPayment($this->host, $this->apiKey);
             var_dump($client->cancelPayout(
-                                $storeId, 
+                                $this->storeId, 
                                 $payoutId));
         } catch (\Throwable $e) {
             echo "Error: " . $e->getMessage();
@@ -94,9 +94,9 @@ class PullPayments {
         $payoutId = '';
 
         try {
-            $client = new PullPayment($host, $apiKey);
+            $client = new PullPayment($this->host, $this->apiKey);
             var_dump($client->markPayoutAsPaid(
-                                $storeId, 
+                                $this->storeId, 
                                 $payoutId));
         } catch (\Throwable $e) {
             echo "Error: " . $e->getMessage();
