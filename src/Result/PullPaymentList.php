@@ -6,4 +6,15 @@ namespace BTCPayServer\Result;
 
 class PullPaymentList extends AbstractListResult
 {
+    /**
+     * @return \BTCPayServer\Result\PullPayment[]
+     */
+    public function getPullPayments(): array
+    {
+        $pullPayments = [];
+        foreach ($this->getData() as $pullPaymentData) {
+            $pullPayments[] = new \BTCPayServer\Result\PullPayment($pullPaymentData);
+        }
+        return $pullPayments;
+    }
 }
