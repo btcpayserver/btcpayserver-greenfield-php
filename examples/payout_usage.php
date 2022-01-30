@@ -102,6 +102,69 @@ class PullPayments {
             echo "Error: " . $e->getMessage();
         }
     }
+
+    public function getPullPayment()
+    {
+        $pullPaymentId = '';
+
+        try {
+            $client = new PullPayment($this->host, $this->apiKey);
+            var_dump($client->markPayoutAsPaid(
+                                $this->storeId, 
+                                $pullPaymentId));
+        } catch (\Throwable $e) {
+            echo "Error: " . $e->getMessage();
+        }
+    }
+
+    public function getPayouts()
+    {
+        $pullPaymentId = '';
+        $includeCancelled = TRUE;
+
+        try {
+            $client = new PullPayment($this->host, $this->apiKey);
+            var_dump($client->markPayoutAsPaid(
+                                $pullPaymentId,
+                                $includeCancelled));
+        } catch (\Throwable $e) {
+            echo "Error: " . $e->getMessage();
+        }
+    }
+
+    public function createPayout()
+    {
+        $pullPaymentId = '';
+        $destination = '';
+        $amount = PreciseNumber::parseString('0.000001');
+        $paymentMethod = '';
+
+        try {
+            $client = new PullPayment($this->host, $this->apiKey);
+            var_dump($client->markPayoutAsPaid(
+                                $pullPaymentId,
+                                $destination,
+                                $amount,
+                                $paymentMethod));
+        } catch (\Throwable $e) {
+            echo "Error: " . $e->getMessage();
+        }
+    }
+
+    public function getPayout()
+    {
+        $pullPaymentId = '';
+        $payoutId = '';
+
+        try {
+            $client = new PullPayment($this->host, $this->apiKey);
+            var_dump($client->markPayoutAsPaid(
+                                $pullPaymentId,
+                                $payoutId));
+        } catch (\Throwable $e) {
+            echo "Error: " . $e->getMessage();
+        }
+    }
 }
 
 $pp = new PullPayments();
@@ -110,6 +173,9 @@ $pp = new PullPayments();
 //$pp->archivePullPayment();
 //$pp->cancelPayout();
 //$pp->markPayoutAsPaid();
-
+//$pp->getPullPayment()
+//$pp->getPayouts()
+//$pp->createPayout()
+//$pp->getPayout()
 
 
