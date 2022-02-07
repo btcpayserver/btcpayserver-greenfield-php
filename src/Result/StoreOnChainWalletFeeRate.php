@@ -4,6 +4,6 @@ declare(strict_types=1);
 
 namespace BTCPayServer\Result;
 
-class StoreWalletFeeRate extends AbstractResult
+class StoreOnChainWalletFeeRate extends AbstractResult
 {
 }
