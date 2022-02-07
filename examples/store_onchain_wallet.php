@@ -13,9 +13,9 @@ class StoreOnChainWallets {
 
     public function __construct()
     {   
-        $this->apiKey = '';
-        $this->host = '';
-        $this->storeId = '';
+        $this->apiKey = '144dab289e84ffd653129fdc27ce89bafbe5a5d4';
+        $this->host = 'https://btcpay0.voltageapp.io';
+        $this->storeId = 'Dcwmco87c9HETqxiTqEEvjmMtVqnxJhbbzqmnQghpJnP';
     }
 
     public function getStoreOnChainWalletOverview()
@@ -119,7 +119,7 @@ class StoreOnChainWallets {
     public function getStoreOnChainWalletTransaction()
     {
         $cryptoCode = 'BTC';
-        $transactionId = '';
+        $transactionId = 'c7f4571bd21c119ca1f151ccfc82c30c6d849e157edb073f5cd6af52fd379886';
 
         try {
             $client = new StoreOnChainWallet($this->host, $this->apiKey);
@@ -147,13 +147,10 @@ class StoreOnChainWallets {
     }
 }
 
-$pp = new StoreOnChainWallets();
-//$pp->createPullPayment();
-//$pp->getStorePullPayments();
-//$pp->archivePullPayment();
-//$pp->cancelPayout();
-//$pp->markPayoutAsPaid();
-//$pp->getPullPayment();
-//$pp->getPayouts();
-//$pp->createPayout();
-//$pp->getPayout();
+$store = new StoreOnChainWallets();
+//$store->getStoreOnChainWalletAddress();
+//$store->getStoreOnChainWalletFeeRate();
+//$store->getStoreOnChainWalletOverview();
+//$store->getStoreOnChainWalletTransactions();
+//$store->getStoreOnChainWalletTransaction();
+//$store->getStoreOnChainWalletUTXOS();

@@ -11,7 +11,7 @@ class StoreOnChainWallet extends AbstractClient
         string $cryptoCode
     ): \BTCPayServer\Result\StoreOnChainWallet {
         $url = $this->getApiUrl() . 'stores/' .
-                    urlencode($storeId) . '/payment-methods' . '/OnChain' . 
+                    urlencode($storeId) . '/payment-methods' . '/OnChain' . '/' . 
                     urlencode($cryptoCode) . '/wallet';
 
         $headers = $this->getRequestHeaders();
@@ -33,7 +33,7 @@ class StoreOnChainWallet extends AbstractClient
         string $cryptoCode
     ): \BTCPayServer\Result\StoreOnChainWalletFeeRate {
         $url = $this->getApiUrl() . 'stores/' .
-                    urlencode($storeId) . '/payment-methods' . '/OnChain' . 
+                    urlencode($storeId) . '/payment-methods' . '/OnChain' . '/' . 
                     urlencode($cryptoCode) . '/wallet' . '/feeRate';
 
         $headers = $this->getRequestHeaders();
@@ -55,7 +55,7 @@ class StoreOnChainWallet extends AbstractClient
         string $cryptoCode
     ): \BTCPayServer\Result\StoreOnChainWalletAddress {
         $url = $this->getApiUrl() . 'stores/' .
-                    urlencode($storeId) . '/payment-methods' . '/OnChain' . 
+                    urlencode($storeId) . '/payment-methods' . '/OnChain' . '/' . 
                     urlencode($cryptoCode) . '/wallet' . '/address';
 
         $headers = $this->getRequestHeaders();
@@ -77,7 +77,7 @@ class StoreOnChainWallet extends AbstractClient
         string $cryptoCode
     ): bool {
         $url = $this->getApiUrl() . 'stores/' .
-                    urlencode($storeId) . '/payment-methods' . '/OnChain' . 
+                    urlencode($storeId) . '/payment-methods' . '/OnChain' . '/' . 
                     urlencode($cryptoCode) . '/wallet' . '/address';
 
         $headers = $this->getRequestHeaders();
@@ -97,7 +97,7 @@ class StoreOnChainWallet extends AbstractClient
         string $cryptoCode
     ): \BTCPayServer\Result\StoreOnChainWalletTransactionList {
         $url = $this->getApiUrl() . 'stores/' .
-                    urlencode($storeId) . '/payment-methods' . '/OnChain' . 
+                    urlencode($storeId) . '/payment-methods' . '/OnChain' . '/' . 
                     urlencode($cryptoCode) . '/wallet' . '/transactions';
 
         $headers = $this->getRequestHeaders();
@@ -119,14 +119,14 @@ class StoreOnChainWallet extends AbstractClient
         string $cryptoCode,
         array $destinations,
         ?float $feeRate,
-        bool $proceedWithPayjoin = true,
-        bool $proceedWithBroadcast = true,
-        bool $noChange = false,
-        bool $rbf = null,
-        ?array $selectedInputs
+        ?bool $proceedWithPayjoin = true,
+        ?bool $proceedWithBroadcast = true,
+        ?bool $noChange = false,
+        ?bool $rbf = null,
+        ?array $selectedInputs = null
     ): \BTCPayServer\Result\StoreOnChainWalletTransaction {
         $url = $this->getApiUrl() . 'stores/' .
-                    urlencode($storeId) . '/payment-methods' . '/OnChain' . 
+                    urlencode($storeId) . '/payment-methods' . '/OnChain' . '/' . 
                     urlencode($cryptoCode) . '/wallet' . '/transactions';
 
         $headers = $this->getRequestHeaders();
@@ -162,8 +162,8 @@ class StoreOnChainWallet extends AbstractClient
         string $transactionId
     ): \BTCPayServer\Result\StoreOnChainWalletTransaction {
         $url = $this->getApiUrl() . 'stores/' .
-                    urlencode($storeId) . '/payment-methods' . '/OnChain' . 
-                    urlencode($cryptoCode) . '/wallet' . '/transactions' . 
+                    urlencode($storeId) . '/payment-methods' . '/OnChain' . '/' . 
+                    urlencode($cryptoCode) . '/wallet' . '/transactions' . '/' . 
                     urlencode($transactionId);
 
         $headers = $this->getRequestHeaders();
@@ -185,7 +185,7 @@ class StoreOnChainWallet extends AbstractClient
         string $cryptoCode
     ): \BTCPayServer\Result\StoreOnChainWalletUTXOList {
         $url = $this->getApiUrl() . 'stores/' .
-                    urlencode($storeId) . '/payment-methods' . '/OnChain' . 
+                    urlencode($storeId) . '/payment-methods' . '/OnChain' . '/' . 
                     urlencode($cryptoCode) . '/wallet' . '/utxos';
 
         $headers = $this->getRequestHeaders();
