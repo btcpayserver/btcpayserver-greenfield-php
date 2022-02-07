@@ -177,5 +177,3 @@ $pp = new PullPayments();
 //$pp->getPayouts();
 //$pp->createPayout();
 //$pp->getPayout();
-
-
