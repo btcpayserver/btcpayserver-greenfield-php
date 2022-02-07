@@ -102,7 +102,7 @@ class PullPayment extends AbstractClient
         string $storeId,
         string $payoutId,
         int $revision,
-        mixed $rateRule
+        ?string $rateRule
     ): \BTCPayServer\Result\PullPaymentPayout {
         $url = $this->getApiUrl() . 'stores/' .
                     urlencode($storeId) . '/' . 'payouts/' .

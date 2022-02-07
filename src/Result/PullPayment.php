@@ -6,5 +6,4 @@ namespace BTCPayServer\Result;
 
 class PullPayment extends AbstractResult
 {
-
 }
