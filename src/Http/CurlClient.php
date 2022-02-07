@@ -11,16 +11,30 @@ use BTCPayServer\Exception\ConnectException;
  */
 class CurlClient implements ClientInterface
 {
+    protected $curlOptions = [];
+
     /**
-     * Override this method if you need to set any special parameters like disable CURLOPT_SSL_VERIFYHOST and CURLOPT_SSL_VERIFYPEER.
+     * Inits curl session adding any additional curl options set.
      * @return false|resource
      */
     protected function initCurl()
     {
         // We cannot set a return type here as it is "resource" for PHP < 8 and CurlHandle for PHP >= 8.
-        return curl_init();
+        $ch = curl_init();
+        if ($ch && count($this->curlOptions)) {
+            curl_setopt_array($ch, $this->curlOptions);
+        }
+        return $ch;
     }
 
+    /**
+     * Use this method if you need to set any special parameters like disable CURLOPT_SSL_VERIFYHOST and CURLOPT_SSL_VERIFYPEER.
+     * @return void
+     */
+    public function setCurlOptions(array $options)
+    {
+        $this->curlOptions = $options;
+    }
 
     /**
      * @inheritdoc
