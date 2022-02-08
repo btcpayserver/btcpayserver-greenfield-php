@@ -94,7 +94,8 @@ class StoreOnChainWallet extends AbstractClient
 
     public function getStoreOnChainWalletTransactions(
         string $storeId,
-        string $cryptoCode
+        string $cryptoCode,
+
     ): \BTCPayServer\Result\StoreOnChainWalletTransactionList {
         $url = $this->getApiUrl() . 'stores/' .
                     urlencode($storeId) . '/payment-methods' . '/OnChain' . '/' . 
