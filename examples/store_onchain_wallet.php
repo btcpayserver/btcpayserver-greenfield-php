@@ -3,16 +3,15 @@
 require __DIR__ . '/../vendor/autoload.php';
 
 use BTCPayServer\Client\StoreOnChainWallet;
-use BTCPayServer\Util\PreciseNumber;
 
-class StoreOnChainWallets {
-
+class StoreOnChainWallets
+{
     public $apiKey;
     public $host;
     public $storeId;
 
     public function __construct()
-    {   
+    {
         $this->apiKey = '';
         $this->host = '';
         $this->storeId = '';
@@ -25,8 +24,9 @@ class StoreOnChainWallets {
         try {
             $client = new StoreOnChainWallet($this->host, $this->apiKey);
             var_dump($client->getStoreOnChainWalletOverview(
-                                $this->storeId, 
-                                $cryptoCode));
+                $this->storeId,
+                $cryptoCode
+            ));
         } catch (\Throwable $e) {
             echo "Error: " . $e->getMessage();
         }
@@ -35,12 +35,16 @@ class StoreOnChainWallets {
     public function getStoreOnChainWalletFeeRate()
     {
         $cryptoCode = 'BTC';
+        $metaData = [];
+        $metaData['blockTarget'] = 2;
 
         try {
             $client = new StoreOnChainWallet($this->host, $this->apiKey);
             var_dump($client->getStoreOnChainWalletFeeRate(
-                                $this->storeId, 
-                                $cryptoCode));
+                $this->storeId,
+                $cryptoCode,
+                $metaData
+            ));
         } catch (\Throwable $e) {
             echo "Error: " . $e->getMessage();
         }
@@ -49,12 +53,16 @@ class StoreOnChainWallets {
     public function getStoreOnChainWalletAddress()
     {
         $cryptoCode = 'BTC';
+        $metaData = [];
+        $metaData['forceGenerate'] = false;
 
         try {
             $client = new StoreOnChainWallet($this->host, $this->apiKey);
             var_dump($client->getStoreOnChainWalletAddress(
-                                $this->storeId, 
-                                $cryptoCode));
+                $this->storeId,
+                $cryptoCode,
+                $metaData
+            ));
         } catch (\Throwable $e) {
             echo "Error: " . $e->getMessage();
         }
@@ -67,8 +75,9 @@ class StoreOnChainWallets {
         try {
             $client = new StoreOnChainWallet($this->host, $this->apiKey);
             var_dump($client->unReserveLastStoreOnChainWalletAddress(
-                                $this->storeId, 
-                                $cryptoCode));
+                $this->storeId,
+                $cryptoCode
+            ));
         } catch (\Throwable $e) {
             echo "Error: " . $e->getMessage();
         }
@@ -77,12 +86,19 @@ class StoreOnChainWallets {
     public function getStoreOnChainWalletTransactions()
     {
         $cryptoCode = 'BTC';
+        $metaData = [];
+        $statusFilter = ['Unconfirmed','Confirmed','Replaced'];
+        $metaData['statusFilter'] = $statusFilter;
+        $metaData['skip'] = 0;
+        $metaData['limit'] = 100;
 
         try {
             $client = new StoreOnChainWallet($this->host, $this->apiKey);
             var_dump($client->getStoreOnChainWalletTransactions(
-                                $this->storeId, 
-                                $cryptoCode));
+                $this->storeId,
+                $cryptoCode,
+                $metaData
+            ));
         } catch (\Throwable $e) {
             echo "Error: " . $e->getMessage();
         }
@@ -102,15 +118,16 @@ class StoreOnChainWallets {
         try {
             $client = new StoreOnChainWallet($this->host, $this->apiKey);
             var_dump($client->createStoreOnChainWalletTransaction(
-                                $this->storeId, 
-                                $cryptoCode,
-                                $destinations,
-                                $feeRate,
-                                $proceedWithPayjoin,
-                                $proceedWithBroadcast,
-                                $noChange,
-                                $rbf,
-                                $selectedInupts));
+                $this->storeId,
+                $cryptoCode,
+                $destinations,
+                $feeRate,
+                $proceedWithPayjoin,
+                $proceedWithBroadcast,
+                $noChange,
+                $rbf,
+                $selectedInupts
+            ));
         } catch (\Throwable $e) {
             echo "Error: " . $e->getMessage();
         }
@@ -124,9 +141,10 @@ class StoreOnChainWallets {
         try {
             $client = new StoreOnChainWallet($this->host, $this->apiKey);
             var_dump($client->getStoreOnChainWalletTransaction(
-                                $this->storeId, 
-                                $cryptoCode,
-                                $transactionId));
+                $this->storeId,
+                $cryptoCode,
+                $transactionId
+            ));
         } catch (\Throwable $e) {
             echo "Error: " . $e->getMessage();
         }
@@ -139,8 +157,9 @@ class StoreOnChainWallets {
         try {
             $client = new StoreOnChainWallet($this->host, $this->apiKey);
             var_dump($client->getStoreOnChainWalletUTXOS(
-                                $this->storeId, 
-                                $cryptoCode));
+                $this->storeId,
+                $cryptoCode
+            ));
         } catch (\Throwable $e) {
             echo "Error: " . $e->getMessage();
         }
@@ -151,6 +170,6 @@ $store = new StoreOnChainWallets();
 //$store->getStoreOnChainWalletAddress();
 //$store->getStoreOnChainWalletFeeRate();
 //$store->getStoreOnChainWalletOverview();
-$store->getStoreOnChainWalletTransactions();
+//$store->getStoreOnChainWalletTransactions();
 //$store->getStoreOnChainWalletTransaction();
 //$store->getStoreOnChainWalletUTXOS();
