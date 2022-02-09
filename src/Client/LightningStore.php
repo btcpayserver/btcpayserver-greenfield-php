@@ -6,8 +6,8 @@ namespace BTCPayServer\Client;
 
 class LightningStore extends AbstractClient
 {
-    public function getNodeInformation(string $cryptoCode, string $storeId): \BTCPayServer\Result\LightningNode {
-        
+    public function getNodeInformation(string $cryptoCode, string $storeId): \BTCPayServer\Result\LightningNode
+    {
         $url = $this->getApiUrl() . 'stores/' .
                     urlencode($storeId) . '/lightning/' .
                     urlencode($cryptoCode) . '/info';
@@ -29,8 +29,9 @@ class LightningStore extends AbstractClient
     public function connectToLightningNode(
         string $cryptoCode,
         string $storeId,
-        ?string $nodeURI): bool {
-        
+        ?string $nodeURI
+    ): bool
+    {
         $url = $this->getApiUrl() . 'stores/' .
                 urlencode($storeId) . '/lightning/' .
                 urlencode($cryptoCode) . '/connect';
@@ -54,8 +55,8 @@ class LightningStore extends AbstractClient
         }
     }
 
-    public function getChannels(string $cryptoCode, string $storeId): \BTCPayServer\Result\LightningChannelList {
-        
+    public function getChannels(string $cryptoCode, string $storeId): \BTCPayServer\Result\LightningChannelList
+    {
         $url = $this->getApiUrl() . 'stores/' .
                     urlencode($storeId) . '/lightning/' .
                     urlencode($cryptoCode) . '/channels';
@@ -75,12 +76,13 @@ class LightningStore extends AbstractClient
     }
 
     public function openChannel(
-        string $cryptoCode, 
+        string $cryptoCode,
         string $storeId,
         string $nodeURI,
         string $channelAmount,
-        int $feeRate): bool {
-        
+        int $feeRate
+    ): bool
+    {
         $url = $this->getApiUrl() . 'stores/' .
                 urlencode($storeId) . '/lightning/' .
                 urlencode($cryptoCode) . '/channels';
@@ -106,8 +108,8 @@ class LightningStore extends AbstractClient
         }
     }
 
-    public function getDepositAddress(string $cryptoCode, string $storeId): string {
-        
+    public function getDepositAddress(string $cryptoCode, string $storeId): string
+    {
         $url = $this->getApiUrl() . 'stores/' .
                     urlencode($storeId) . '/lightning/' .
                     urlencode($cryptoCode) . '/address';
@@ -125,17 +127,18 @@ class LightningStore extends AbstractClient
     }
 
     public function getInvoice(
-        string $cryptoCode, 
+        string $cryptoCode,
         string $storeId,
-        string $id): \BTCPayServer\Result\Invoice {
-
+        string $id
+    ): \BTCPayServer\Result\Invoice
+    {
         $url = $this->getApiUrl() . 'stores/' .
             urlencode($storeId) . '/lightning/' .
-            urlencode($cryptoCode) . '/invoices/' . 
+            urlencode($cryptoCode) . '/invoices/' .
             urlencode($id);
 
         $headers = $this->getRequestHeaders();
-        $method = 'GET'; 
+        $method = 'GET';
         $response = $this->getHttpClient()->request($method, $url, $headers);
 
         if ($response->getStatus() === 200) {
@@ -148,10 +151,11 @@ class LightningStore extends AbstractClient
     }
 
     public function payLightningInvoice(
-        string $cryptoCode, 
+        string $cryptoCode,
         string $storeId,
-        string $BOLT11): bool {
-
+        string $BOLT11
+    ): bool
+    {
         $url = $this->getApiUrl() . 'stores/' .
                 urlencode($storeId) . '/lightning/' .
                 urlencode($cryptoCode) . '/info';
@@ -176,14 +180,13 @@ class LightningStore extends AbstractClient
     }
 
     public function createLightningInvoice(
-        string $cryptoCode, 
+        string $cryptoCode,
         string $storeId,
         string $amount,
         int $expiry,
         ?string $description = null,
         ?bool $privateRouteHints = false
-        ): \BTCPayServer\Result\Invoice {
-
+    ): \BTCPayServer\Result\Invoice {
         $url = $this->getApiUrl() . 'stores/' .
                     urlencode($storeId) . '/lightning/' .
                     urlencode($cryptoCode) . '/invoices';

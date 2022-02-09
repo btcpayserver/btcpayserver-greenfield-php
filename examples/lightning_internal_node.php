@@ -4,14 +4,14 @@ require __DIR__ . '/../vendor/autoload.php';
 
 use BTCPayServer\Client\LightningInternalNode;
 
-class LightningInternalNodes {
-
+class LightningInternalNodes
+{
     public $apiKey;
     public $host;
     public $cryptoCode;
 
     public function __construct()
-    {   
+    {
         $this->apiKey = '';
         $this->host = '';
         $this->cryptoCode = 'BTC';
@@ -22,7 +22,8 @@ class LightningInternalNodes {
         try {
             $client = new LightningInternalNode($this->host, $this->apiKey);
             var_dump($client->getNodeInformation(
-                                $this->cryptoCode));
+                $this->cryptoCode
+            ));
         } catch (\Throwable $e) {
             echo "Error: " . $e->getMessage();
         }
@@ -35,8 +36,9 @@ class LightningInternalNodes {
         try {
             $client = new LightningInternalNode($this->host, $this->apiKey);
             var_dump($client->connectToLightningNode(
-                                $this->cryptoCode,
-                                $nodeURI));
+                $this->cryptoCode,
+                $nodeURI
+            ));
         } catch (\Throwable $e) {
             echo "Error: " . $e->getMessage();
         }
@@ -47,7 +49,8 @@ class LightningInternalNodes {
         try {
             $client = new LightningInternalNode($this->host, $this->apiKey);
             var_dump($client->getChannels(
-                                $this->cryptoCode));
+                $this->cryptoCode
+            ));
         } catch (\Throwable $e) {
             echo "Error: " . $e->getMessage();
         }
@@ -62,10 +65,11 @@ class LightningInternalNodes {
         try {
             $client = new LightningInternalNode($this->host, $this->apiKey);
             var_dump($client->openChannel(
-                                $this->cryptoCode,
-                                $nodeURI,
-                                $channelAmount,
-                                $feeRate));
+                $this->cryptoCode,
+                $nodeURI,
+                $channelAmount,
+                $feeRate
+            ));
         } catch (\Throwable $e) {
             echo "Error: " . $e->getMessage();
         }
@@ -76,7 +80,8 @@ class LightningInternalNodes {
         try {
             $client = new LightningInternalNode($this->host, $this->apiKey);
             var_dump($client->getDepositAddress(
-                                $this->cryptoCode));
+                $this->cryptoCode
+            ));
         } catch (\Throwable $e) {
             echo "Error: " . $e->getMessage();
         }
@@ -89,8 +94,9 @@ class LightningInternalNodes {
         try {
             $client = new LightningInternalNode($this->host, $this->apiKey);
             var_dump($client->getInvoice(
-                                $this->cryptoCode,
-                                $id));
+                $this->cryptoCode,
+                $id
+            ));
         } catch (\Throwable $e) {
             echo "Error: " . $e->getMessage();
         }
@@ -103,8 +109,9 @@ class LightningInternalNodes {
         try {
             $client = new LightningInternalNode($this->host, $this->apiKey);
             var_dump($client->payLightningInvoice(
-                                $this->cryptoCode,
-                                $BOLT11));
+                $this->cryptoCode,
+                $BOLT11
+            ));
         } catch (\Throwable $e) {
             echo "Error: " . $e->getMessage();
         }
@@ -120,11 +127,12 @@ class LightningInternalNodes {
         try {
             $client = new LightningInternalNode($this->host, $this->apiKey);
             var_dump($client->createLightningInvoice(
-                                $this->cryptoCode,
-                                $amount,
-                                $expiry,
-                                $description,
-                                $privateRouteHints));
+                $this->cryptoCode,
+                $amount,
+                $expiry,
+                $description,
+                $privateRouteHints
+            ));
         } catch (\Throwable $e) {
             echo "Error: " . $e->getMessage();
         }

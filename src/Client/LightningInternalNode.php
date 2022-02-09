@@ -6,7 +6,8 @@ namespace BTCPayServer\Client;
 
 class LightningInternalNode extends AbstractClient
 {
-    public function getNodeInformation(string $cryptoCode): \BTCPayServer\Result\LightningNode {
+    public function getNodeInformation(string $cryptoCode): \BTCPayServer\Result\LightningNode
+    {
         $url = $this->getApiUrl() . 'server/lightning/' .
                     urlencode($cryptoCode) . '/info';
 
@@ -24,7 +25,8 @@ class LightningInternalNode extends AbstractClient
         }
     }
 
-    public function connectToLightningNode(string $cryptoCode, ?string $nodeURI): bool {
+    public function connectToLightningNode(string $cryptoCode, ?string $nodeURI): bool
+    {
         $url = $this->getApiUrl() . 'server/lightning' .
                     urlencode($cryptoCode) . '/connect';
 
@@ -47,7 +49,8 @@ class LightningInternalNode extends AbstractClient
         }
     }
 
-    public function getChannels(string $cryptoCode): \BTCPayServer\Result\LightningChannelList {
+    public function getChannels(string $cryptoCode): \BTCPayServer\Result\LightningChannelList
+    {
         $url = $this->getApiUrl() . 'server/lightning/' .
                     urlencode($cryptoCode) . '/channels';
 
@@ -66,10 +69,12 @@ class LightningInternalNode extends AbstractClient
     }
 
     public function openChannel(
-        string $cryptoCode, 
+        string $cryptoCode,
         string $nodeURI,
         string $channelAmount,
-        int $feeRate): bool {
+        int $feeRate
+    ): bool
+    {
         $url = $this->getApiUrl() . 'server/lightning' .
                     urlencode($cryptoCode) . '/channels';
 
@@ -94,7 +99,8 @@ class LightningInternalNode extends AbstractClient
         }
     }
 
-    public function getDepositAddress(string $cryptoCode): string {
+    public function getDepositAddress(string $cryptoCode): string
+    {
         $url = $this->getApiUrl() . 'server/lightning/' .
                     urlencode($cryptoCode) . '/address';
 
@@ -110,13 +116,14 @@ class LightningInternalNode extends AbstractClient
         }
     }
 
-    public function getInvoice(string $cryptoCode, string $id): \BTCPayServer\Result\Invoice {
+    public function getInvoice(string $cryptoCode, string $id): \BTCPayServer\Result\Invoice
+    {
         $url = $this->getApiUrl() . 'server/lightning/' .
-                    urlencode($cryptoCode) . '/invoices/' . 
+                    urlencode($cryptoCode) . '/invoices/' .
                     urlencode($id);
 
         $headers = $this->getRequestHeaders();
-        $method = 'GET'; 
+        $method = 'GET';
         $response = $this->getHttpClient()->request($method, $url, $headers);
 
         if ($response->getStatus() === 200) {
@@ -128,7 +135,8 @@ class LightningInternalNode extends AbstractClient
         }
     }
 
-    public function payLightningInvoice(string $cryptoCode, string $BOLT11): bool {
+    public function payLightningInvoice(string $cryptoCode, string $BOLT11): bool
+    {
         $url = $this->getApiUrl() . 'server/lightning' .
                     urlencode($cryptoCode) . '/invoices/pay';
 
@@ -152,12 +160,12 @@ class LightningInternalNode extends AbstractClient
     }
 
     public function createLightningInvoice(
-        string $cryptoCode, 
+        string $cryptoCode,
         string $amount,
         int $expiry,
         ?string $description = null,
         ?bool $privateRouteHints = false
-        ): \BTCPayServer\Result\Invoice {
+    ): \BTCPayServer\Result\Invoice {
         $url = $this->getApiUrl() . 'server/lightning' .
                     urlencode($cryptoCode) . '/invoices';
 
