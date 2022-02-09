@@ -31,31 +31,21 @@ class StoreOnChainWallet extends AbstractClient
     public function getStoreOnChainWalletFeeRate(
         string $storeId,
         string $cryptoCode,
-        ?array $metaData
+        ?int $blockTarget
     ): \BTCPayServer\Result\StoreOnChainWalletFeeRate {
         $url = $this->getApiUrl() . 'stores/' .
                     urlencode($storeId) . '/payment-methods' . '/OnChain' . '/' .
                     urlencode($cryptoCode) . '/wallet' . '/feeRate';
+        
+        if (isset($blockTarget))
+        {
+            $url .= '/?blockTarget=' . $blockTarget;
+        }
 
         $headers = $this->getRequestHeaders();
         $method = 'GET';
 
-        // Prepare metadata.
-        $metaDataMerged = [];
-
-        // Set metaData if any.
-        if ($metaData) {
-            $metaDataMerged = $metaData;
-        }
-
-        $body = json_encode(
-            [
-                'metadata' => !empty($metaDataMerged) ? $metaDataMerged : null,
-            ],
-            JSON_THROW_ON_ERROR
-        );
-
-        $response = $this->getHttpClient()->request($method, $url, $headers, $body);
+        $response = $this->getHttpClient()->request($method, $url, $headers);
 
         if ($response->getStatus() === 200) {
             return new \BTCPayServer\Result\StoreOnChainWalletFeeRate(
@@ -69,22 +59,19 @@ class StoreOnChainWallet extends AbstractClient
     public function getStoreOnChainWalletAddress(
         string $storeId,
         string $cryptoCode,
-        ?array $metaData
+        ?string $forceGenerate
     ): \BTCPayServer\Result\StoreOnChainWalletAddress {
         $url = $this->getApiUrl() . 'stores/' .
                     urlencode($storeId) . '/payment-methods' . '/OnChain' . '/' .
                     urlencode($cryptoCode) . '/wallet' . '/address';
+        
+        if (isset($forceGenerate))
+        {
+            $url .= '/?forceGenerate=' . $forceGenerate;
+        }
 
         $headers = $this->getRequestHeaders();
         $method = 'GET';
-
-        // Prepare metadata.
-        $metaDataMerged = [];
-
-        // Set metaData if any.
-        if ($metaData) {
-            $metaDataMerged = $metaData;
-        }
 
         $body = json_encode(
             [
@@ -127,31 +114,41 @@ class StoreOnChainWallet extends AbstractClient
     public function getStoreOnChainWalletTransactions(
         string $storeId,
         string $cryptoCode,
-        ?array $metaData
+        ?array $statusFilters,
+        ?int $skip,
+        ?int $limit
     ): \BTCPayServer\Result\StoreOnChainWalletTransactionList {
         $url = $this->getApiUrl() . 'stores/' .
                     urlencode($storeId) . '/payment-methods' . '/OnChain' . '/' .
-                    urlencode($cryptoCode) . '/wallet' . '/transactions';
+                    urlencode($cryptoCode) . '/wallet' . '/transactions/?';
+        
+        //add each status filter to the query if it is set
+        if (isset($statusFilters))
+        {
+            foreach($statusFilters as $statusFilter)
+            {
+                $url .= 'statusFilter=' . $statusFilter . '&';
+            }
+        }
+
+        //add a skip value if set
+        if (isset($skip))
+        {
+            //check url to see if an & is required
+            $url .= (substr($url, -1) == '&') ? 'skip=' . $skip : '&skip=' . $skip;
+        }
+
+        //add a limit value if set
+        if (isset($limit))
+        {
+            //check url to see if an & is required
+            $url .= (substr($url, -1) == '&') ? 'limit=' . $limit : '&limit=' . $limit;
+        }
 
         $headers = $this->getRequestHeaders();
         $method = 'GET';
 
-        // Prepare metadata.
-        $metaDataMerged = [];
-
-        // Set metaData if any.
-        if ($metaData) {
-            $metaDataMerged = $metaData;
-        }
-
-        $body = json_encode(
-            [
-                'metadata' => !empty($metaDataMerged) ? $metaDataMerged : null,
-            ],
-            JSON_THROW_ON_ERROR
-        );
-
-        $response = $this->getHttpClient()->request($method, $url, $headers, $body);
+        $response = $this->getHttpClient()->request($method, $url, $headers);
 
         if ($response->getStatus() === 200) {
             return new \BTCPayServer\Result\StoreOnChainWalletTransactionList(
