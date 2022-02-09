@@ -36,9 +36,8 @@ class StoreOnChainWallet extends AbstractClient
         $url = $this->getApiUrl() . 'stores/' .
                     urlencode($storeId) . '/payment-methods' . '/OnChain' . '/' .
                     urlencode($cryptoCode) . '/wallet' . '/feeRate';
-        
-        if (isset($blockTarget))
-        {
+
+        if (isset($blockTarget)) {
             $url .= '/?blockTarget=' . $blockTarget;
         }
 
@@ -64,9 +63,8 @@ class StoreOnChainWallet extends AbstractClient
         $url = $this->getApiUrl() . 'stores/' .
                     urlencode($storeId) . '/payment-methods' . '/OnChain' . '/' .
                     urlencode($cryptoCode) . '/wallet' . '/address';
-        
-        if (isset($forceGenerate))
-        {
+
+        if (isset($forceGenerate)) {
             $url .= '/?forceGenerate=' . $forceGenerate;
         }
 
@@ -121,26 +119,22 @@ class StoreOnChainWallet extends AbstractClient
         $url = $this->getApiUrl() . 'stores/' .
                     urlencode($storeId) . '/payment-methods' . '/OnChain' . '/' .
                     urlencode($cryptoCode) . '/wallet' . '/transactions/?';
-        
+
         //add each status filter to the query if it is set
-        if (isset($statusFilters))
-        {
-            foreach($statusFilters as $statusFilter)
-            {
+        if (isset($statusFilters)) {
+            foreach ($statusFilters as $statusFilter) {
                 $url .= 'statusFilter=' . $statusFilter . '&';
             }
         }
 
         //add a skip value if set
-        if (isset($skip))
-        {
+        if (isset($skip)) {
             //check url to see if an & is required
             $url .= (substr($url, -1) == '&') ? 'skip=' . $skip : '&skip=' . $skip;
         }
 
         //add a limit value if set
-        if (isset($limit))
-        {
+        if (isset($limit)) {
             //check url to see if an & is required
             $url .= (substr($url, -1) == '&') ? 'limit=' . $limit : '&limit=' . $limit;
         }
