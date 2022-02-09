@@ -30,8 +30,7 @@ class LightningStore extends AbstractClient
         string $cryptoCode,
         string $storeId,
         ?string $nodeURI
-    ): bool
-    {
+    ): bool {
         $url = $this->getApiUrl() . 'stores/' .
                 urlencode($storeId) . '/lightning/' .
                 urlencode($cryptoCode) . '/connect';
@@ -81,8 +80,7 @@ class LightningStore extends AbstractClient
         string $nodeURI,
         string $channelAmount,
         int $feeRate
-    ): bool
-    {
+    ): bool {
         $url = $this->getApiUrl() . 'stores/' .
                 urlencode($storeId) . '/lightning/' .
                 urlencode($cryptoCode) . '/channels';
@@ -130,8 +128,7 @@ class LightningStore extends AbstractClient
         string $cryptoCode,
         string $storeId,
         string $id
-    ): \BTCPayServer\Result\Invoice
-    {
+    ): \BTCPayServer\Result\Invoice {
         $url = $this->getApiUrl() . 'stores/' .
             urlencode($storeId) . '/lightning/' .
             urlencode($cryptoCode) . '/invoices/' .
@@ -154,8 +151,7 @@ class LightningStore extends AbstractClient
         string $cryptoCode,
         string $storeId,
         string $BOLT11
-    ): bool
-    {
+    ): bool {
         $url = $this->getApiUrl() . 'stores/' .
                 urlencode($storeId) . '/lightning/' .
                 urlencode($cryptoCode) . '/info';
