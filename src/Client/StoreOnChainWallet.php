@@ -71,14 +71,7 @@ class StoreOnChainWallet extends AbstractClient
         $headers = $this->getRequestHeaders();
         $method = 'GET';
 
-        $body = json_encode(
-            [
-                'metadata' => !empty($metaDataMerged) ? $metaDataMerged : null,
-            ],
-            JSON_THROW_ON_ERROR
-        );
-
-        $response = $this->getHttpClient()->request($method, $url, $headers, $body);
+        $response = $this->getHttpClient()->request($method, $url, $headers);
 
         if ($response->getStatus() === 200) {
             return new \BTCPayServer\Result\StoreOnChainWalletAddress(
