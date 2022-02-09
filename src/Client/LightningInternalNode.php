@@ -73,8 +73,7 @@ class LightningInternalNode extends AbstractClient
         string $nodeURI,
         string $channelAmount,
         int $feeRate
-    ): bool
-    {
+    ): bool {
         $url = $this->getApiUrl() . 'server/lightning' .
                     urlencode($cryptoCode) . '/channels';
 
