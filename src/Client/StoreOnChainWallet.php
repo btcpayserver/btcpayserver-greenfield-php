@@ -31,7 +31,7 @@ class StoreOnChainWallet extends AbstractClient
     public function getStoreOnChainWalletFeeRate(
         string $storeId,
         string $cryptoCode,
-        ?int $blockTarget
+        ?int $blockTarget = null
     ): \BTCPayServer\Result\StoreOnChainWalletFeeRate {
         $url = $this->getApiUrl() . 'stores/' .
                     urlencode($storeId) . '/payment-methods' . '/OnChain' . '/' .
@@ -58,7 +58,7 @@ class StoreOnChainWallet extends AbstractClient
     public function getStoreOnChainWalletAddress(
         string $storeId,
         string $cryptoCode,
-        ?string $forceGenerate
+        ?string $forceGenerate = 'false'
     ): \BTCPayServer\Result\StoreOnChainWalletAddress {
         $url = $this->getApiUrl() . 'stores/' .
                     urlencode($storeId) . '/payment-methods' . '/OnChain' . '/' .
@@ -105,9 +105,9 @@ class StoreOnChainWallet extends AbstractClient
     public function getStoreOnChainWalletTransactions(
         string $storeId,
         string $cryptoCode,
-        ?array $statusFilters,
-        ?int $skip,
-        ?int $limit
+        ?array $statusFilters = null,
+        ?int $skip = null,
+        ?int $limit = null
     ): \BTCPayServer\Result\StoreOnChainWalletTransactionList {
         $url = $this->getApiUrl() . 'stores/' .
                     urlencode($storeId) . '/payment-methods' . '/OnChain' . '/' .

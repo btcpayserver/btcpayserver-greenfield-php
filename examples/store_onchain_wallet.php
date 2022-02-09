@@ -84,9 +84,8 @@ class StoreOnChainWallets
     public function getStoreOnChainWalletTransactions()
     {
         $cryptoCode = 'BTC';
-        $metaData = [];
         $statusFilter = ['Unconfirmed','Confirmed','Replaced'];
-        $skip = 1;
+        $skip = 0;
         $limit = 100;
 
         try {
