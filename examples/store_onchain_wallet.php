@@ -35,15 +35,14 @@ class StoreOnChainWallets
     public function getStoreOnChainWalletFeeRate()
     {
         $cryptoCode = 'BTC';
-        $metaData = [];
-        $metaData['blockTarget'] = 2;
+        $blockTarget = 2;
 
         try {
             $client = new StoreOnChainWallet($this->host, $this->apiKey);
             var_dump($client->getStoreOnChainWalletFeeRate(
                 $this->storeId,
                 $cryptoCode,
-                $metaData
+                $blockTarget
             ));
         } catch (\Throwable $e) {
             echo "Error: " . $e->getMessage();
@@ -53,15 +52,14 @@ class StoreOnChainWallets
     public function getStoreOnChainWalletAddress()
     {
         $cryptoCode = 'BTC';
-        $metaData = [];
-        $metaData['forceGenerate'] = false;
+        $forceGenerate = 'true';
 
         try {
             $client = new StoreOnChainWallet($this->host, $this->apiKey);
             var_dump($client->getStoreOnChainWalletAddress(
                 $this->storeId,
                 $cryptoCode,
-                $metaData
+                $forceGenerate
             ));
         } catch (\Throwable $e) {
             echo "Error: " . $e->getMessage();
@@ -88,16 +86,17 @@ class StoreOnChainWallets
         $cryptoCode = 'BTC';
         $metaData = [];
         $statusFilter = ['Unconfirmed','Confirmed','Replaced'];
-        $metaData['statusFilter'] = $statusFilter;
-        $metaData['skip'] = 0;
-        $metaData['limit'] = 100;
+        $skip = 1;
+        $limit = 100;
 
         try {
             $client = new StoreOnChainWallet($this->host, $this->apiKey);
             var_dump($client->getStoreOnChainWalletTransactions(
                 $this->storeId,
                 $cryptoCode,
-                $metaData
+                $statusFilter,
+                $skip,
+                $limit
             ));
         } catch (\Throwable $e) {
             echo "Error: " . $e->getMessage();
@@ -170,6 +169,6 @@ $store = new StoreOnChainWallets();
 //$store->getStoreOnChainWalletAddress();
 //$store->getStoreOnChainWalletFeeRate();
 //$store->getStoreOnChainWalletOverview();
-//$store->getStoreOnChainWalletTransactions();
+$store->getStoreOnChainWalletTransactions();
 //$store->getStoreOnChainWalletTransaction();
 //$store->getStoreOnChainWalletUTXOS();
