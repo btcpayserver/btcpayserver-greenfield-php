@@ -13,23 +13,13 @@ class Notification extends AbstractClient
     ): \BTCPayServer\Result\NotificationList {
         $url = $this->getApiUrl() . 'users/me/notifications/?';
 
-        //add a seen value if set
-        if (isset($seen)) {
-            //check url to see if an & is required
-            $url .= (substr($url, -1) == '&') ? 'seen=' . $seen : '&seen=' . $seen;
-        }
+        $queryParameters = [
+            'seen' => $seen,
+            'skip' => $skip,
+            'take' => $take
+        ];
 
-        //add a skip value if set
-        if (isset($skip)) {
-            //check url to see if an & is required
-            $url .= (substr($url, -1) == '&') ? 'skip=' . $skip : '&skip=' . $skip;
-        }
-
-        //add a take value if set
-        if (isset($take)) {
-            //check url to see if an & is required
-            $url .= (substr($url, -1) == '&') ? 'take=' . $take : '&take=' . $take;
-        }
+        $url .= http_build_query($queryParameters);
 
         $headers = $this->getRequestHeaders();
         $method = 'GET';
