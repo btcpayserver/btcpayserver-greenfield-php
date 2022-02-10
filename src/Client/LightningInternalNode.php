@@ -157,14 +157,14 @@ class LightningInternalNode extends AbstractClient
         }
     }
 
+    /**
+     * Amount wrapped in a string, represented in a millistatoshi string.
+     * (1000 millisatoshi = 1 satoshi.
+     *
+     * @param string $amount
+     */
     public function createLightningInvoice(
         string $cryptoCode,
-        /**
-         * Amount wrapped in a string, represented in a millistatoshi string.
-         * (1000 millisatoshi = 1 satoshi.
-         *
-         * @var string $amount
-         */
         string $amount,
         int $expiry,
         ?string $description = null,
