@@ -6,7 +6,8 @@ namespace BTCPayServer\Client;
 
 class Miscellaneous extends AbstractClient
 {
-    public function getPermissionsMetadata(): \BTCPayServer\Result\PermissionsMetaData {
+    public function getPermissionsMetadata(): \BTCPayServer\Result\PermissionsMetaData
+    {
         $url = $this->getBaseUrl() . '/misc/permissions';
         $headers = $this->getRequestHeaders();
         $method = 'GET';
@@ -22,7 +23,8 @@ class Miscellaneous extends AbstractClient
         }
     }
 
-    public function getLanguageCodes(): \BTCPayServer\Result\LanguageCodeList {
+    public function getLanguageCodes(): \BTCPayServer\Result\LanguageCodeList
+    {
         $url = $this->getBaseUrl() . '/misc/lang';
         $headers = $this->getRequestHeaders();
         $method = 'GET';
@@ -45,7 +47,7 @@ class Miscellaneous extends AbstractClient
         $url = $this->getBaseUrl() . '/i/' . urlencode($invoiceId);
 
         //set language query parameter if passed
-        if (isset($lang)){
+        if (isset($lang)) {
             $url .= '?lang=' . $lang;
         }
 
