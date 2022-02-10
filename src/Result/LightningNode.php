@@ -18,6 +18,6 @@ class LightningNode extends AbstractResult
     public function getBlockHeight(): int
     {
         $data = $this->getData();
-        return $data['blockheight'];
+        return $data['blockHeight'];
     }
 }
