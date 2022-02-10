@@ -6,4 +6,18 @@ namespace BTCPayServer\Result;
 
 class PermissionsMetaData extends AbstractResult
 {
+    public function getName(): string
+    {
+        $data = $this->getData();
+        return $data['name'];
+    }
+
+    /**
+     * @return array strings
+     */
+    public function getIncluded(): array
+    {
+        $data = $this->getData();
+        return $data['included'];
+    }
 }
