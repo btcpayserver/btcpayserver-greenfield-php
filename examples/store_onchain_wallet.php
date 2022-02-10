@@ -12,9 +12,9 @@ class StoreOnChainWallets
 
     public function __construct()
     {
-        $this->apiKey = '144dab289e84ffd653129fdc27ce89bafbe5a5d4';
-        $this->host = 'https://btcpay0.voltageapp.io';
-        $this->storeId = 'Dcwmco87c9HETqxiTqEEvjmMtVqnxJhbbzqmnQghpJnP';
+        $this->apiKey = '';
+        $this->host = '';
+        $this->storeId = '';
     }
 
     public function getStoreOnChainWalletOverview()
