@@ -13,7 +13,7 @@ class LanguageCodeList extends AbstractListResult
     {
         $languageCodes = [];
         foreach ($this->getData() as $languageCode) {
-            $languageCodes[] = new \BTCPayServer\Result\PullPaymentPayout($languageCode);
+            $languageCodes[] = new \BTCPayServer\Result\LanguageCode($languageCode);
         }
         return $languageCodes;
     }
