@@ -113,23 +113,18 @@ class StoreOnChainWallet extends AbstractClient
                     urlencode($storeId) . '/payment-methods' . '/OnChain' . '/' .
                     urlencode($cryptoCode) . '/wallet' . '/transactions/?';
 
-        //add each status filter to the query if it is set
+        $queryParameters = [
+            'skip' => $skip,
+            'limit' => $limit
+        ];
+
+        $url .= http_build_query($queryParameters);
+
+        // Add each statusFilter to the query if one or more are set.
         if (isset($statusFilters)) {
             foreach ($statusFilters as $statusFilter) {
-                $url .= 'statusFilter=' . $statusFilter . '&';
+                $url .= '&statusFilter=' . $statusFilter;
             }
-        }
-
-        //add a skip value if set
-        if (isset($skip)) {
-            //check url to see if an & is required
-            $url .= (substr($url, -1) == '&') ? 'skip=' . $skip : '&skip=' . $skip;
-        }
-
-        //add a limit value if set
-        if (isset($limit)) {
-            //check url to see if an & is required
-            $url .= (substr($url, -1) == '&') ? 'limit=' . $limit : '&limit=' . $limit;
         }
 
         $headers = $this->getRequestHeaders();
