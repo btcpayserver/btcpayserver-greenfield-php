@@ -17,9 +17,13 @@ class Notifications
 
     public function getNotifications()
     {
+        $seen = 'true';
+        $skip = 2;
+        $take = 5;
+
         try {
             $client = new Notification($this->host, $this->apiKey);
-            var_dump($client->getNotifications());
+            var_dump($client->getNotifications($seen, $skip, $take));
         } catch (\Throwable $e) {
             echo "Error: " . $e->getMessage();
         }
