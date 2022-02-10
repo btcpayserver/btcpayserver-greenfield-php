@@ -8,16 +8,16 @@ use BTCPayServer\Util\PreciseNumber;
 
 class PullPayment extends AbstractResult
 {
+    public function getId(): string
+    {
+        $data = $this->getData();
+        return $data['id'];
+    }
+
     public function getName(): string
     {
         $data = $this->getData();
         return $data['name'];
-    }
-
-    public function getAmount(): PreciseNumber
-    {
-        $data = $this->getData();
-        return PreciseNumber::parseString($data['amount']);
     }
 
     public function getCurrency(): string
@@ -26,10 +26,10 @@ class PullPayment extends AbstractResult
         return $data['currency'];
     }
 
-    public function getBOLT11Expiration(): int
+    public function getAmount(): PreciseNumber
     {
         $data = $this->getData();
-        return $data['BOLT11Expiration'];
+        return PreciseNumber::parseString($data['amount']);
     }
 
     public function getPeriod(): int
@@ -38,23 +38,21 @@ class PullPayment extends AbstractResult
         return $data['period'];
     }
 
-    public function getStartsAt(): int
+    public function getBOLT11Expiration(): int
     {
         $data = $this->getData();
-        return $data['startsAt'];
+        return $data['BOLT11Expiration'];
     }
 
-    public function getExpiresAt(): int
+    public function isArchived(): bool
     {
         $data = $this->getData();
-        return $data['expiresAt'];
+        return $data['archived'];
     }
-    /**
-     * @return StorePaymentMethodCollection
-     */
-    public function getPaymentMethods(): StorePaymentMethodCollection
+
+    public function getViewLink(): string
     {
         $data = $this->getData();
-        return new StorePaymentMethodCollection($data['paymentMethods']);
+        return $data['viewLink'];
     }
 }

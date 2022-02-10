@@ -96,10 +96,10 @@ class Store extends AbstractResult
         return $data['showRecommendedFee'];
     }
 
-    public function getRecommendedBlockTarget(): int
+    public function getRecommendedFeeBlockTarget(): int
     {
         $data = $this->getData();
-        return $data['recommendedBlockTarget'];
+        return $data['recommendedFeeBlockTarget'];
     }
 
     public function getDefaultLang(): string
