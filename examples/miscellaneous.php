@@ -4,14 +4,13 @@ require __DIR__ . '/../vendor/autoload.php';
 
 use BTCPayServer\Client\Miscellaneous;
 
-class Misc {
-
+class Misc
+{
     public $apiKey;
     public $host;
-    public $storeId;
 
     public function __construct()
-    {   
+    {
         $this->apiKey = '';
         $this->host = '';
     }
