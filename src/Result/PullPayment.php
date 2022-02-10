@@ -50,7 +50,7 @@ class PullPayment extends AbstractResult
         return $data['expiresAt'];
     }
     /**
-     * @return array ENUM Strings
+     * @return StorePaymentMethodCollection[]
      */
     public function getPaymentMethods(): StorePaymentMethodCollection
     {
