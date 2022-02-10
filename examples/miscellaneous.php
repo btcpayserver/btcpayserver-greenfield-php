@@ -37,7 +37,7 @@ class Misc
 
     public function getInvoiceCheckout()
     {
-        $invoiceId = 'asdfasdfasdf';
+        $invoiceId = 'invoiceidstring';
         $lang = 'en';
 
         try {
