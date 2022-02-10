@@ -48,16 +48,16 @@ class PullPayments
             $client = new PullPayment($this->host, $this->apiKey);
             var_dump(
                 $client->createPullPayment(
-                $this->storeId,
-                $paymentName,
-                $paymentAmount,
-                $paymentCurrency,
-                $paymentPeriod,
-                $boltExpiration,
-                $startsAt,
-                $expiresAt,
-                $paymentMethods
-            )
+                    $this->storeId,
+                    $paymentName,
+                    $paymentAmount,
+                    $paymentCurrency,
+                    $paymentPeriod,
+                    $boltExpiration,
+                    $startsAt,
+                    $expiresAt,
+                    $paymentMethods
+                )
             );
         } catch (\Throwable $e) {
             echo "Error: " . $e->getMessage();
