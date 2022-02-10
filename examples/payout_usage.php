@@ -5,14 +5,14 @@ require __DIR__ . '/../vendor/autoload.php';
 use BTCPayServer\Client\PullPayment;
 use BTCPayServer\Util\PreciseNumber;
 
-class PullPayments {
-
+class PullPayments
+{
     public $apiKey;
     public $host;
     public $storeId;
 
     public function __construct()
-    {   
+    {
         $this->apiKey = '';
         $this->host = '';
         $this->storeId = '';
@@ -20,41 +20,44 @@ class PullPayments {
 
     public function getStorePullPayments()
     {
-        $includeArchived = TRUE;
+        $includeArchived = true;
 
         try {
             $client = new PullPayment($this->host, $this->apiKey);
             var_dump($client->getStorePullPayments(
-                                $this->storeId, 
-                                $includeArchived));
+                $this->storeId,
+                $includeArchived
+            ));
         } catch (\Throwable $e) {
             echo "Error: " . $e->getMessage();
         }
     }
-    
+
     public function createPullPayment()
     {
-        $paymentName = 'TestPayout-' . rand(0,10000000);
+        $paymentName = 'TestPayout-' . rand(0, 10000000);
         $paymentAmount = PreciseNumber::parseString('0.000001');
         $paymentCurrency = 'BTC';
-        $paymentPeriod = NULL;
+        $paymentPeriod = null;
         $boltExpiration = 1;
-        $startsAt = NULL;
-        $expiresAt = NULL;
+        $startsAt = null;
+        $expiresAt = null;
         $paymentMethods = ['BTC'];
 
         try {
             $client = new PullPayment($this->host, $this->apiKey);
-            var_dump($client->createPullPayment(
-                                $this->storeId, 
-                                $paymentName, 
-                                $paymentAmount, 
-                                $paymentCurrency, 
-                                $paymentPeriod, 
-                                $boltExpiration, 
-                                $startsAt, 
-                                $expiresAt, 
-                                $paymentMethods)
+            var_dump(
+                $client->createPullPayment(
+                    $this->storeId,
+                    $paymentName,
+                    $paymentAmount,
+                    $paymentCurrency,
+                    $paymentPeriod,
+                    $boltExpiration,
+                    $startsAt,
+                    $expiresAt,
+                    $paymentMethods
+                )
             );
         } catch (\Throwable $e) {
             echo "Error: " . $e->getMessage();
@@ -68,8 +71,9 @@ class PullPayments {
         try {
             $client = new PullPayment($this->host, $this->apiKey);
             var_dump($client->archivePullPayment(
-                                $this->storeId, 
-                                $pullPaymentId));
+                $this->storeId,
+                $pullPaymentId
+            ));
         } catch (\Throwable $e) {
             echo "Error: " . $e->getMessage();
         }
@@ -82,8 +86,9 @@ class PullPayments {
         try {
             $client = new PullPayment($this->host, $this->apiKey);
             var_dump($client->cancelPayout(
-                                $this->storeId, 
-                                $payoutId));
+                $this->storeId,
+                $payoutId
+            ));
         } catch (\Throwable $e) {
             echo "Error: " . $e->getMessage();
         }
@@ -96,8 +101,9 @@ class PullPayments {
         try {
             $client = new PullPayment($this->host, $this->apiKey);
             var_dump($client->markPayoutAsPaid(
-                                $this->storeId, 
-                                $payoutId));
+                $this->storeId,
+                $payoutId
+            ));
         } catch (\Throwable $e) {
             echo "Error: " . $e->getMessage();
         }
@@ -110,8 +116,9 @@ class PullPayments {
         try {
             $client = new PullPayment($this->host, $this->apiKey);
             var_dump($client->markPayoutAsPaid(
-                                $this->storeId, 
-                                $pullPaymentId));
+                $this->storeId,
+                $pullPaymentId
+            ));
         } catch (\Throwable $e) {
             echo "Error: " . $e->getMessage();
         }
@@ -120,13 +127,14 @@ class PullPayments {
     public function getPayouts()
     {
         $pullPaymentId = '';
-        $includeCancelled = TRUE;
+        $includeCancelled = true;
 
         try {
             $client = new PullPayment($this->host, $this->apiKey);
             var_dump($client->markPayoutAsPaid(
-                                $pullPaymentId,
-                                $includeCancelled));
+                $pullPaymentId,
+                $includeCancelled
+            ));
         } catch (\Throwable $e) {
             echo "Error: " . $e->getMessage();
         }
@@ -142,10 +150,11 @@ class PullPayments {
         try {
             $client = new PullPayment($this->host, $this->apiKey);
             var_dump($client->markPayoutAsPaid(
-                                $pullPaymentId,
-                                $destination,
-                                $amount,
-                                $paymentMethod));
+                $pullPaymentId,
+                $destination,
+                $amount,
+                $paymentMethod
+            ));
         } catch (\Throwable $e) {
             echo "Error: " . $e->getMessage();
         }
@@ -159,8 +168,9 @@ class PullPayments {
         try {
             $client = new PullPayment($this->host, $this->apiKey);
             var_dump($client->markPayoutAsPaid(
-                                $pullPaymentId,
-                                $payoutId));
+                $pullPaymentId,
+                $payoutId
+            ));
         } catch (\Throwable $e) {
             echo "Error: " . $e->getMessage();
         }
