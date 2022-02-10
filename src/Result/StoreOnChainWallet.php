@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 namespace BTCPayServer\Result;
+
 use BTCPayServer\Util\PreciseNumber;
 
 class StoreOnChainWallet extends AbstractResult
