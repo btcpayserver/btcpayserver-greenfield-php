@@ -104,8 +104,7 @@ class LightningInternalNode extends AbstractClient
                     urlencode($cryptoCode) . '/address';
 
         $headers = $this->getRequestHeaders();
-        $method = 'POST'; //should be get
-
+        $method = 'POST';
         $response = $this->getHttpClient()->request($method, $url, $headers);
 
         if ($response->getStatus() === 200) {

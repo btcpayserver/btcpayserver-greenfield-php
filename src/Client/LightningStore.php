@@ -113,7 +113,7 @@ class LightningStore extends AbstractClient
                     urlencode($cryptoCode) . '/address';
 
         $headers = $this->getRequestHeaders();
-        $method = 'POST'; //should be get
+        $method = 'POST';
 
         $response = $this->getHttpClient()->request($method, $url, $headers);
 
@@ -178,6 +178,12 @@ class LightningStore extends AbstractClient
     public function createLightningInvoice(
         string $cryptoCode,
         string $storeId,
+        /**
+         * Amount wrapped in a string, represented in a millistatoshi string.
+         * (1000 millisatoshi = 1 satoshi.
+         *
+         * @var string $amount
+         */
         string $amount,
         int $expiry,
         ?string $description = null,
