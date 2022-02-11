@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace BTCPayServer\Client;
 
-use PHPUnit\Util\Json;
-
 class Webhook extends AbstractClient
 {
     /**
@@ -97,6 +95,14 @@ class Webhook extends AbstractClient
         }
     }
 
+    /**
+     * Redeliver the delivery
+     *
+     * @param string $storeId
+     * @param string $webhookId
+     * @param string $deliveryId
+     * @return string The new delivery id being broadcasted. (Broadcast happen asynchronously with this call)
+     */
     public function redeliverDelivery(string $storeId, string $webhookId, string $deliveryId): string
     {
         $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/webhooks/' . 
