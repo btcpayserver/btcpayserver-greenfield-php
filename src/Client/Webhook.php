@@ -73,7 +73,7 @@ class Webhook extends AbstractClient
 
     /**
      * Get the delivery's request
-     * 
+     *
      * The delivery's JSON request sent to the endpoint.
      *
      * @param string $storeId
@@ -105,14 +105,14 @@ class Webhook extends AbstractClient
      */
     public function redeliverDelivery(string $storeId, string $webhookId, string $deliveryId): string
     {
-        $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/webhooks/' . 
+        $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/webhooks/' .
                         urlencode($webhookId) . '/deliveries/' . urlencode($deliveryId) . '/redeliver';
         $headers = $this->getRequestHeaders();
         $method = 'POST';
         $response = $this->getHttpClient()->request($method, $url, $headers);
 
         if ($response->getStatus() === 200) {
-           return json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
+            return json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
         } else {
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }
