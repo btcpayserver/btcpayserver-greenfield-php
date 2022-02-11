@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace BTCPayServer\Result;
 
-use BTCPayServer\Result\WebhookAuthorizedEventList;
-
 class Webhook extends AbstractResult
 {
     public function getId(): string
