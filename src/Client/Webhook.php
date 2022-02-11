@@ -79,9 +79,9 @@ class Webhook extends AbstractClient
      * @param string $storeId
      * @param string $webhookId
      * @param string $deliveryId
-     * @return JSON
+     * @return string JSON request
      */
-    public function getDeliveryRequest(string $storeId, string $webhookId, string $deliveryId): mixed
+    public function getDeliveryRequest(string $storeId, string $webhookId, string $deliveryId): string
     {
         $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/webhooks/' . urlencode($webhookId) . '/deliveries/' . urlencode($deliveryId);
         $headers = $this->getRequestHeaders();
