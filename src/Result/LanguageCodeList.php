@@ -9,7 +9,7 @@ class LanguageCodeList extends AbstractListResult
     /**
      * @return \BTCPayServer\Result\LanguageCode[]
      */
-    public function getLanguageCodes(): array
+    public function all(): array
     {
         $languageCodes = [];
         foreach ($this->getData() as $languageCode) {

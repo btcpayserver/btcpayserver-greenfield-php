@@ -10,7 +10,7 @@ class Webhook extends AbstractClient
      * @param string $storeId
      * @return \BTCPayServer\Result\WebhookList
      */
-    public function getWebhooks(string $storeId): \BTCPayServer\Result\WebhookList
+    public function getStoreWebhooks(string $storeId): \BTCPayServer\Result\WebhookList
     {
         $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/webhooks';
         $headers = $this->getRequestHeaders();
@@ -185,6 +185,32 @@ class Webhook extends AbstractClient
         $response = $this->getHttpClient()->request($method, $url, $headers);
 
         if ($response->getStatus() !== 200) {
+            throw $this->getExceptionByStatusCode($method, $url, $response);
+        }
+    }
+
+    /**
+     * DEPRECATED - PLEASE USE getStoreWebhooks()
+     *
+     * @param string $storeId
+     * @return \BTCPayServer\Result\Webhook[]
+     */
+    public function getWebhooks(string $storeId): array
+    {
+        $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/webhooks';
+        $headers = $this->getRequestHeaders();
+        $method = 'GET';
+        $response = $this->getHttpClient()->request($method, $url, $headers);
+
+        if ($response->getStatus() === 200) {
+            $r = [];
+            $data = json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
+            foreach ($data as $item) {
+                $item = new \BTCPayServer\Result\Webhook($item);
+                $r[] = $item;
+            }
+            return $r;
+        } else {
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }
     }

@@ -9,7 +9,7 @@ class WebhookList extends AbstractListResult
     /**
      * @return \BTCPayServer\Result\Webhook[]
      */
-    public function getWebhooks(): array
+    public function all(): array
     {
         $webhooks = [];
         foreach ($this->getData() as $webhook) {

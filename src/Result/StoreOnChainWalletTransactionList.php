@@ -9,7 +9,7 @@ class StoreOnChainWalletTransactionList extends AbstractListResult
     /**
      * @return \BTCPayServer\Result\StoreOnChainWalletTransaction[]
      */
-    public function getStoreOnChainWalletTransactions(): array
+    public function all(): array
     {
         $storeWalletTransactions = [];
         foreach ($this->getData() as $storeWalletTransaction) {
