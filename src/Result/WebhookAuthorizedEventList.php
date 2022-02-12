@@ -9,7 +9,7 @@ class WebhookAuthorizedEventList extends AbstractListResult
     /**
      * @return \BTCPayServer\Result\WebhookAuthorizedEvent[]
      */
-    public function getWebhooks(): array
+    public function all(): array
     {
         $authorizedEvents = [];
         foreach ($this->getData() as $authorizedEvent) {

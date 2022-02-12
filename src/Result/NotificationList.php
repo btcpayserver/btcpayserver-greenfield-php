@@ -9,7 +9,7 @@ class NotificationList extends AbstractListResult
     /**
      * @return \BTCPayServer\Result\Notification[]
      */
-    public function getNotifications(): array
+    public function all(): array
     {
         $notifications = [];
         foreach ($this->getData() as $notification) {
