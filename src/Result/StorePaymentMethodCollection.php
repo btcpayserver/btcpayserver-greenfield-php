@@ -38,7 +38,8 @@ class StorePaymentMethodCollection extends AbstractListResult
     }
 
     /**
-     * DEPRECATED - PLEASE USE all()
+     * DEPRECATED: Please use `all()`.
+     * TODO: Remove during next backwards compatibility break.
      *
      * @return \BTCPayServer\Result\AbstractStorePaymentMethodResult[]
      */

@@ -190,7 +190,8 @@ class Webhook extends AbstractClient
     }
 
     /**
-     * DEPRECATED - PLEASE USE getStoreWebhooks()
+     * DEPRECATED: Please use `getStoreWebhooks()`.
+     * TODO: Remove during next backwards compatibility break.
      *
      * @param string $storeId
      * @return \BTCPayServer\Result\Webhook[]
