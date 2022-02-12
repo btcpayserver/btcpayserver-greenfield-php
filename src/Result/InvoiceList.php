@@ -37,7 +37,7 @@ class InvoiceList extends AbstractListResult
     /**
      * DEPRECATED: Please use `all()`.
      * TODO: Remove during next backwards compatibility break.
-     * 
+     *
      * @return \BTCPayServer\Result\Invoice[]
      */
     public function getInvoices(): array
