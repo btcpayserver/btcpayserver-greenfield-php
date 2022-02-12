@@ -16,7 +16,8 @@ class AddressList extends \BTCPayServer\Result\AbstractListResult
     }
 
     /**
-     * DEPRECATED - PLEASE USE all()
+     * DEPRECATED: Please use `all()`.
+     * TODO: Remove during next backwards compatibility break.
      *
      * @return \BTCPayServer\Result\Address[]
      */
