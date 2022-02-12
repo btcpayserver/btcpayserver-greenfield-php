@@ -207,7 +207,7 @@ class StoreOnChainWallet extends AbstractClient
         }
     }
 
-    public function getStoreOnChainWalletUTXOS(
+    public function getStoreOnChainWalletUTXOs(
         string $storeId,
         string $cryptoCode
     ): \BTCPayServer\Result\StoreOnChainWalletUTXOList {

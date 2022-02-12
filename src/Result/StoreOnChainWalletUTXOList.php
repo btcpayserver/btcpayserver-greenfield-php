@@ -11,10 +11,10 @@ class StoreOnChainWalletUTXOList extends AbstractListResult
      */
     public function all(): array
     {
-        $storeWalletUTXOS = [];
+        $storeWalletUTXOs = [];
         foreach ($this->getData() as $storeWalletUTXO) {
-            $storeWalletUTXOS[] = new \BTCPayServer\Result\StoreOnChainWalletUTXO($storeWalletUTXO);
+            $storeWalletUTXOs[] = new \BTCPayServer\Result\StoreOnChainWalletUTXO($storeWalletUTXO);
         }
-        return $storeWalletUTXOS;
+        return $storeWalletUTXOs;
     }
 }
