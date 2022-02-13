@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace BTCPayServer\Result;
 
-class WebhookAuthorizedEvent extends AbstractResult
+class WebhookAuthorizedEvents extends AbstractResult
 {
     public function hasEverything(): bool
     {

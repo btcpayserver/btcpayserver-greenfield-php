@@ -72,7 +72,7 @@ class Webhook extends AbstractClient
     }
 
     /**
-     * Get the delivery's request
+     * Get the delivery's request.
      *
      * The delivery's JSON request sent to the endpoint.
      *
@@ -96,7 +96,7 @@ class Webhook extends AbstractClient
     }
 
     /**
-     * Redeliver the delivery
+     * Redeliver the delivery.
      *
      * @param string $storeId
      * @param string $webhookId
@@ -190,8 +190,8 @@ class Webhook extends AbstractClient
     }
 
     /**
-     * DEPRECATED: Please use `getStoreWebhooks()`.
-     * TODO: Remove during next backwards compatibility break.
+     * @deprecated 2.0.0 Please use `getStoreWebhooks()` instead.
+     * @see getStoreWebhooks()
      *
      * @param string $storeId
      * @return \BTCPayServer\Result\Webhook[]
