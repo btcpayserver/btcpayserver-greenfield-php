@@ -9,7 +9,7 @@ class LightningChannelList extends AbstractListResult
     /**
      * @return \BTCPayServer\Result\LightningChannel[]
      */
-    public function getChannels(): array
+    public function all(): array
     {
         $channels = [];
         foreach ($this->getData() as $channel) {

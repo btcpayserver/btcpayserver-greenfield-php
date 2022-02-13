@@ -148,13 +148,13 @@ class StoreOnChainWallets
         }
     }
 
-    public function getStoreOnChainWalletUTXOS()
+    public function getStoreOnChainWalletUTXOs()
     {
         $cryptoCode = 'BTC';
 
         try {
             $client = new StoreOnChainWallet($this->host, $this->apiKey);
-            var_dump($client->getStoreOnChainWalletUTXOS(
+            var_dump($client->getStoreOnChainWalletUTXOs(
                 $this->storeId,
                 $cryptoCode
             ));
@@ -170,4 +170,4 @@ $store = new StoreOnChainWallets();
 //$store->getStoreOnChainWalletOverview();
 $store->getStoreOnChainWalletTransactions();
 //$store->getStoreOnChainWalletTransaction();
-//$store->getStoreOnChainWalletUTXOS();
+//$store->getStoreOnChainWalletUTXOs();

@@ -9,13 +9,13 @@ class InvoiceList extends AbstractListResult
     /**
      * @return \BTCPayServer\Result\Invoice[]
      */
-    public function getInvoices(): array
+    public function all(): array
     {
-        $r = [];
-        foreach ($this->getData() as $invoiceData) {
-            $r[] = new \BTCPayServer\Result\Invoice($invoiceData);
+        $invoices = [];
+        foreach ($this->getData() as $invoice) {
+            $invoices[] = new \BTCPayServer\Result\Invoice($invoice);
         }
-        return $r;
+        return $invoices;
     }
 
     /**
@@ -32,5 +32,20 @@ class InvoiceList extends AbstractListResult
 
         // Renumber results
         return array_values($r);
+    }
+
+    /**
+     * @deprecated 2.0.0 Please use `all()` instead.
+     * @see all()
+     *
+     * @return \BTCPayServer\Result\Invoice[]
+     */
+    public function getInvoices(): array
+    {
+        $r = [];
+        foreach ($this->getData() as $invoiceData) {
+            $r[] = new \BTCPayServer\Result\Invoice($invoiceData);
+        }
+        return $r;
     }
 }
