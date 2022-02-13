@@ -30,15 +30,9 @@ class Webhook extends AbstractResult
         return $data['url'];
     }
 
-    public function getAuthorizedEvents(): WebhookAuthorizedEventList
+    public function getAuthorizedEvents(): WebhookAuthorizedEvents
     {
         $data = $this->getData();
-        return new WebhookAuthorizedEventList($data['authorizedEvents']);
-    }
-
-    public function getSecret(): string
-    {
-        $data = $this->getData();
-        return $data['secret'];
+        return new WebhookAuthorizedEvents($data['authorizedEvents']);
     }
 }
