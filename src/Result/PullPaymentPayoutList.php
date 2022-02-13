@@ -9,7 +9,7 @@ class PullPaymentPayoutList extends AbstractListResult
     /**
      * @return \BTCPayServer\Result\PullPaymentPayout[]
      */
-    public function getPullPaymentPayouts(): array
+    public function all(): array
     {
         $pullPaymentPayouts = [];
         foreach ($this->getData() as $pullPaymentPayoutData) {

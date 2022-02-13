@@ -8,9 +8,9 @@ class Webhook extends AbstractClient
 {
     /**
      * @param string $storeId
-     * @return \BTCPayServer\Result\Webhook[]
+     * @return \BTCPayServer\Result\WebhookList
      */
-    public function getWebhooks(string $storeId): array
+    public function getStoreWebhooks(string $storeId): \BTCPayServer\Result\WebhookList
     {
         $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/webhooks';
         $headers = $this->getRequestHeaders();
@@ -18,13 +18,9 @@ class Webhook extends AbstractClient
         $response = $this->getHttpClient()->request($method, $url, $headers);
 
         if ($response->getStatus() === 200) {
-            $r = [];
-            $data = json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
-            foreach ($data as $item) {
-                $item = new \BTCPayServer\Result\Webhook($item);
-                $r[] = $item;
-            }
-            return $r;
+            return new \BTCPayServer\Result\WebhookList(
+                json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR)
+            );
         } else {
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }
@@ -40,6 +36,83 @@ class Webhook extends AbstractClient
         if ($response->getStatus() === 200) {
             $data = json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
             return new \BTCPayServer\Result\Webhook($data);
+        } else {
+            throw $this->getExceptionByStatusCode($method, $url, $response);
+        }
+    }
+
+    public function getLatestDeliveries(string $storeId, string $webhookId, string $count): \BTCPayServer\Result\WebhookDeliveryList
+    {
+        $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/webhooks/' . urlencode($webhookId) . '/deliveries?count=' . $count;
+        $headers = $this->getRequestHeaders();
+        $method = 'GET';
+        $response = $this->getHttpClient()->request($method, $url, $headers);
+
+        if ($response->getStatus() === 200) {
+            $data = json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
+            return new \BTCPayServer\Result\WebhookDeliveryList($data);
+        } else {
+            throw $this->getExceptionByStatusCode($method, $url, $response);
+        }
+    }
+
+    public function getDelivery(string $storeId, string $webhookId, string $deliveryId): \BTCPayServer\Result\WebhookDelivery
+    {
+        $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/webhooks/' . urlencode($webhookId) . '/deliveries/' . urlencode($deliveryId);
+        $headers = $this->getRequestHeaders();
+        $method = 'GET';
+        $response = $this->getHttpClient()->request($method, $url, $headers);
+
+        if ($response->getStatus() === 200) {
+            $data = json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
+            return new \BTCPayServer\Result\WebhookDelivery($data);
+        } else {
+            throw $this->getExceptionByStatusCode($method, $url, $response);
+        }
+    }
+
+    /**
+     * Get the delivery's request.
+     *
+     * The delivery's JSON request sent to the endpoint.
+     *
+     * @param string $storeId
+     * @param string $webhookId
+     * @param string $deliveryId
+     * @return string JSON request
+     */
+    public function getDeliveryRequest(string $storeId, string $webhookId, string $deliveryId): string
+    {
+        $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/webhooks/' . urlencode($webhookId) . '/deliveries/' . urlencode($deliveryId);
+        $headers = $this->getRequestHeaders();
+        $method = 'GET';
+        $response = $this->getHttpClient()->request($method, $url, $headers);
+
+        if ($response->getStatus() === 200) {
+            return $response->getBody();
+        } else {
+            throw $this->getExceptionByStatusCode($method, $url, $response);
+        }
+    }
+
+    /**
+     * Redeliver the delivery.
+     *
+     * @param string $storeId
+     * @param string $webhookId
+     * @param string $deliveryId
+     * @return string The new delivery id being broadcasted. (Broadcast happen asynchronously with this call)
+     */
+    public function redeliverDelivery(string $storeId, string $webhookId, string $deliveryId): string
+    {
+        $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/webhooks/' .
+                        urlencode($webhookId) . '/deliveries/' . urlencode($deliveryId) . '/redeliver';
+        $headers = $this->getRequestHeaders();
+        $method = 'POST';
+        $response = $this->getHttpClient()->request($method, $url, $headers);
+
+        if ($response->getStatus() === 200) {
+            return json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
         } else {
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }
@@ -112,6 +185,33 @@ class Webhook extends AbstractClient
         $response = $this->getHttpClient()->request($method, $url, $headers);
 
         if ($response->getStatus() !== 200) {
+            throw $this->getExceptionByStatusCode($method, $url, $response);
+        }
+    }
+
+    /**
+     * @deprecated 2.0.0 Please use `getStoreWebhooks()` instead.
+     * @see getStoreWebhooks()
+     *
+     * @param string $storeId
+     * @return \BTCPayServer\Result\Webhook[]
+     */
+    public function getWebhooks(string $storeId): array
+    {
+        $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/webhooks';
+        $headers = $this->getRequestHeaders();
+        $method = 'GET';
+        $response = $this->getHttpClient()->request($method, $url, $headers);
+
+        if ($response->getStatus() === 200) {
+            $r = [];
+            $data = json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
+            foreach ($data as $item) {
+                $item = new \BTCPayServer\Result\Webhook($item);
+                $r[] = $item;
+            }
+            return $r;
+        } else {
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }
     }
