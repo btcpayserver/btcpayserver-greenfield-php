@@ -118,7 +118,7 @@ class Webhook extends AbstractClient
         }
     }
 
-    public function createWebhook(string $storeId, string $url, ?array $specificEvents, ?string $secret): \BTCPayServer\Result\Webhook
+    public function createWebhook(string $storeId, string $url, ?array $specificEvents, ?string $secret): \BTCPayServer\Result\WebhookCreated
     {
         $data = [
             'enabled' => true,
@@ -152,7 +152,7 @@ class Webhook extends AbstractClient
 
         if ($response->getStatus() === 200) {
             $data = json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
-            return new \BTCPayServer\Result\Webhook($data);
+            return new \BTCPayServer\Result\WebhookCreated($data);
         } else {
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }
