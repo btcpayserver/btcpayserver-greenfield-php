@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace BTCPayServer\Result;
 
-class PermissionMetaData extends AbstractResult
+class PermissionMetadata extends AbstractResult
 {
     public function getName(): string
     {
