@@ -6,7 +6,7 @@ namespace BTCPayServer\Client;
 
 class Miscellaneous extends AbstractClient
 {
-    public function getPermissionsMetadata(): \BTCPayServer\Result\PermissionsMetaData
+    public function getPermissionMetadata(): \BTCPayServer\Result\PermissionMetaData
     {
         $url = $this->getBaseUrl() . '/misc/permissions';
         $headers = $this->getRequestHeaders();
@@ -15,7 +15,7 @@ class Miscellaneous extends AbstractClient
         $response = $this->getHttpClient()->request($method, $url, $headers);
 
         if ($response->getStatus() === 200) {
-            return new \BTCPayServer\Result\PermissionsMetaData(
+            return new \BTCPayServer\Result\PermissionMetaData(
                 json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR)
             );
         } else {

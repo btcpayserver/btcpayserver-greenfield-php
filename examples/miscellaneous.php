@@ -15,11 +15,11 @@ class Misc
         $this->host = '';
     }
 
-    public function getPermissionsMetadata()
+    public function getPermissionMetadata()
     {
         try {
             $client = new Miscellaneous($this->host, $this->apiKey);
-            var_dump($client->getPermissionsMetadata());
+            var_dump($client->getPermissionMetadata());
         } catch (\Throwable $e) {
             echo "Error: " . $e->getMessage();
         }
@@ -50,6 +50,6 @@ class Misc
 }
 
 $misc = new Misc();
-//$misc->getPermissionsMetadata();
+//$misc->getPermissionMetadata();
 //$misc->getLanguageCodes();
 //$misc->getInvoiceCheckout();
