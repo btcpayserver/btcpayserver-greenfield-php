@@ -44,10 +44,10 @@ class StoreOnChainWalletUTXO extends AbstractResult
         return $data['keyPath'];
     }
 
-    public function getAddress(): Address
+    public function getAddress(): string
     {
         $data = $this->getData();
-        return new Address($data['address']);
+        return $data['address'];
     }
 
     public function getConfirmations(): int
