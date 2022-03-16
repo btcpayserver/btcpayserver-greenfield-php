@@ -27,7 +27,7 @@ class LightningInternalNode extends AbstractClient
 
     public function connectToLightningNode(string $cryptoCode, ?string $nodeURI): bool
     {
-        $url = $this->getApiUrl() . 'server/lightning' .
+        $url = $this->getApiUrl() . 'server/lightning/' .
                     urlencode($cryptoCode) . '/connect';
 
         $headers = $this->getRequestHeaders();
@@ -74,7 +74,7 @@ class LightningInternalNode extends AbstractClient
         string $channelAmount,
         int $feeRate
     ): bool {
-        $url = $this->getApiUrl() . 'server/lightning' .
+        $url = $this->getApiUrl() . 'server/lightning/' .
                     urlencode($cryptoCode) . '/channels';
 
         $headers = $this->getRequestHeaders();
@@ -135,7 +135,7 @@ class LightningInternalNode extends AbstractClient
 
     public function payLightningInvoice(string $cryptoCode, string $BOLT11): bool
     {
-        $url = $this->getApiUrl() . 'server/lightning' .
+        $url = $this->getApiUrl() . 'server/lightning/' .
                     urlencode($cryptoCode) . '/invoices/pay';
 
         $headers = $this->getRequestHeaders();
@@ -170,7 +170,7 @@ class LightningInternalNode extends AbstractClient
         ?string $description = null,
         ?bool $privateRouteHints = false
     ): \BTCPayServer\Result\Invoice {
-        $url = $this->getApiUrl() . 'server/lightning' .
+        $url = $this->getApiUrl() . 'server/lightning/' .
                     urlencode($cryptoCode) . '/invoices';
 
         $headers = $this->getRequestHeaders();
