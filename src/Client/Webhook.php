@@ -118,11 +118,17 @@ class Webhook extends AbstractClient
         }
     }
 
-    public function createWebhook(string $storeId, string $url, ?array $specificEvents, ?string $secret): \BTCPayServer\Result\WebhookCreated
-    {
+    public function createWebhook(
+        string $storeId,
+        string $url,
+        ?array $specificEvents,
+        ?string $secret,
+        ?bool $enabled = true,
+        ?bool $automaticRedelivery = true
+    ): \BTCPayServer\Result\WebhookCreated {
         $data = [
-            'enabled' => true,
-            'automaticRedelivery' => true,
+            'enabled' => $enabled,
+            'automaticRedelivery' => $automaticRedelivery,
             'url' => $url
         ];
 
@@ -153,6 +159,47 @@ class Webhook extends AbstractClient
         if ($response->getStatus() === 200) {
             $data = json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
             return new \BTCPayServer\Result\WebhookCreated($data);
+        } else {
+            throw $this->getExceptionByStatusCode($method, $url, $response);
+        }
+    }
+
+    public function updateWebhook(
+        string $storeId,
+        string $url,
+        string $webhookId,
+        ?array $specificEvents,
+        ?bool $enabled = true,
+        ?bool $automaticRedelivery = true
+    ): \BTCPayServer\Result\Webhook {
+        $data = [
+          'enabled' => $enabled,
+          'automaticRedelivery' => $automaticRedelivery,
+          'url' => $url
+        ];
+
+        // Specific events or all.
+        if ($specificEvents === null) {
+            $data['authorizedEvents'] = [
+              'everything' => true
+            ];
+        } elseif (count($specificEvents) === 0) {
+            throw new \InvalidArgumentException('Argument $specificEvents should be NULL or contains at least 1 item.');
+        } else {
+            $data['authorizedEvents'] = [
+              'everything' => false,
+              'specificEvents' => $specificEvents
+            ];
+        }
+
+        $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/webhooks/' . urlencode($webhookId);
+        $headers = $this->getRequestHeaders();
+        $method = 'PUT';
+        $response = $this->getHttpClient()->request($method, $url, $headers, json_encode($data, JSON_THROW_ON_ERROR));
+
+        if ($response->getStatus() === 200) {
+            $data = json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
+            return new \BTCPayServer\Result\Webhook($data);
         } else {
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }
