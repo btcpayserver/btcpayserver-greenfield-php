@@ -123,8 +123,8 @@ class Webhook extends AbstractClient
         string $url,
         ?array $specificEvents,
         ?string $secret,
-        ?bool $enabled = true,
-        ?bool $automaticRedelivery = true
+        bool $enabled = true,
+        bool $automaticRedelivery = true
     ): \BTCPayServer\Result\WebhookCreated {
         $data = [
             'enabled' => $enabled,
@@ -169,8 +169,8 @@ class Webhook extends AbstractClient
         string $url,
         string $webhookId,
         ?array $specificEvents,
-        ?bool $enabled = true,
-        ?bool $automaticRedelivery = true
+        bool $enabled = true,
+        bool $automaticRedelivery = true
     ): \BTCPayServer\Result\Webhook {
         $data = [
           'enabled' => $enabled,
