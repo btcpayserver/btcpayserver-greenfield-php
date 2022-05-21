@@ -133,7 +133,11 @@ class LightningInternalNode extends AbstractClient
         }
     }
 
-    public function payLightningInvoice(string $cryptoCode, string $BOLT11): bool
+    public function payLightningInvoice(
+        string $cryptoCode,
+        string $BOLT11,
+        ?string $maxFeePercent,
+        ?string $maxFeeFlat): bool
     {
         $url = $this->getApiUrl() . 'server/lightning/' .
                     urlencode($cryptoCode) . '/invoices/pay';
@@ -143,7 +147,9 @@ class LightningInternalNode extends AbstractClient
 
         $body = json_encode(
             [
-                'BOLT11' => $BOLT11
+                'BOLT11' => $BOLT11,
+                'maxFeePercent' => $maxFeePercent,
+                'maxFeeFlat' => $maxFeeFlat,
             ],
             JSON_THROW_ON_ERROR
         );
