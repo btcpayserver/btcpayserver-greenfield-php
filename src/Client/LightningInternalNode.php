@@ -137,8 +137,8 @@ class LightningInternalNode extends AbstractClient
         string $cryptoCode,
         string $BOLT11,
         ?string $maxFeePercent,
-        ?string $maxFeeFlat): bool
-    {
+        ?string $maxFeeFlat
+    ): bool {
         $url = $this->getApiUrl() . 'server/lightning/' .
                     urlencode($cryptoCode) . '/invoices/pay';
 
