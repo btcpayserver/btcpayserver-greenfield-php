@@ -115,7 +115,7 @@ class PullPayments
 
         try {
             $client = new PullPayment($this->host, $this->apiKey);
-            var_dump($client->markPayoutAsPaid(
+            var_dump($client->getPullPayment(
                 $this->storeId,
                 $pullPaymentId
             ));
@@ -131,7 +131,7 @@ class PullPayments
 
         try {
             $client = new PullPayment($this->host, $this->apiKey);
-            var_dump($client->markPayoutAsPaid(
+            var_dump($client->getPayouts(
                 $pullPaymentId,
                 $includeCancelled
             ));
@@ -149,7 +149,7 @@ class PullPayments
 
         try {
             $client = new PullPayment($this->host, $this->apiKey);
-            var_dump($client->markPayoutAsPaid(
+            var_dump($client->createPayout(
                 $pullPaymentId,
                 $destination,
                 $amount,
@@ -167,7 +167,7 @@ class PullPayments
 
         try {
             $client = new PullPayment($this->host, $this->apiKey);
-            var_dump($client->markPayoutAsPaid(
+            var_dump($client->getPayout(
                 $pullPaymentId,
                 $payoutId
             ));
