@@ -40,6 +40,7 @@ class PullPayments
         $paymentCurrency = 'BTC';
         $paymentPeriod = null;
         $boltExpiration = 1;
+        $autoApproveClaims = false;
         $startsAt = null;
         $expiresAt = null;
         $paymentMethods = ['BTC'];
@@ -54,6 +55,7 @@ class PullPayments
                     $paymentCurrency,
                     $paymentPeriod,
                     $boltExpiration,
+                    $autoApproveClaims,
                     $startsAt,
                     $expiresAt,
                     $paymentMethods
