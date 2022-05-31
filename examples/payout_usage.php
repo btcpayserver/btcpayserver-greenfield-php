@@ -110,6 +110,22 @@ class PullPayments
             echo "Error: " . $e->getMessage();
         }
     }
+    
+    public function approvePayout()
+    {
+        $payoutId ='';
+        try {
+            $client = new PullPayment($this->host, $this->apiKey);
+            var_dump($client->approvePayout(
+                $this->storeId,
+                $payoutId,
+                0,
+                null
+            ));
+        } catch (\Throwable $e) {
+            echo "Error: " . $e->getMessage();
+        }
+    }
 
     public function getPullPayment()
     {
@@ -185,6 +201,7 @@ $pp = new PullPayments();
 //$pp->archivePullPayment();
 //$pp->cancelPayout();
 //$pp->markPayoutAsPaid();
+//$pp->approvePayout();
 //$pp->getPullPayment();
 //$pp->getPayouts();
 //$pp->createPayout();
