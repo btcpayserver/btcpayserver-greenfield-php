@@ -7,6 +7,7 @@ require __DIR__ . '/../vendor/autoload.php';
 
 // Import Invoice client class.
 use BTCPayServer\Client\Invoice;
+use BTCPayServer\Client\Webhook;
 
 // Fill in with your BTCPay Server data.
 $apiKey = '';
@@ -38,7 +39,9 @@ if (true === empty($payload)) {
 $headers = getallheaders();
 $sig = $headers['Btcpay-Sig'];
 
-if ($sig !== "sha256=" . hash_hmac('sha256', $raw_post_data, $secret)) {
+$webhookClient = new Webhook($host, $apiKey);
+
+if ($webhookClient->isIncomingWebhookRequestValid($raw_post_data, $sig, $secret)) {
     fwrite($myfile, $date . " : Error. Invalid Signature detected! \n was: " . $sig . " should be: " . hash_hmac('sha256', $raw_post_data, $secret) . "\n");
     fclose($myfile);
     throw new \Exception('Invalid BTCPayServer payment notification message received - signature did not match.');
