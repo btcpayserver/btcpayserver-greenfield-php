@@ -39,20 +39,20 @@ class WebhookExample
                 $date . " : Error. Could not read from the php://input stream or invalid BTCPayServer payload received.\n"
             );
             fclose($myfile);
-            throw new \Exception(
+            throw new \RuntimeException(
                 'Could not read from the php://input stream or invalid BTCPayServer payload received.'
             );
         }
 
         $payload = json_decode($raw_post_data, false, 512, JSON_THROW_ON_ERROR);
 
-        if (true === empty($payload)) {
+        if (empty($payload)) {
             fwrite(
                 $myfile,
                 $date . " : Error. Could not decode the JSON payload from BTCPay.\n"
             );
             fclose($myfile);
-            throw new \Exception('Could not decode the JSON payload from BTCPay.');
+            throw new \RuntimeException('Could not decode the JSON payload from BTCPay.');
         }
 
         // verify hmac256
@@ -69,7 +69,7 @@ class WebhookExample
                 ) . "\n"
             );
             fclose($myfile);
-            throw new \Exception(
+            throw new \RuntimeException(
                 'Invalid BTCPayServer payment notification message received - signature did not match.'
             );
         }
@@ -80,7 +80,7 @@ class WebhookExample
                 $date . " : Error. Invalid BTCPayServer payment notification message received - did not receive invoice ID.\n"
             );
             fclose($myfile);
-            throw new \Exception(
+            throw new \RuntimeException(
                 'Invalid BTCPayServer payment notification message received - did not receive invoice ID.'
             );
         }
@@ -98,7 +98,7 @@ class WebhookExample
 
         // optional: check whether your webhook is of the desired type
         if ($payload->type !== "InvoiceSettled") {
-            throw new \Exception(
+            throw new \RuntimeException(
                 'Invalid payload message type. Only InvoiceSettled is supported, check the configuration of the webhook.'
             );
         }
