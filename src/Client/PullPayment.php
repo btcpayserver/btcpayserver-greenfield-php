@@ -156,7 +156,7 @@ class PullPayment extends AbstractClient
     ): bool {
         $url = $this->getApiUrl() . 'stores/' .
                     urlencode($storeId) . '/' . 'payouts/' .
-                    urlencode($payoutId);
+                    urlencode($payoutId).'/mark-paid';
 
         $headers = $this->getRequestHeaders();
         $method = 'POST';
