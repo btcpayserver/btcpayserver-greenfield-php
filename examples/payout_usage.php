@@ -40,6 +40,7 @@ class PullPayments
         $paymentCurrency = 'BTC';
         $paymentPeriod = null;
         $boltExpiration = 1;
+        $autoApproveClaims = false;
         $startsAt = null;
         $expiresAt = null;
         $paymentMethods = ['BTC'];
@@ -54,6 +55,7 @@ class PullPayments
                     $paymentCurrency,
                     $paymentPeriod,
                     $boltExpiration,
+                    $autoApproveClaims,
                     $startsAt,
                     $expiresAt,
                     $paymentMethods
@@ -108,6 +110,22 @@ class PullPayments
             echo "Error: " . $e->getMessage();
         }
     }
+    
+    public function approvePayout()
+    {
+        $payoutId ='';
+        try {
+            $client = new PullPayment($this->host, $this->apiKey);
+            var_dump($client->approvePayout(
+                $this->storeId,
+                $payoutId,
+                0,
+                null
+            ));
+        } catch (\Throwable $e) {
+            echo "Error: " . $e->getMessage();
+        }
+    }
 
     public function getPullPayment()
     {
@@ -115,7 +133,7 @@ class PullPayments
 
         try {
             $client = new PullPayment($this->host, $this->apiKey);
-            var_dump($client->markPayoutAsPaid(
+            var_dump($client->getPullPayment(
                 $this->storeId,
                 $pullPaymentId
             ));
@@ -131,7 +149,7 @@ class PullPayments
 
         try {
             $client = new PullPayment($this->host, $this->apiKey);
-            var_dump($client->markPayoutAsPaid(
+            var_dump($client->getPayouts(
                 $pullPaymentId,
                 $includeCancelled
             ));
@@ -149,7 +167,7 @@ class PullPayments
 
         try {
             $client = new PullPayment($this->host, $this->apiKey);
-            var_dump($client->markPayoutAsPaid(
+            var_dump($client->createPayout(
                 $pullPaymentId,
                 $destination,
                 $amount,
@@ -167,7 +185,7 @@ class PullPayments
 
         try {
             $client = new PullPayment($this->host, $this->apiKey);
-            var_dump($client->markPayoutAsPaid(
+            var_dump($client->getPayout(
                 $pullPaymentId,
                 $payoutId
             ));
@@ -183,6 +201,7 @@ $pp = new PullPayments();
 //$pp->archivePullPayment();
 //$pp->cancelPayout();
 //$pp->markPayoutAsPaid();
+//$pp->approvePayout();
 //$pp->getPullPayment();
 //$pp->getPayouts();
 //$pp->createPayout();
