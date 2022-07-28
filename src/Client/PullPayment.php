@@ -43,7 +43,7 @@ class PullPayment extends AbstractClient
         string $currency,
         ?int $period,
         ?int $BOLT11Expiration,
-        bool $autoApproveClaims,
+        ?bool $autoApproveClaims = false,
         ?int $startsAt,
         ?int $expiresAt,
         array $paymentMethods

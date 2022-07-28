@@ -110,7 +110,7 @@ class PullPayments
             echo "Error: " . $e->getMessage();
         }
     }
-    
+
     public function approvePayout()
     {
         $payoutId ='';
