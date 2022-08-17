@@ -164,18 +164,33 @@ class Webhook extends AbstractClient
         }
     }
 
+    /**
+     * Updates an existing webhook.
+     *
+     * Important: due to a bug in BTCPay Server versions <= 1.6.3.0 you need
+     * to pass the $secret explicitly as it would overwrite your existing secret
+     * otherwise. On newer versions BTCPay Server >= 1.6.4.0, if you do NOT set
+     * a secret it won't change it and everything will continue to work.
+     *
+     * @see https://github.com/btcpayserver/btcpayserver/issues/4010
+     *
+     * @return \BTCPayServer\Result\Webhook
+     * @throws \JsonException
+     */
     public function updateWebhook(
         string $storeId,
         string $url,
         string $webhookId,
         ?array $specificEvents,
         bool $enabled = true,
-        bool $automaticRedelivery = true
+        bool $automaticRedelivery = true,
+        ?string $secret = null
     ): \BTCPayServer\Result\Webhook {
         $data = [
           'enabled' => $enabled,
           'automaticRedelivery' => $automaticRedelivery,
-          'url' => $url
+          'url' => $url,
+          'secret' => $secret
         ];
 
         // Specific events or all.
