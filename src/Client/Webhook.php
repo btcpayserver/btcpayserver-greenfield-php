@@ -169,9 +169,9 @@ class Webhook extends AbstractClient
      *
      * Important: due to a bug in BTCPay Server versions <= 1.6.3.0 you need
      * to pass the $secret explicitly as it would overwrite your existing secret
-     * otherwise. This will not be needed with BTCPay Server 1.6.4.0 and newer.
-     * If you do NOT set a secret it wont change it and everything will continue
-     * to work.
+     * otherwise. On newer versions BTCPay Server >= 1.6.4.0, if you do NOT set
+     * a secret it won't change it and everything will continue to work.
+     *
      * @see https://github.com/btcpayserver/btcpayserver/issues/4010
      *
      * @return \BTCPayServer\Result\Webhook
