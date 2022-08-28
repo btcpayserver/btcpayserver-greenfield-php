@@ -6,7 +6,7 @@ namespace BTCPayServer\Result;
 
 class StoreOnChainWalletFeeRate extends AbstractResult
 {
-    public function getFeeRate(): int
+    public function getFeeRate(): float
     {
         $data = $this->getData();
         return $data['feeRate'];
