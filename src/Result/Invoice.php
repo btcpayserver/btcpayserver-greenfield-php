@@ -26,7 +26,7 @@ class Invoice extends AbstractResult
 
     public function getId(): string
     {
-        return $this->getData()['amount'];
+        return $this->getData()['id'];
     }
 
     public function getAmount(): float
