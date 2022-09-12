@@ -33,7 +33,7 @@ class Invoice extends AbstractResult
 
     public function getAmount(): PreciseNumber
     {
-        return new PreciseNumber($this->getData()['amount']);
+        return PreciseNumber::parseString($this->getData()['amount']);
     }
 
     public function getCurrency(): string
