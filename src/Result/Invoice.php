@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace BTCPayServer\Result;
 
+use BTCPayServer\Util\PreciseNumber;
+
 class Invoice extends AbstractResult
 {
     public const STATUS_NEW = 'New';
@@ -29,9 +31,9 @@ class Invoice extends AbstractResult
         return $this->getData()['id'];
     }
 
-    public function getAmount(): float
+    public function getAmount(): PreciseNumber
     {
-        return $this->getData()['amount'];
+        return new PreciseNumber($this->getData()['amount']);
     }
 
     public function getCurrency(): string
