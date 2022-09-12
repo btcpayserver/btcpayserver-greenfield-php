@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace BTCPayServer\Result;
 
+use BTCPayServer\Util\PreciseNumber;
+
 class Invoice extends AbstractResult
 {
     public const STATUS_NEW = 'New';
@@ -23,6 +25,51 @@ class Invoice extends AbstractResult
     public const ADDITIONAL_STATUS_MARKED = 'Marked';
 
     public const ADDITIONAL_STATUS_PAID_LATE = 'PaidLate';
+
+    public function getId(): string
+    {
+        return $this->getData()['id'];
+    }
+
+    public function getAmount(): PreciseNumber
+    {
+        return PreciseNumber::parseString($this->getData()['amount']);
+    }
+
+    public function getCurrency(): string
+    {
+        return $this->getData()['currency'];
+    }
+
+    public function getType(): string
+    {
+        return $this->getData()['type'];
+    }
+
+    public function getCheckoutLink(): string
+    {
+        return $this->getData()['checkoutLink'];
+    }
+
+    public function getCreatedTime(): int
+    {
+        return $this->getData()['createdTime'];
+    }
+
+    public function getExpirationTime(): int
+    {
+        return $this->getData()['expirationTime'];
+    }
+
+    public function getMonitoringTime(): int
+    {
+        return $this->getData()['monitoringTime'];
+    }
+
+    public function isArchived(): bool
+    {
+        return $this->getData()['archived'];
+    }
 
     public function isPaid(): bool
     {
