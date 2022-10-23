@@ -15,7 +15,7 @@ class CurlClient implements ClientInterface
 
     /**
      * Inits curl session adding any additional curl options set.
-     * @return CurlHandle|false
+     * @return \CurlHandle|false
      */
     protected function initCurl()
     {
