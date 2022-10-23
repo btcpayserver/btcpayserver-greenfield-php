@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace BTCPayServer\Client;
 
+use BTCPayServer\Result\LightningNodeConnection;
+
 class LightningInternalNode extends AbstractClient
 {
     public function getNodeInformation(string $cryptoCode): \BTCPayServer\Result\LightningNode
@@ -114,7 +116,7 @@ class LightningInternalNode extends AbstractClient
         }
     }
 
-    public function getInvoice(string $cryptoCode, string $id): \BTCPayServer\Result\Invoice
+    public function getLightningInvoice(string $cryptoCode, string $id): \BTCPayServer\Result\LightningInvoice
     {
         $url = $this->getApiUrl() . 'server/lightning/' .
                     urlencode($cryptoCode) . '/invoices/' .
@@ -125,7 +127,7 @@ class LightningInternalNode extends AbstractClient
         $response = $this->getHttpClient()->request($method, $url, $headers);
 
         if ($response->getStatus() === 200) {
-            return new \BTCPayServer\Result\Invoice(
+            return new \BTCPayServer\Result\LightningInvoice(
                 json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR)
             );
         } else {
@@ -138,7 +140,7 @@ class LightningInternalNode extends AbstractClient
         string $BOLT11,
         ?string $maxFeePercent,
         ?string $maxFeeFlat
-    ): bool {
+    ): \BTCPayServer\Result\LightningPayment {
         $url = $this->getApiUrl() . 'server/lightning/' .
                     urlencode($cryptoCode) . '/invoices/pay';
 
@@ -157,7 +159,9 @@ class LightningInternalNode extends AbstractClient
         $response = $this->getHttpClient()->request($method, $url, $headers, $body);
 
         if ($response->getStatus() === 200) {
-            return true;
+            return new \BTCPayServer\Result\LightningPayment(
+                json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR)
+            );
         } else {
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }
@@ -175,7 +179,7 @@ class LightningInternalNode extends AbstractClient
         int $expiry,
         ?string $description = null,
         ?bool $privateRouteHints = false
-    ): \BTCPayServer\Result\Invoice {
+    ): \BTCPayServer\Result\LightningInvoice {
         $url = $this->getApiUrl() . 'server/lightning/' .
                     urlencode($cryptoCode) . '/invoices';
 
@@ -195,7 +199,7 @@ class LightningInternalNode extends AbstractClient
         $response = $this->getHttpClient()->request($method, $url, $headers, $body);
 
         if ($response->getStatus() === 200) {
-            return new \BTCPayServer\Result\Invoice(
+            return new \BTCPayServer\Result\LightningInvoice(
                 json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR)
             );
         } else {
