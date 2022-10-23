@@ -21,6 +21,7 @@ final class LightningInternalNodeTest extends TestCase
     /** @group payLightningInvoice */
     public function testItReceivesLightningPaymentObjectAfterPayingLightningInvoiceWithAllGetters(): void
     {
+        $this->markTestSkipped();
         $lightningClient = new \BTCPayServer\Client\LightningInternalNode($this->host, $this->apiKey);
         $bolt11 = '';
 
@@ -69,6 +70,7 @@ final class LightningInternalNodeTest extends TestCase
     /** @group getNodeInformation */
     public function testItCanGetNodeInformationAndReturnsLightningNodeInformationObject(): void
     {
+        $this->markTestSkipped();
         $lightningClient = new \BTCPayServer\Client\LightningInternalNode($this->host, $this->apiKey);
         $lightningNodeInformation = $lightningClient->getNodeInformation(
             'BTC',
@@ -90,6 +92,7 @@ final class LightningInternalNodeTest extends TestCase
     /** @group getChannels */
     public function testItCanGetChannelsAndReturnsLightningChannelListObject(): void
     {
+        $this->markTestSkipped();
         $lightningClient = new \BTCPayServer\Client\LightningInternalNode($this->host, $this->apiKey);
         $lightningChannels = $lightningClient->getChannels(
             'BTC',
@@ -113,6 +116,7 @@ final class LightningInternalNodeTest extends TestCase
     /** @group getDepositAddress */
     public function testItCanGetANewDepositAddress(): void
     {
+        $this->markTestSkipped();
         $lightningClient = new \BTCPayServer\Client\LightningInternalNode($this->host, $this->apiKey);
         $depositAddress = $lightningClient->getDepositAddress(
             'BTC',
@@ -124,6 +128,7 @@ final class LightningInternalNodeTest extends TestCase
     /** @group getLightningInvoice */
     public function testItCanGetAnInvoiceAndReturnsLightningInvoiceObject(): void
     {
+        $this->markTestSkipped();
         $invoice = '38b91659426e50479b83ecebc0240f4282c48a1a2fa4a0e32180a2d86e69bc95';
         $lightningClient = new \BTCPayServer\Client\LightningInternalNode($this->host, $this->apiKey);
         $lightningInvoice = $lightningClient->getLightningInvoice(
@@ -145,6 +150,7 @@ final class LightningInternalNodeTest extends TestCase
     /** @group createLightningInvoice */
     public function testItCanCreateALightningInvoiceAndReturnsLightningInvoiceObject(): void
     {
+        $this->markTestSkipped();
         $lightningClient = new \BTCPayServer\Client\LightningInternalNode($this->host, $this->apiKey);
         $lightningInvoice = $lightningClient->createLightningInvoice(
             'BTC',
