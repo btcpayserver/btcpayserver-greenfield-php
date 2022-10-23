@@ -12,9 +12,9 @@ final class LightningInternalNodeTest extends TestCase
     {
         //parent::setUp();
 
-        $this->apiKey = '0aec1b783e4c9de00efbdf6fbb7c2d1605747f22';
-        $this->host = 'http://dev.node.local';
-        $this->storeId = 'AHATsAxikYqrG5KAodxpE9B9EQHP18zKqJfLeDtiviUP';
+        $this->apiKey = '';
+        $this->host = '';
+        $this->storeId = '';
         $this->nodeUri = '';
     }
 
