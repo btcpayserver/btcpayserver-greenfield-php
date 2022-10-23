@@ -38,12 +38,12 @@ class LightningPayment extends AbstractResult
         return $this->getData()['createdAt'];
     }
 
-    public function getTotalAmount(): ?PreciseNumber
+    public function getTotalAmount(): PreciseNumber
     {
         return PreciseNumber::parseString($this->getData()['totalAmount']);
     }
 
-    public function getFeeAmount(): ?PreciseNumber
+    public function getFeeAmount(): PreciseNumber
     {
         return PreciseNumber::parseString($this->getData()['feeAmount']);
     }

@@ -58,7 +58,11 @@ class WebhookExample
 
         // verify hmac256
         $headers = getallheaders();
-        $sig = $headers['BTCPay-Sig'];
+        foreach ($headers as $key => $value) {
+            if (strtolower($key) === 'btcpay-sig') {
+                $sig = $value;
+            }
+        }
 
         $webhookClient = new Webhook($this->host, $this->apiKey);
 
