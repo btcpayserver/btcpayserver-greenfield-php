@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace BTCPayServer\Client;
 
-use BTCPayServer\Result\LightningNodeConnection;
-
 class LightningInternalNode extends AbstractClient
 {
     public function getNodeInformation(string $cryptoCode): \BTCPayServer\Result\LightningNode

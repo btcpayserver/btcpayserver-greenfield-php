@@ -13,7 +13,7 @@ final class LightningInternalNodeTest extends TestCase
         //parent::setUp();
 
         $this->apiKey = '';
-        $this->host = ''; 
+        $this->host = '';
         $this->storeId = '';
         $this->nodeUri = '';
     }
@@ -25,11 +25,11 @@ final class LightningInternalNodeTest extends TestCase
         $bolt11 = '';
 
         $lightningPayment = $lightningClient->payLightningInvoice(
-                cryptoCode: 'BTC',
-                BOLT11: $bolt11,
-                maxFeePercent: '0.1',
-                maxFeeFlat: '10',
-            );
+            cryptoCode: 'BTC',
+            BOLT11: $bolt11,
+            maxFeePercent: '0.1',
+            maxFeeFlat: '10',
+        );
 
         $this->assertInstanceOf(\BTCPayServer\Result\LightningPayment::class, $lightningPayment);
 
@@ -58,10 +58,9 @@ final class LightningInternalNodeTest extends TestCase
             $lightningNodeConnection = $lightningClient->connectToLightningNode(
                 cryptoCode: 'BTC',
                 nodeURI: $this->nodeUri,
-        );
+            );
 
-        $this->assertInstanceOf(\BTCPayServer\Result\LightningNodeConnection::class, $lightningNodeConnection);
-
+            $this->assertInstanceOf(\BTCPayServer\Result\LightningNodeConnection::class, $lightningNodeConnection);
         } catch (\BTCPayServer\Client\BTCPayServerException $e) {
             die($e->getMessage());
         }
@@ -72,7 +71,7 @@ final class LightningInternalNodeTest extends TestCase
     {
         $lightningClient = new \BTCPayServer\Client\LightningInternalNode($this->host, $this->apiKey);
         $lightningNodeInformation = $lightningClient->getNodeInformation(
-                'BTC',
+            'BTC',
         );
 
         $this->assertInstanceOf(\BTCPayServer\Result\LightningNode::class, $lightningNodeInformation);
@@ -93,14 +92,14 @@ final class LightningInternalNodeTest extends TestCase
     {
         $lightningClient = new \BTCPayServer\Client\LightningInternalNode($this->host, $this->apiKey);
         $lightningChannels = $lightningClient->getChannels(
-                'BTC',
+            'BTC',
         );
 
         $this->assertInstanceOf(\BTCPayServer\Result\LightningChannelList::class, $lightningChannels);
 
         $this->assertIsArray($lightningChannels->all());
 
-        foreach($lightningChannels->all() as $channel) {
+        foreach ($lightningChannels->all() as $channel) {
             $this->assertInstanceOf(\BTCPayServer\Result\LightningChannel::class, $channel);
             $this->assertIsString($channel->getRemoteNode());
             $this->assertIsString($channel->getChannelPoint());
@@ -116,7 +115,7 @@ final class LightningInternalNodeTest extends TestCase
     {
         $lightningClient = new \BTCPayServer\Client\LightningInternalNode($this->host, $this->apiKey);
         $depositAddress = $lightningClient->getDepositAddress(
-                'BTC',
+            'BTC',
         );
 
         $this->assertIsString($depositAddress);
@@ -128,11 +127,9 @@ final class LightningInternalNodeTest extends TestCase
         $invoice = '38b91659426e50479b83ecebc0240f4282c48a1a2fa4a0e32180a2d86e69bc95';
         $lightningClient = new \BTCPayServer\Client\LightningInternalNode($this->host, $this->apiKey);
         $lightningInvoice = $lightningClient->getLightningInvoice(
-                'BTC',
-                $invoice,
+            'BTC',
+            $invoice,
         );
-
-        //die(var_dump($lightningInvoice));
 
         $this->assertInstanceOf(\BTCPayServer\Result\LightningInvoice::class, $lightningInvoice);
 
@@ -150,10 +147,10 @@ final class LightningInternalNodeTest extends TestCase
     {
         $lightningClient = new \BTCPayServer\Client\LightningInternalNode($this->host, $this->apiKey);
         $lightningInvoice = $lightningClient->createLightningInvoice(
-                'BTC',
-                '100000', // milisats
-                111111,
-                'Test invoice description',
+            'BTC',
+            '100000', // milisats
+            111111,
+            'Test invoice description',
         );
 
         $this->assertInstanceOf(\BTCPayServer\Result\LightningInvoice::class, $lightningInvoice);
