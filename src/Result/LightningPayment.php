@@ -13,7 +13,7 @@ class LightningPayment extends AbstractResult
         return $this->getData()['id'];
     }
 
-    public function getStatus(): ?string
+    public function getStatus(): string
     {
         return $this->getData()['status'];
     }
