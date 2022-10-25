@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace BTCPayServer\Tests;
 
-use BTCPayServer\Result\LightningInvoice;
 use PHPUnit\Framework\TestCase;
+use Dotenv\Dotenv;
 
-$dotenv = \Dotenv\Dotenv::createImmutable(__DIR__);
-$dotenv->load();
 
 class BaseTest extends TestCase
 {
@@ -17,15 +15,24 @@ class BaseTest extends TestCase
     protected string $nodeUri;
     protected string $storeId;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        $this->apiKey = $_ENV['BTCPAY_API_KEY'];
-        $this->host = $_ENV['BTCPAY_HOST'];
-        $this->storeId = $_ENV['BTCPAY_STORE_ID'];
-        $this->nodeUri = $_ENV['BTCPAY_NODE_URI'];
+        $dotenv = Dotenv::createImmutable(__DIR__);
+        $dotenv->safeLoad();
+
+        if (!isset($_ENV['BTCPAY_API_KEY']) || !isset($_ENV['BTCPAY_HOST']) || !isset($_ENV['BTCPAY_STORE_ID']) || !isset($_ENV['BTCPAY_NODE_URI'])) {
+            throw new \Exception('Missing .env variables');
+        }
     }
 
-    // test that all the variables are set
+    protected function setUp(): void
+    {
+        $this->host = $_ENV['BTCPAY_HOST'];
+        $this->apiKey = $_ENV['BTCPAY_API_KEY'];
+        $this->nodeUri = $_ENV['BTCPAY_NODE_URI'];
+        $this->storeId = $_ENV['BTCPAY_STORE_ID'];
+    }
+
     public function testThatAllTheVariablesAreSet(): void
     {
         $this->assertIsString($this->apiKey);
@@ -41,7 +48,3 @@ class BaseTest extends TestCase
 
 }
 
-   // if any of the .env variables are missing, throw an exception
-   if (!isset($_ENV['BTCPAY_API_KEY']) || !isset($_ENV['BTCPAY_HOST']) || !isset($_ENV['BTCPAY_STORE_ID']) || !isset($_ENV['BTCPAY_NODE_URI'])) {
-    throw new \Exception('Missing .env variables');
-   }
