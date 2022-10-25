@@ -23,7 +23,7 @@ class LightningInvoice extends AbstractResult
         return $this->getData()['BOLT11'];
     }
 
-    public function getPaidAt(): int
+    public function getPaidAt(): ?int
     {
         return $this->getData()['paidAt'];
     }
@@ -38,7 +38,7 @@ class LightningInvoice extends AbstractResult
         return PreciseNumber::parseString($this->getData()['amount']);
     }
 
-    public function getAmountReceived(): PreciseNumber
+    public function getAmountReceived(): ?PreciseNumber
     {
         return ($this->getData()['amountReceived'] === null) ? null : PreciseNumber::parseString($this->getData()['amountReceived']);
     }
