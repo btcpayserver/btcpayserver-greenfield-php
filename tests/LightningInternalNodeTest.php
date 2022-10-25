@@ -118,11 +118,10 @@ final class LightningInternalNodeTest extends BaseTest
     /** @group getLightningInvoice */
     public function testItCanGetAnInvoiceAndReturnsLightningInvoiceObject(): void
     {
-        $invoice = $_ENV['BTCPAY_EXAMPLE_INVOICE_ID'];
         $lightningClient = new \BTCPayServer\Client\LightningInternalNode($this->host, $this->apiKey);
         $lightningInvoice = $lightningClient->getLightningInvoice(
             'BTC',
-            $invoice,
+            $this->exampleInvoiceId,
         );
 
         $this->assertInstanceOf(\BTCPayServer\Result\LightningInvoice::class, $lightningInvoice);

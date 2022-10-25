@@ -15,6 +15,7 @@ class BaseTest extends TestCase
     protected string $apiKey;
     protected string $nodeUri;
     protected string $storeId;
+    protected string $exampleInvoiceId;
 
     public function setUp(): void
     {
@@ -22,5 +23,6 @@ class BaseTest extends TestCase
         $this->host = $_ENV['BTCPAY_HOST'];
         $this->storeId = $_ENV['BTCPAY_STORE_ID'];
         $this->nodeUri = $_ENV['BTCPAY_NODE_URI'];
+        $this->exampleInvoiceId = $_ENV['BTCPAY_EXAMPLE_INVOICE_ID'];
     }
 }
