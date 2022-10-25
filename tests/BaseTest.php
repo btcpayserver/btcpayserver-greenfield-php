@@ -11,11 +11,10 @@ $dotenv->load();
 
 class BaseTest extends TestCase
 {
-    public string $host;
-    public string $apiKey;
-    public string $nodeUri;
-    public string $storeId;
-    public $dotenv;
+    protected string $host;
+    protected string $apiKey;
+    protected string $nodeUri;
+    protected string $storeId;
 
     public function setUp(): void
     {
