@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace BTCPayServer\Tests;
 
-use PHPUnit\Framework\TestCase;
 use Dotenv\Dotenv;
-
+use PHPUnit\Framework\TestCase;
 
 class BaseTest extends TestCase
 {
@@ -44,7 +43,5 @@ class BaseTest extends TestCase
         $this->assertNotEmpty($this->host);
         $this->assertNotEmpty($this->storeId);
         $this->assertNotEmpty($this->nodeUri);
-   }
-
+    }
 }
-
