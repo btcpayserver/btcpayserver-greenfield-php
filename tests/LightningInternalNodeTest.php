@@ -11,6 +11,39 @@ final class LightningInternalNodeTest extends BaseTest
         parent::setUp();
     }
 
+    /** @group createLightningInvoice */
+    public function testItCanCreateALightningInvoiceAndReturnsLightningInvoiceObject(): void
+    {
+        $lightningClient = new \BTCPayServer\Client\LightningInternalNode($this->host, $this->apiKey);
+        $lightningInvoice = $lightningClient->createLightningInvoice(
+            'BTC',
+            '100000', // milisats
+            111111,
+            'Test invoice description',
+        );
+
+        $this->assertInstanceOf(\BTCPayServer\Result\LightningInvoice::class, $lightningInvoice);
+
+        $this->lightningInvoice = $lightningInvoice;
+
+        $this->assertIsString($lightningInvoice->getId());
+        $this->assertIsString($lightningInvoice->getStatus());
+        $this->assertIsString($lightningInvoice->getBolt11());
+
+        // If the lightning invoice is paid, assert the paid at is an int
+        if ($lightningInvoice->getPaidAt()) {
+            $this->assertIsInt($lightningInvoice->getPaidAt());
+        }
+
+        $this->assertIsInt($lightningInvoice->getExpiresAt());
+        $this->assertInstanceOf(\BTCPayServer\Util\PreciseNumber::class, $lightningInvoice->getAmount());
+
+        // If the lightning invoice is paid, assert the amount received is a PreciseNumber
+        if ($lightningInvoice->getAmountReceived()) {
+            $this->assertInstanceOf(\BTCPayServer\Util\PreciseNumber::class, $lightningInvoice->getAmountReceived());
+        }
+    }
+
     /** @group payLightningInvoice */
     public function testItReceivesLightningPaymentObjectAfterPayingLightningInvoiceWithAllGetters(): void
     {
@@ -119,49 +152,35 @@ final class LightningInternalNodeTest extends BaseTest
     public function testItCanGetAnInvoiceAndReturnsLightningInvoiceObject(): void
     {
         $lightningClient = new \BTCPayServer\Client\LightningInternalNode($this->host, $this->apiKey);
-        $lightningInvoice = $lightningClient->getLightningInvoice(
-            'BTC',
-            $this->exampleInvoiceId,
-        );
 
-        $this->assertInstanceOf(\BTCPayServer\Result\LightningInvoice::class, $lightningInvoice);
-
-        $this->assertIsString($lightningInvoice->getId());
-        $this->assertIsString($lightningInvoice->getStatus());
-        $this->assertIsString($lightningInvoice->getBolt11());
-        $this->assertIsInt($lightningInvoice->getPaidAt());
-        $this->assertIsInt($lightningInvoice->getExpiresAt());
-        $this->assertInstanceOf(\BTCPayServer\Util\PreciseNumber::class, $lightningInvoice->getAmount());
-        $this->assertInstanceOf(\BTCPayServer\Util\PreciseNumber::class, $lightningInvoice->getAmountReceived());
-    }
-
-    /** @group createLightningInvoice */
-    public function testItCanCreateALightningInvoiceAndReturnsLightningInvoiceObject(): void
-    {
-        $lightningClient = new \BTCPayServer\Client\LightningInternalNode($this->host, $this->apiKey);
-        $lightningInvoice = $lightningClient->createLightningInvoice(
+        $getLightningInvoice = $lightningClient->createLightningInvoice(
             'BTC',
             '100000', // milisats
             111111,
             'Test invoice description',
         );
 
+        $lightningInvoice = $lightningClient->getLightningInvoice(
+            'BTC',
+            $getLightningInvoice->getId(),
+        );
+
         $this->assertInstanceOf(\BTCPayServer\Result\LightningInvoice::class, $lightningInvoice);
 
         $this->assertIsString($lightningInvoice->getId());
         $this->assertIsString($lightningInvoice->getStatus());
         $this->assertIsString($lightningInvoice->getBolt11());
 
-        // If the lightning invoice is paid, assert the paid at is an int
-        if ($lightningInvoice->getPaidAt()) {
+        // If the invoice get Paid at is not null, assert it's int
+        if ($lightningInvoice->getPaidAt() !== null) {
             $this->assertIsInt($lightningInvoice->getPaidAt());
         }
 
         $this->assertIsInt($lightningInvoice->getExpiresAt());
         $this->assertInstanceOf(\BTCPayServer\Util\PreciseNumber::class, $lightningInvoice->getAmount());
 
-        // If the lightning invoice is paid, assert the amount received is a PreciseNumber
-        if ($lightningInvoice->getAmountReceived()) {
+        // If the invoice get Paid amount is not null, assert it's PreciseNumber
+        if ($lightningInvoice->getAmountReceived() !== null) {
             $this->assertInstanceOf(\BTCPayServer\Util\PreciseNumber::class, $lightningInvoice->getAmountReceived());
         }
     }
