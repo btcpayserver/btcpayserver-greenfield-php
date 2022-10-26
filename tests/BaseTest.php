@@ -19,7 +19,7 @@ class BaseTest extends TestCase
         $dotenv = Dotenv::createImmutable(__DIR__);
         $dotenv->safeLoad();
 
-        if (!isset($_ENV['BTCPAY_API_KEY']) || !isset($_ENV['BTCPAY_HOST']) || !isset($_ENV['BTCPAY_STORE_ID']) || !isset($_ENV['BTCPAY_NODE_URI'])) {
+        if (!isset($_ENV['BTCPAY_API_KEY'], $_ENV['BTCPAY_HOST'], $_ENV['BTCPAY_STORE_ID'], $_ENV['BTCPAY_NODE_URI'])) {
             throw new \Exception('Missing .env variables');
         }
     }
