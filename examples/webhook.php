@@ -58,11 +58,15 @@ class WebhookExample
 
         // verify hmac256
         $headers = getallheaders();
-        $sig = $headers['Btcpay-Sig'];
+        foreach ($headers as $key => $value) {
+            if (strtolower($key) === 'btcpay-sig') {
+                $sig = $value;
+            }
+        }
 
         $webhookClient = new Webhook($this->host, $this->apiKey);
 
-        if ($webhookClient->isIncomingWebhookRequestValid($raw_post_data, $sig, $this->secret)) {
+        if (!$webhookClient->isIncomingWebhookRequestValid($raw_post_data, $sig, $this->secret)) {
             fwrite(
                 $myfile,
                 $date . " : Error. Invalid Signature detected! \n was: " . $sig . " should be: " . hash_hmac(
