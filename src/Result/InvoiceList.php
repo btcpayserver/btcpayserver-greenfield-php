@@ -24,7 +24,7 @@ class InvoiceList extends AbstractListResult
     public function getInvoicesByStatus(string $status): array
     {
         $r = array_filter(
-            $this->getInvoices(),
+            $this->all(),
             function (\BTCPayServer\Result\Invoice $invoice) use ($status) {
                 return $invoice->getStatus() === $status;
             }
@@ -32,20 +32,5 @@ class InvoiceList extends AbstractListResult
 
         // Renumber results
         return array_values($r);
-    }
-
-    /**
-     * @deprecated 2.0.0 Please use `all()` instead.
-     * @see all()
-     *
-     * @return \BTCPayServer\Result\Invoice[]
-     */
-    public function getInvoices(): array
-    {
-        $r = [];
-        foreach ($this->getData() as $invoiceData) {
-            $r[] = new \BTCPayServer\Result\Invoice($invoiceData);
-        }
-        return $r;
     }
 }
