@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace BTCPayServer\Client;
 
+use BTCPayServer\Result\AbstractStorePaymentMethodResult;
+use BTCPayServer\Result\StorePaymentMethodCollection;
+
 /**
  * Global class to handle OnChain and LightningNetwork payment methods.
  *
@@ -20,14 +23,14 @@ class StorePaymentMethod extends AbstractClient
         $response = $this->getHttpClient()->request($method, $url, $headers);
 
         if ($response->getStatus() === 200) {
-            $pm = new \BTCPayServer\Result\StorePaymentMethodCollection(json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR));
-            return $pm->getPaymentMethods();
+            $pm = new StorePaymentMethodCollection(json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR));
+            return $pm->getPaymentMethods(); // Method does not exist. 
         } else {
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }
     }
 
-    public function getPaymentMethod(string $storeId, string $paymentMethod): \BTCPayServer\Result\AbstractStorePaymentMethodResult
+    public function getPaymentMethod(string $storeId, string $paymentMethod): AbstractStorePaymentMethodResult
     {
         $paymentType = $this->determinePaymentType($paymentMethod);
         $pmObject = $this->getInstance($paymentType['type']);

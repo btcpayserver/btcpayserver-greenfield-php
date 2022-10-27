@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace BTCPayServer\Client;
 
+use BTCPayServer\Result\PullPayment as ResultPullPayment;
+use BTCPayServer\Result\PullPaymentList;
+use BTCPayServer\Result\PullPaymentPayout;
+use BTCPayServer\Result\PullPaymentPayoutList;
 use BTCPayServer\Util\PreciseNumber;
 
 class PullPayment extends AbstractClient
@@ -11,7 +15,7 @@ class PullPayment extends AbstractClient
     public function getStorePullPayments(
         string $storeId,
         bool $includeArchived
-    ): \BTCPayServer\Result\PullPaymentList {
+    ): PullPaymentList {
         $url = $this->getApiUrl() . 'stores/' .
                     urlencode($storeId) . '/pull-payments';
 
@@ -28,7 +32,7 @@ class PullPayment extends AbstractClient
         $response = $this->getHttpClient()->request($method, $url, $headers, $body);
 
         if ($response->getStatus() === 200) {
-            return new \BTCPayServer\Result\PullPaymentList(
+            return new PullPaymentList(
                 json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR)
             );
         } else {
@@ -47,7 +51,7 @@ class PullPayment extends AbstractClient
         ?int $startsAt,
         ?int $expiresAt,
         array $paymentMethods
-    ): \BTCPayServer\Result\PullPayment {
+    ): ResultPullPayment {
         $url = $this->getApiUrl() . 'stores/' .
                     urlencode($storeId) . '/pull-payments';
 
@@ -72,7 +76,7 @@ class PullPayment extends AbstractClient
         $response = $this->getHttpClient()->request($method, $url, $headers, $body);
 
         if ($response->getStatus() === 200) {
-            return new \BTCPayServer\Result\PullPayment(
+            return new ResultPullPayment(
                 json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR)
             );
         } else {
@@ -105,7 +109,7 @@ class PullPayment extends AbstractClient
         string $payoutId,
         int $revision,
         ?string $rateRule
-    ): \BTCPayServer\Result\PullPaymentPayout {
+    ): PullPaymentPayout {
         $url = $this->getApiUrl() . 'stores/' .
                     urlencode($storeId) . '/' . 'payouts/' .
                     urlencode($payoutId);
@@ -124,7 +128,7 @@ class PullPayment extends AbstractClient
         $response = $this->getHttpClient()->request($method, $url, $headers, $body);
 
         if ($response->getStatus() === 200) {
-            return new \BTCPayServer\Result\PullPaymentPayout(
+            return new PullPaymentPayout(
                 json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR)
             );
         } else {
@@ -174,7 +178,7 @@ class PullPayment extends AbstractClient
 
     public function getPullPayment(
         string $pullPaymentId
-    ): \BTCPayServer\Result\PullPayment {
+    ): ResultPullPayment {
         $url = $this->getApiUrl() . 'pull-payments/' .
                     urlencode($pullPaymentId);
 
@@ -184,7 +188,7 @@ class PullPayment extends AbstractClient
         $response = $this->getHttpClient()->request($method, $url, $headers);
 
         if ($response->getStatus() === 200) {
-            return new \BTCPayServer\Result\PullPayment(
+            return new ResultPullPayment(
                 json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR)
             );
         } else {
@@ -195,7 +199,7 @@ class PullPayment extends AbstractClient
     public function getPayouts(
         string $pullPaymentId,
         bool $includeCancelled
-    ): \BTCPayServer\Result\PullPaymentPayoutList {
+    ): PullPaymentPayoutList {
         $url = $this->getApiUrl() . 'pull-payments/' .
                     urlencode($pullPaymentId) . '/payouts';
 
@@ -212,7 +216,7 @@ class PullPayment extends AbstractClient
         $response = $this->getHttpClient()->request($method, $url, $headers, $body);
 
         if ($response->getStatus() === 200) {
-            return new \BTCPayServer\Result\PullPaymentPayoutList(
+            return new PullPaymentPayoutList(
                 json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR)
             );
         } else {
@@ -225,7 +229,7 @@ class PullPayment extends AbstractClient
         string $destination,
         PreciseNumber $amount,
         string $paymentMethod
-    ): \BTCPayServer\Result\PullPaymentPayout {
+    ): PullPaymentPayout {
         $url = $this->getApiUrl() . 'pull-payments/' .
                      urlencode($pullPaymentId) . '/payouts';
 
@@ -244,7 +248,7 @@ class PullPayment extends AbstractClient
         $response = $this->getHttpClient()->request($method, $url, $headers, $body);
 
         if ($response->getStatus() === 200) {
-            return new \BTCPayServer\Result\PullPaymentPayout(
+            return new PullPaymentPayout(
                 json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR)
             );
         } else {
@@ -255,7 +259,7 @@ class PullPayment extends AbstractClient
     public function getPayout(
         string $pullPaymentId,
         string $payoutId
-    ): \BTCPayServer\Result\PullPaymentPayout {
+    ): PullPaymentPayout {
         $url = $this->getApiUrl() . 'pull-payments/' .
                     urlencode($pullPaymentId) . '/payouts' . '/' .
                     urlencode($payoutId);
@@ -266,7 +270,7 @@ class PullPayment extends AbstractClient
         $response = $this->getHttpClient()->request($method, $url, $headers);
 
         if ($response->getStatus() === 200) {
-            return new \BTCPayServer\Result\PullPaymentPayout(
+            return new PullPaymentPayout(
                 json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR)
             );
         } else {
