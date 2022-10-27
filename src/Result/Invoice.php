@@ -83,7 +83,7 @@ class Invoice extends AbstractResult
         return $data['status'] === self::STATUS_NEW;
     }
 
-    public function isFullyPaid(): bool
+    public function isSettled(): bool
     {
         $data = $this->getData();
         return $data['status'] === self::STATUS_SETTLED;
