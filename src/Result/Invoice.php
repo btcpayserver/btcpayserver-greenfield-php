@@ -71,12 +71,6 @@ class Invoice extends AbstractResult
         return $this->getData()['archived'];
     }
 
-    public function isPaid(): bool
-    {
-        $data = $this->getData();
-        return $data['status'] === self::STATUS_SETTLED || $data['additionalStatus'] === self::ADDITIONAL_STATUS_PAID_PARTIAL;
-    }
-
     public function isNew(): bool
     {
         $data = $this->getData();
@@ -86,7 +80,7 @@ class Invoice extends AbstractResult
     public function isSettled(): bool
     {
         $data = $this->getData();
-        return $data['status'] === self::STATUS_SETTLED;
+        return $data['status'] === self::STATUS_SETTLED || $data['additionalStatus'] === self::ADDITIONAL_STATUS_PAID_LATE;
     }
 
     public function getStatus(): string
