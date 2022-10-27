@@ -24,7 +24,7 @@ class StorePaymentMethod extends AbstractClient
 
         if ($response->getStatus() === 200) {
             $pm = new StorePaymentMethodCollection(json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR));
-            return $pm->getPaymentMethods(); // Method does not exist. 
+            return $pm->all();
         } else {
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }
@@ -48,12 +48,12 @@ class StorePaymentMethod extends AbstractClient
      *                        StorePaymentMethodOnChain classes for what you can
      *                        pass on each of them.
      *
-     * @return \BTCPayServer\Result\AbstractStorePaymentMethodResult
+     * @return AbstractStorePaymentMethodResult
      *
      * @see StorePaymentMethodOnChain::updatePaymentMethod()
      * @see StorePaymentMethodLightningNetwork::updatePaymentMethod()
      */
-    public function updatePaymentMethod(string $storeId, string $paymentMethod, array $settings): \BTCPayServer\Result\AbstractStorePaymentMethodResult
+    public function updatePaymentMethod(string $storeId, string $paymentMethod, array $settings): AbstractStorePaymentMethodResult
     {
         $paymentType = $this->determinePaymentType($paymentMethod);
         $pmObject = $this->getInstance($paymentType['type']);

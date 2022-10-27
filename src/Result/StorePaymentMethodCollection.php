@@ -7,7 +7,7 @@ namespace BTCPayServer\Result;
 class StorePaymentMethodCollection extends AbstractListResult
 {
     /**
-     * @return \BTCPayServer\Result\AbstractStorePaymentMethodResult[]
+     * @return AbstractStorePaymentMethodResult[]
      */
     public function all(): array
     {

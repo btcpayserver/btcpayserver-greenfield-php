@@ -108,7 +108,7 @@ class StorePaymentMethodOnChain extends AbstractStorePaymentMethodClient
             $addressList = new \BTCPayServer\Result\AddressList(
                 json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR)
             );
-            return $addressList->getAddresses();
+            return $addressList->all();
         } else {
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }
@@ -150,7 +150,7 @@ class StorePaymentMethodOnChain extends AbstractStorePaymentMethodClient
             $addressList = new \BTCPayServer\Result\AddressList(
                 json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR)
             );
-            return $addressList->getAddresses();
+            return $addressList->all();
         } else {
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }
