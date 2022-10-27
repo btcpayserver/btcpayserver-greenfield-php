@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace BTCPayServer\Client;
 
+use BTCPayServer\Result\ApiKey as ResultApiKey;
+
 class ApiKey extends AbstractClient
 {
     /**
@@ -62,7 +64,7 @@ class ApiKey extends AbstractClient
     /**
      * Get the current API Key information
      */
-    public function getCurrent(): \BTCPayServer\Result\ApiKey
+    public function getCurrent(): ResultApiKey
     {
         $url = $this->getApiUrl() . 'api-keys/current';
         $headers = $this->getRequestHeaders();
@@ -70,7 +72,7 @@ class ApiKey extends AbstractClient
         $response = $this->getHttpClient()->request($method, $url, $headers);
 
         if ($response->getStatus() === 200) {
-            return new \BTCPayServer\Result\ApiKey(json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR));
+            return new ResultApiKey(json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR));
         } else {
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }
