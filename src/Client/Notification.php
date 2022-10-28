@@ -4,13 +4,16 @@ declare(strict_types=1);
 
 namespace BTCPayServer\Client;
 
+use BTCPayServer\Result\Notification as ResultNotification;
+use BTCPayServer\Result\NotificationList;
+
 class Notification extends AbstractClient
 {
     public function getNotifications(
         ?string $seen = null,
         ?int $skip = null,
         ?int $take = null
-    ): \BTCPayServer\Result\NotificationList {
+    ): NotificationList {
         $url = $this->getApiUrl() . 'users/me/notifications/?';
 
         $queryParameters = [
@@ -27,7 +30,7 @@ class Notification extends AbstractClient
         $response = $this->getHttpClient()->request($method, $url, $headers);
 
         if ($response->getStatus() === 200) {
-            return new \BTCPayServer\Result\NotificationList(
+            return new NotificationList(
                 json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR)
             );
         } else {
@@ -35,7 +38,7 @@ class Notification extends AbstractClient
         }
     }
 
-    public function getNotification(string $id): \BTCPayServer\Result\Notification
+    public function getNotification(string $id): ResultNotification
     {
         $url = $this->getApiUrl() . 'users/me/notifications/' . urlencode($id);
 
@@ -45,7 +48,7 @@ class Notification extends AbstractClient
         $response = $this->getHttpClient()->request($method, $url, $headers);
 
         if ($response->getStatus() === 200) {
-            return new \BTCPayServer\Result\Notification(
+            return new ResultNotification(
                 json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR)
             );
         } else {
@@ -53,7 +56,7 @@ class Notification extends AbstractClient
         }
     }
 
-    public function updateNotification(string $id, ?bool $seen): \BTCPayServer\Result\Notification
+    public function updateNotification(string $id, ?bool $seen): ResultNotification
     {
         $url = $this->getApiUrl() . 'users/me/notifications/' . urlencode($id);
 
@@ -70,7 +73,7 @@ class Notification extends AbstractClient
         $response = $this->getHttpClient()->request($method, $url, $headers, $body);
 
         if ($response->getStatus() === 200) {
-            return new \BTCPayServer\Result\Notification(
+            return new ResultNotification(
                 json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR)
             );
         } else {

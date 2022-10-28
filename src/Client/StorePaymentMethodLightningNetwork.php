@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace BTCPayServer\Client;
 
+use BTCPayServer\Result\StorePaymentMethodLightningNetwork as ResultStorePaymentMethodLightningNetwork;
+
 /**
  * Handles a stores LightningNetwork payment methods.
  *
@@ -14,7 +16,7 @@ class StorePaymentMethodLightningNetwork extends AbstractStorePaymentMethodClien
     /**
      * @param string $storeId
      *
-     * @return  \BTCPayServer\Result\StorePaymentMethodLightningNetwork[]
+     * @return  ResultStorePaymentMethodLightningNetwork[]
      * @throws \JsonException
      */
     public function getPaymentMethods(string $storeId): array
@@ -28,7 +30,7 @@ class StorePaymentMethodLightningNetwork extends AbstractStorePaymentMethodClien
             $r = [];
             $data = json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
             foreach ($data as $item) {
-                $r[] = new \BTCPayServer\Result\StorePaymentMethodLightningNetwork($item, $item['cryptoCode'] . '-' . self::PAYMENT_TYPE_LIGHTNING);
+                $r[] = new ResultStorePaymentMethodLightningNetwork($item, $item['cryptoCode'] . '-' . self::PAYMENT_TYPE_LIGHTNING);
             }
             return $r;
         } else {
@@ -36,7 +38,7 @@ class StorePaymentMethodLightningNetwork extends AbstractStorePaymentMethodClien
         }
     }
 
-    public function getPaymentMethod(string $storeId, string $cryptoCode): \BTCPayServer\Result\StorePaymentMethodLightningNetwork
+    public function getPaymentMethod(string $storeId, string $cryptoCode): ResultStorePaymentMethodLightningNetwork
     {
         $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/payment-methods/' . self::PAYMENT_TYPE_LIGHTNING . '/' . $cryptoCode;
         $headers = $this->getRequestHeaders();
@@ -45,7 +47,7 @@ class StorePaymentMethodLightningNetwork extends AbstractStorePaymentMethodClien
 
         if ($response->getStatus() === 200) {
             $data = json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
-            return new \BTCPayServer\Result\StorePaymentMethodLightningNetwork($data, $data['cryptoCode'] . '-' . self::PAYMENT_TYPE_LIGHTNING);
+            return new ResultStorePaymentMethodLightningNetwork($data, $data['cryptoCode'] . '-' . self::PAYMENT_TYPE_LIGHTNING);
         } else {
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }
@@ -64,10 +66,10 @@ class StorePaymentMethodLightningNetwork extends AbstractStorePaymentMethodClien
      *                          'connectionString' => 'Internal Node'
      *                        ]
      *
-     * @return \BTCPayServer\Result\StorePaymentMethodLightningNetwork
+     * @return ResultStorePaymentMethodLightningNetwork
      * @throws \JsonException
      */
-    public function updatePaymentMethod(string $storeId, string $cryptoCode, array $settings): \BTCPayServer\Result\StorePaymentMethodLightningNetwork
+    public function updatePaymentMethod(string $storeId, string $cryptoCode, array $settings): ResultStorePaymentMethodLightningNetwork
     {
         $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/payment-methods/' . self::PAYMENT_TYPE_LIGHTNING . '/' . $cryptoCode;
         $headers = $this->getRequestHeaders();
@@ -76,7 +78,7 @@ class StorePaymentMethodLightningNetwork extends AbstractStorePaymentMethodClien
 
         if ($response->getStatus() === 200) {
             $data = json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
-            return new \BTCPayServer\Result\StorePaymentMethodLightningNetwork($data, $data['cryptoCode'] . '-' . self::PAYMENT_TYPE_LIGHTNING);
+            return new ResultStorePaymentMethodLightningNetwork($data, $data['cryptoCode'] . '-' . self::PAYMENT_TYPE_LIGHTNING);
         } else {
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }

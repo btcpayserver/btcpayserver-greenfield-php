@@ -4,9 +4,13 @@ declare(strict_types=1);
 
 namespace BTCPayServer\Client;
 
+use BTCPayServer\Result\InvoiceCheckoutHTML;
+use BTCPayServer\Result\LanguageCodeList;
+use BTCPayServer\Result\PermissionMetadata;
+
 class Miscellaneous extends AbstractClient
 {
-    public function getPermissionMetadata(): \BTCPayServer\Result\PermissionMetadata
+    public function getPermissionMetadata(): PermissionMetadata
     {
         $url = $this->getBaseUrl() . '/misc/permissions';
         $headers = $this->getRequestHeaders();
@@ -15,7 +19,7 @@ class Miscellaneous extends AbstractClient
         $response = $this->getHttpClient()->request($method, $url, $headers);
 
         if ($response->getStatus() === 200) {
-            return new \BTCPayServer\Result\PermissionMetadata(
+            return new PermissionMetadata(
                 json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR)
             );
         } else {
@@ -23,7 +27,7 @@ class Miscellaneous extends AbstractClient
         }
     }
 
-    public function getLanguageCodes(): \BTCPayServer\Result\LanguageCodeList
+    public function getLanguageCodes(): LanguageCodeList
     {
         $url = $this->getBaseUrl() . '/misc/lang';
         $headers = $this->getRequestHeaders();
@@ -32,7 +36,7 @@ class Miscellaneous extends AbstractClient
         $response = $this->getHttpClient()->request($method, $url, $headers);
 
         if ($response->getStatus() === 200) {
-            return new \BTCPayServer\Result\LanguageCodeList(
+            return new LanguageCodeList(
                 json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR)
             );
         } else {
@@ -43,7 +47,7 @@ class Miscellaneous extends AbstractClient
     public function getInvoiceCheckout(
         string $invoiceId,
         ?string $lang
-    ): \BTCPayServer\Result\InvoiceCheckoutHTML {
+    ): InvoiceCheckoutHTML {
         $url = $this->getBaseUrl() . '/i/' . urlencode($invoiceId);
 
         //set language query parameter if passed
@@ -57,7 +61,7 @@ class Miscellaneous extends AbstractClient
         $response = $this->getHttpClient()->request($method, $url, $headers);
 
         if ($response->getStatus() === 200) {
-            return new \BTCPayServer\Result\InvoiceCheckoutHTML(
+            return new InvoiceCheckoutHTML(
                 json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR)
             );
         } else {

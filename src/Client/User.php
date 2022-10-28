@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace BTCPayServer\Client;
 
+use BTCPayServer\Result\User as ResultUser;
+
 class User extends AbstractClient
 {
-    public function getCurrentUserInformation(): \BTCPayServer\Result\User
+    public function getCurrentUserInformation(): ResultUser
     {
         $url = $this->getApiUrl() . 'users/me';
         $headers = $this->getRequestHeaders();
@@ -14,7 +16,7 @@ class User extends AbstractClient
         $response = $this->getHttpClient()->request($method, $url, $headers);
 
         if ($response->getStatus() === 200) {
-            return new \BTCPayServer\Result\User(
+            return new ResultUser(
                 json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR)
             );
         } else {
@@ -40,7 +42,7 @@ class User extends AbstractClient
         string $email,
         string $password,
         ?bool $isAdministrator = false
-    ): \BTCPayServer\Result\User {
+    ): ResultUser {
         $url = $this->getApiUrl() . 'users';
 
         $headers = $this->getRequestHeaders();
@@ -58,7 +60,7 @@ class User extends AbstractClient
         $response = $this->getHttpClient()->request($method, $url, $headers, $body);
 
         if ($response->getStatus() === 200) {
-            return new \BTCPayServer\Result\User(
+            return new ResultUser(
                 json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR)
             );
         } else {

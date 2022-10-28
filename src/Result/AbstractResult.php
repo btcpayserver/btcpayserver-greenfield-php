@@ -19,24 +19,24 @@ abstract class AbstractResult implements \ArrayAccess
         return $this->data;
     }
 
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         $data = $this->getData();
         return array_key_exists($offset, $data);
     }
 
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         $data = $this->getData();
         return $data[$offset] ?? null;
     }
 
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         throw new \RuntimeException('You should not change the data in a result.');
     }
 
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         throw new \RuntimeException('You should not change the data in a result.');
     }
