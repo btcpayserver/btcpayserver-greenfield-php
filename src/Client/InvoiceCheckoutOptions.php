@@ -43,9 +43,10 @@ class InvoiceCheckoutOptions
         ?array $paymentMethods,
         ?int $expirationMinutes,
         ?int $monitoringMinutes,
-        ?int $paymentTolerance,
+        ?float $paymentTolerance,
         ?string $redirectURL,
         ?bool $redirectAutomatically,
+        ?bool $requiresRefundEmail,
         ?string $defaultLanguage
     ) {
         $options = new InvoiceCheckoutOptions();
@@ -56,6 +57,7 @@ class InvoiceCheckoutOptions
         $options->paymentTolerance = $paymentTolerance;
         $options->redirectURL = $redirectURL;
         $options->redirectAutomatically = $redirectAutomatically;
+        $options->requiresRefundEmail = $requiresRefundEmail;
         $options->defaultLanguage = $defaultLanguage;
         return $options;
     }
@@ -113,12 +115,12 @@ class InvoiceCheckoutOptions
         return $this;
     }
 
-    public function getPaymentTolerance(): ?int
+    public function getPaymentTolerance(): ?float
     {
         return $this->paymentTolerance;
     }
 
-    public function setPaymentTolerance(?int $paymentTolerance): self
+    public function setPaymentTolerance(?float $paymentTolerance): self
     {
         $this->paymentTolerance = $paymentTolerance;
         return $this;
@@ -143,6 +145,17 @@ class InvoiceCheckoutOptions
     public function setRedirectAutomatically(?bool $redirectAutomatically): self
     {
         $this->redirectAutomatically = $redirectAutomatically;
+        return $this;
+    }
+
+    public function isRequiresRefundEmail(): ?bool
+    {
+        return $this->requiresRefundEmail;
+    }
+
+    public function setRequiresRefundEmail(?bool $requiresRefundEmail): self
+    {
+        $this->requiresRefundEmail = $requiresRefundEmail;
         return $this;
     }
 
