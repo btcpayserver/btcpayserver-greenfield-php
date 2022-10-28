@@ -26,7 +26,7 @@ class InvoiceCheckoutOptions
     /** @var int */
     protected $monitoringMinutes;
 
-    /** @var int */
+    /** @var float */
     protected $paymentTolerance;
 
     /** @var string */
@@ -37,6 +37,9 @@ class InvoiceCheckoutOptions
 
     /** @var string */
     protected $defaultLanguage;
+
+    /** @var bool */
+    protected $requiresRefundEmail;
 
     public static function create(
         ?string $speedPolicy,
