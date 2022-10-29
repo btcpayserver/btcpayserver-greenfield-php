@@ -49,8 +49,8 @@ class InvoiceCheckoutOptions
         ?float $paymentTolerance,
         ?string $redirectURL,
         ?bool $redirectAutomatically,
-        ?bool $requiresRefundEmail,
-        ?string $defaultLanguage
+        ?string $defaultLanguage,
+        ?bool $requiresRefundEmail = false,
     ) {
         $options = new InvoiceCheckoutOptions();
         $options->setSpeedPolicy($speedPolicy);
@@ -60,8 +60,8 @@ class InvoiceCheckoutOptions
         $options->paymentTolerance = $paymentTolerance;
         $options->redirectURL = $redirectURL;
         $options->redirectAutomatically = $redirectAutomatically;
-        $options->requiresRefundEmail = $requiresRefundEmail;
         $options->defaultLanguage = $defaultLanguage;
+        $options->requiresRefundEmail = $requiresRefundEmail;
         return $options;
     }
 
