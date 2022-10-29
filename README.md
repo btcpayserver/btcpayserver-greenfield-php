@@ -15,7 +15,7 @@ Methods that return a Unix timestamp always end with `Timestamp` like `getReceiv
 
 ## Features
 - No external dependencies. You can just drop this code in your project using composer or without composer.
-- Requires PHP 7.3 and up. End-of-life'd versions will not be actively supported.
+- Requires PHP 8.0 and up. End-of-life'd versions will not be actively supported.
 - All calls needed for eCommerce are included, but there are more we still need to add.
 
 ## TODO
