@@ -32,7 +32,7 @@ class BaseTest extends TestCase
         $this->storeId = $_ENV['BTCPAY_STORE_ID'];
     }
 
-    public function testThatAllTheVariablesAreSet(): void
+    public function testItSetsAllTheEnvironmentVariables(): void
     {
         $this->assertIsString($this->apiKey);
         $this->assertIsString($this->host);
