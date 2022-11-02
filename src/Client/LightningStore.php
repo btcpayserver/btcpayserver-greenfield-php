@@ -8,6 +8,7 @@ use BTCPayServer\Result\LightningChannelList;
 use BTCPayServer\Result\LightningInvoice;
 use BTCPayServer\Result\LightningNode;
 use BTCPayServer\Result\LightningPayment;
+use BTCPayServer\Util\PreciseNumber;
 
 class LightningStore extends AbstractClient
 {
@@ -129,7 +130,7 @@ class LightningStore extends AbstractClient
         }
     }
 
-    public function getInvoice(
+    public function getLightningInvoice(
         string $cryptoCode,
         string $storeId,
         string $id
@@ -155,18 +156,24 @@ class LightningStore extends AbstractClient
     public function payLightningInvoice(
         string $cryptoCode,
         string $storeId,
-        string $BOLT11
+        string $BOLT11,
+        ?PreciseNumber $amount = null,
+        ?float $maxFeePercent = null,
+        ?int $maxFeeFlat = null,
     ): LightningPayment {
         $url = $this->getApiUrl() . 'stores/' .
                 urlencode($storeId) . '/lightning/' .
-                urlencode($cryptoCode) . '/info';
+                urlencode($cryptoCode) . '/invoices/pay';
 
         $headers = $this->getRequestHeaders();
         $method = 'POST';
 
         $body = json_encode(
             [
-                'BOLT11' => $BOLT11
+                'BOLT11' => $BOLT11,
+                'amount' => $amount,
+                'maxFeePercent' => $maxFeePercent,
+                'maxFeeFlat' => $maxFeeFlat,
             ],
             JSON_THROW_ON_ERROR
         );
