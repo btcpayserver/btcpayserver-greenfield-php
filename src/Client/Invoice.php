@@ -177,4 +177,106 @@ class Invoice extends AbstractClient
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }
     }
+
+    public function updateInvoice(string $storeId, string $invoiceId, array $metaData): ResultInvoice
+    {
+        $url = $this->getApiUrl() . 'stores/' . urlencode(
+            $storeId
+        ) . '/invoices/' . urlencode($invoiceId);
+        $headers = $this->getRequestHeaders();
+        $method = 'PUT';
+
+        $body = json_encode([
+            'metadata' => $metaData
+        ], JSON_THROW_ON_ERROR);
+
+        $response = $this->getHttpClient()->request($method, $url, $headers, $body);
+
+        if ($response->getStatus() === 200) {
+            return new ResultInvoice(
+                json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR)
+            );
+        } else {
+            throw $this->getExceptionByStatusCode($method, $url, $response);
+        }
+    }
+
+    public function archiveInvoice(string $storeId, string $invoiceId): bool
+    {
+        $url = $this->getApiUrl() . 'stores/' . urlencode(
+            $storeId
+        ) . '/invoices/' . urlencode($invoiceId);
+        $headers = $this->getRequestHeaders();
+        $method = 'DELETE';
+
+        $body = json_encode(
+            [
+                'storeId' => $storeId,
+                'invoiceId' => $invoiceId
+            ],
+            JSON_THROW_ON_ERROR
+        );
+
+        $response = $this->getHttpClient()->request($method, $url, $headers, $body);
+
+        if ($response->getStatus() === 200) {
+            return true;
+        } else {
+            throw $this->getExceptionByStatusCode($method, $url, $response);
+        }
+    }
+
+    public function unarchiveInvoice(string $storeId, string $invoiceId): bool
+    {
+        $url = $this->getApiUrl() . 'stores/' . urlencode(
+            $storeId
+        ) . '/invoices/' . urlencode($invoiceId) . '/unarchive';
+        $headers = $this->getRequestHeaders();
+        $method = 'POST';
+
+        $body = json_encode(
+            [
+                'storeId' => $storeId,
+                'invoiceId' => $invoiceId
+            ],
+            JSON_THROW_ON_ERROR
+        );
+
+        $response = $this->getHttpClient()->request($method, $url, $headers, $body);
+
+        if ($response->getStatus() === 200) {
+            return true;
+        } else {
+            throw $this->getExceptionByStatusCode($method, $url, $response);
+        }
+    }
+
+    public function activatePaymentMethod(
+        string $storeId,
+        string $invoiceId,
+        string $paymentMethod,
+    ): bool {
+        $url = $this->getApiUrl() . 'stores/' . urlencode(
+            $storeId
+        ) . '/invoices/' . urlencode($invoiceId) . '/payment-methods/' . urlencode($paymentMethod) . '/activate';
+        $headers = $this->getRequestHeaders();
+        $method = 'POST';
+
+        $body = json_encode(
+            [
+                'storeId' => $storeId,
+                'invoiceId' => $invoiceId,
+                'paymentMethod' => $paymentMethod
+            ],
+            JSON_THROW_ON_ERROR
+        );
+
+        $response = $this->getHttpClient()->request($method, $url, $headers, $body);
+
+        if ($response->getStatus() === 200) {
+            return true;
+        } else {
+            throw $this->getExceptionByStatusCode($method, $url, $response);
+        }
+    }
 }

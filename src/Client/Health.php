@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace BTCPayServer\Client;
 
+use BTCPayServer\Result\Health as ResultHealth;
+
 class Health extends AbstractClient
 {
-    public function getHealthStatus(): bool
+    public function getHealthStatus(): ResultHealth
     {
         $url = $this->getApiUrl() . 'health';
         $headers = $this->getRequestHeaders();
@@ -15,7 +17,9 @@ class Health extends AbstractClient
         $response = $this->getHttpClient()->request($method, $url, $headers);
 
         if ($response->getStatus() === 200) {
-            return true;
+            return new ResultHealth(
+                json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR)
+            );
         } else {
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }

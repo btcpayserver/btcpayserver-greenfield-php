@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace BTCPayServer\Result;
 
+use BTCPayServer\Client\InvoiceCheckoutOptions;
 use BTCPayServer\Util\PreciseNumber;
 
 class Invoice extends AbstractResult
@@ -26,6 +27,11 @@ class Invoice extends AbstractResult
 
     public const ADDITIONAL_STATUS_PAID_LATE = 'PaidLate';
 
+    public function getMetaData(): array
+    {
+        return $this->getData()['metadata'];
+    }
+
     public function getId(): string
     {
         return $this->getData()['id'];
@@ -34,6 +40,11 @@ class Invoice extends AbstractResult
     public function getAmount(): PreciseNumber
     {
         return PreciseNumber::parseString($this->getData()['amount']);
+    }
+
+    public function getStoreId(): string
+    {
+        return $this->getData()['storeId'];
     }
 
     public function getCurrency(): string
@@ -61,14 +72,30 @@ class Invoice extends AbstractResult
         return $this->getData()['expirationTime'];
     }
 
-    public function getMonitoringTime(): int
+    public function getMonitoringExpiration(): int
     {
-        return $this->getData()['monitoringTime'];
+        return $this->getData()['monitoringExpiration'];
     }
 
     public function isArchived(): bool
     {
         return $this->getData()['archived'];
+    }
+
+    public function getCheckoutOptions(): InvoiceCheckoutOptions
+    {
+        $options = new InvoiceCheckoutOptions();
+        $options->setSpeedPolicy($this->getData()['checkout']['speedPolicy']);
+        $options->setPaymentMethods($this->getData()['checkout']['paymentMethods']);
+        $options->setExpirationMinutes($this->getData()['checkout']['expirationMinutes']);
+        $options->setMonitoringMinutes($this->getData()['checkout']['monitoringMinutes']);
+        $options->setPaymentTolerance($this->getData()['checkout']['paymentTolerance']);
+        $options->setRedirectURL($this->getData()['checkout']['redirectURL']);
+        $options->setRedirectAutomatically($this->getData()['checkout']['redirectAutomatically']);
+        $options->setRequiresRefundEmail($this->getData()['checkout']['requiresRefundEmail']);
+        $options->setDefaultLanguage($this->getData()['checkout']['defaultLanguage']);
+
+        return $options;
     }
 
     public function isNew(): bool
@@ -86,6 +113,11 @@ class Invoice extends AbstractResult
     public function getStatus(): string
     {
         return $this->getData()['status'];
+    }
+
+    public function getAdditionalStatus(): string
+    {
+        return $this->getData()['additionalStatus'];
     }
 
     public function isExpired(): bool
