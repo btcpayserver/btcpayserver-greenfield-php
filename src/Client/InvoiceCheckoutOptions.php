@@ -26,7 +26,7 @@ class InvoiceCheckoutOptions
     /** @var int */
     protected $monitoringMinutes;
 
-    /** @var int */
+    /** @var float */
     protected $paymentTolerance;
 
     /** @var string */
@@ -38,15 +38,19 @@ class InvoiceCheckoutOptions
     /** @var string */
     protected $defaultLanguage;
 
+    /** @var bool */
+    protected $requiresRefundEmail;
+
     public static function create(
         ?string $speedPolicy,
         ?array $paymentMethods,
         ?int $expirationMinutes,
         ?int $monitoringMinutes,
-        ?int $paymentTolerance,
+        ?float $paymentTolerance,
         ?string $redirectURL,
         ?bool $redirectAutomatically,
-        ?string $defaultLanguage
+        ?string $defaultLanguage,
+        ?bool $requiresRefundEmail = false,
     ) {
         $options = new InvoiceCheckoutOptions();
         $options->setSpeedPolicy($speedPolicy);
@@ -57,6 +61,7 @@ class InvoiceCheckoutOptions
         $options->redirectURL = $redirectURL;
         $options->redirectAutomatically = $redirectAutomatically;
         $options->defaultLanguage = $defaultLanguage;
+        $options->requiresRefundEmail = $requiresRefundEmail;
         return $options;
     }
 
@@ -113,12 +118,12 @@ class InvoiceCheckoutOptions
         return $this;
     }
 
-    public function getPaymentTolerance(): ?int
+    public function getPaymentTolerance(): ?float
     {
         return $this->paymentTolerance;
     }
 
-    public function setPaymentTolerance(?int $paymentTolerance): self
+    public function setPaymentTolerance(?float $paymentTolerance): self
     {
         $this->paymentTolerance = $paymentTolerance;
         return $this;
@@ -143,6 +148,17 @@ class InvoiceCheckoutOptions
     public function setRedirectAutomatically(?bool $redirectAutomatically): self
     {
         $this->redirectAutomatically = $redirectAutomatically;
+        return $this;
+    }
+
+    public function isRequiresRefundEmail(): ?bool
+    {
+        return $this->requiresRefundEmail;
+    }
+
+    public function setRequiresRefundEmail(?bool $requiresRefundEmail): self
+    {
+        $this->requiresRefundEmail = $requiresRefundEmail;
         return $this;
     }
 
