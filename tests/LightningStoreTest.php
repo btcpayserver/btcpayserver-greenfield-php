@@ -106,7 +106,6 @@ final class LightningStoreTest extends BaseTest
     /** @group getNodeInformation */
     public function testItCanGetNodeInformationAndReturnsLightningNodeInformationObject(): void
     {
-
         $lightningNodeInformation = $this->lightningStoreClient->getNodeInformation(
             cryptoCode: 'BTC',
             storeId: $this->storeId,
@@ -128,7 +127,6 @@ final class LightningStoreTest extends BaseTest
     /** @group getChannels */
     public function testItCanGetChannelsAndReturnsLightningChannelListObject(): void
     {
-
         $lightningChannels = $this->lightningStoreClient->getChannels(
             cryptoCode: 'BTC',
             storeId: $this->storeId,
@@ -152,7 +150,6 @@ final class LightningStoreTest extends BaseTest
     /** @group getDepositAddress */
     public function testItCanGetANewDepositAddress(): void
     {
-
         $depositAddress = $this->lightningStoreClient->getDepositAddress(
             cryptoCode: 'BTC',
             storeId: $this->storeId,
@@ -164,8 +161,6 @@ final class LightningStoreTest extends BaseTest
     /** @group getLightningInvoice */
     public function testItCanGetAnInvoiceAndReturnsLightningInvoiceObject(): void
     {
-
-
         $getLightningInvoice = $this->lightningStoreClient->createLightningInvoice(
             cryptoCode: 'BTC',
             storeId: $this->storeId,
