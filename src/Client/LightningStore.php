@@ -153,11 +153,17 @@ class LightningStore extends AbstractClient
         }
     }
 
+    /**
+     * Amount wrapped in a string, represented in a millistatoshi string.
+     * (1000 millisatoshi = 1 satoshi.
+     *
+     * @param string $amount
+     */
     public function payLightningInvoice(
         string $cryptoCode,
         string $storeId,
         string $BOLT11,
-        ?PreciseNumber $amount = null,
+        ?string $amount = null,
         ?float $maxFeePercent = null,
         ?int $maxFeeFlat = null,
     ): LightningPayment {

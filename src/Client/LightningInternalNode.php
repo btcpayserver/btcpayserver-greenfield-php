@@ -137,10 +137,17 @@ class LightningInternalNode extends AbstractClient
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }
     }
-
+    
+    /**
+     * Amount wrapped in a string, represented in a millistatoshi string.
+     * (1000 millisatoshi = 1 satoshi.
+     *
+     * @param string $amount
+     */
     public function payLightningInvoice(
         string $cryptoCode,
         string $BOLT11,
+        ?string $amount,
         ?string $maxFeePercent,
         ?string $maxFeeFlat
     ): LightningPayment {
@@ -153,6 +160,7 @@ class LightningInternalNode extends AbstractClient
         $body = json_encode(
             [
                 'BOLT11' => $BOLT11,
+                'amount' => $amount,
                 'maxFeePercent' => $maxFeePercent,
                 'maxFeeFlat' => $maxFeeFlat,
             ],
