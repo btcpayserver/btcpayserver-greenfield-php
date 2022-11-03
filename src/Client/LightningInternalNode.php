@@ -148,8 +148,8 @@ class LightningInternalNode extends AbstractClient
         string $cryptoCode,
         string $BOLT11,
         ?string $amount,
-        ?float $maxFeePercent,
-        ?int $maxFeeFlat
+        ?string $maxFeePercent,
+        ?string $maxFeeFlat
     ): LightningPayment {
         $url = $this->getApiUrl() . 'server/lightning/' .
                     urlencode($cryptoCode) . '/invoices/pay';

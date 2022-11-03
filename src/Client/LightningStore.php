@@ -164,8 +164,8 @@ class LightningStore extends AbstractClient
         string $storeId,
         string $BOLT11,
         ?string $amount = null,
-        ?float $maxFeePercent = null,
-        ?int $maxFeeFlat = null,
+        ?string $maxFeePercent = null,
+        ?string $maxFeeFlat = null,
     ): LightningPayment {
         $url = $this->getApiUrl() . 'stores/' .
                 urlencode($storeId) . '/lightning/' .
