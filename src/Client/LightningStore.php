@@ -8,7 +8,6 @@ use BTCPayServer\Result\LightningChannelList;
 use BTCPayServer\Result\LightningInvoice;
 use BTCPayServer\Result\LightningNode;
 use BTCPayServer\Result\LightningPayment;
-use BTCPayServer\Util\PreciseNumber;
 
 class LightningStore extends AbstractClient
 {
