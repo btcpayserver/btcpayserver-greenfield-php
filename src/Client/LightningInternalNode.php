@@ -137,7 +137,7 @@ class LightningInternalNode extends AbstractClient
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }
     }
-    
+
     /**
      * Amount wrapped in a string, represented in a millistatoshi string.
      * (1000 millisatoshi = 1 satoshi.
