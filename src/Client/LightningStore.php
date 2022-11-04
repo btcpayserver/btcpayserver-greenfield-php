@@ -129,7 +129,7 @@ class LightningStore extends AbstractClient
         }
     }
 
-    public function getInvoice(
+    public function getLightningInvoice(
         string $cryptoCode,
         string $storeId,
         string $id
@@ -152,21 +152,33 @@ class LightningStore extends AbstractClient
         }
     }
 
+    /**
+     * Amount wrapped in a string, represented in a millistatoshi string.
+     * (1000 millisatoshi = 1 satoshi.
+     *
+     * @param string $amount
+     */
     public function payLightningInvoice(
         string $cryptoCode,
         string $storeId,
-        string $BOLT11
+        string $BOLT11,
+        ?string $amount = null,
+        ?string $maxFeePercent = null,
+        ?string $maxFeeFlat = null,
     ): LightningPayment {
         $url = $this->getApiUrl() . 'stores/' .
                 urlencode($storeId) . '/lightning/' .
-                urlencode($cryptoCode) . '/info';
+                urlencode($cryptoCode) . '/invoices/pay';
 
         $headers = $this->getRequestHeaders();
         $method = 'POST';
 
         $body = json_encode(
             [
-                'BOLT11' => $BOLT11
+                'BOLT11' => $BOLT11,
+                'amount' => $amount,
+                'maxFeePercent' => $maxFeePercent,
+                'maxFeeFlat' => $maxFeeFlat,
             ],
             JSON_THROW_ON_ERROR
         );
