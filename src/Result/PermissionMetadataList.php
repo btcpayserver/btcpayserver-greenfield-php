@@ -7,7 +7,7 @@ namespace BTCPayServer\Result;
 class PermissionMetadataList extends AbstractListResult
 {
     /**
-     * @return PermissionMetaData[]
+     * @return PermissionMetadata[]
      */
     public function all(): array
     {
