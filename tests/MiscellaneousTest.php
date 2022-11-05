@@ -29,12 +29,11 @@ final class MiscellaneousTest extends BaseTest
 
         $this->assertInstanceOf(PermissionMetadataList::class, $result);
 
-        foreach($result->all() as $permissionMetadata) {
+        foreach ($result->all() as $permissionMetadata) {
             $this->assertInstanceOf(PermissionMetadata::class, $permissionMetadata);
             $this->assertIsString($permissionMetadata->getName());
             $this->assertIsArray($permissionMetadata->getIncluded());
         }
-
     }
 
     public function testItCanGetLanguageCodes(): void
@@ -43,7 +42,7 @@ final class MiscellaneousTest extends BaseTest
 
         $this->assertInstanceOf(LanguageCodeList::class, $result);
 
-        foreach($result->all() as $languageCode) {
+        foreach ($result->all() as $languageCode) {
             $this->assertInstanceOf(LanguageCode::class, $languageCode);
             $this->assertIsString($languageCode->getCode());
             $this->assertIsString($languageCode->getCurrentLanguage());

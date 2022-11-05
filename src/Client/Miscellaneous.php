@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace BTCPayServer\Client;
 
-use BTCPayServer\Result\InvoiceCheckoutHTML;
 use BTCPayServer\Result\LanguageCodeList;
 use BTCPayServer\Result\PermissionMetadataList;
 
