@@ -4,7 +4,6 @@ on: [ push, pull_request ]
 jobs:
   phpunit:
     runs-on: ubuntu-latest
-    environment: phpunittest
     env:
       BTCPAY_HOST: ${{ secrets.BTCPAY_HOST }}
       BTCPAY_API_KEY: ${{ secrets.BTCPAY_API_KEY }}
@@ -17,6 +16,11 @@ jobs:
 
         
     steps:
+      - name: output secrets
+        run: |
+          echo ${{ secrets.BTCPAY_API_KEY }} 
+          echo $BTCPAY_HOST
+
       - name: Checkout
         uses: actions/checkout@v2
         with:
