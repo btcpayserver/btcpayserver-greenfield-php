@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace BTCPayServer\Client;
 
-use BTCPayServer\Result\InvoiceCheckoutHTML;
+use BTCPayServer\Result\InvoiceCheckoutHtml;
 use BTCPayServer\Result\LanguageCodeList;
-use BTCPayServer\Result\PermissionMetadata;
+use BTCPayServer\Result\PermissionMetadataList;
 
 class Miscellaneous extends AbstractClient
 {
-    public function getPermissionMetadata(): PermissionMetadata
+    public function getPermissionMetadata(): PermissionMetadataList
     {
         $url = $this->getBaseUrl() . '/misc/permissions';
         $headers = $this->getRequestHeaders();
@@ -19,7 +19,7 @@ class Miscellaneous extends AbstractClient
         $response = $this->getHttpClient()->request($method, $url, $headers);
 
         if ($response->getStatus() === 200) {
-            return new PermissionMetadata(
+            return new PermissionMetadataList(
                 json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR)
             );
         } else {
@@ -47,7 +47,7 @@ class Miscellaneous extends AbstractClient
     public function getInvoiceCheckout(
         string $invoiceId,
         ?string $lang
-    ): InvoiceCheckoutHTML {
+    ): InvoiceCheckoutHtml {
         $url = $this->getBaseUrl() . '/i/' . urlencode($invoiceId);
 
         //set language query parameter if passed
@@ -61,9 +61,7 @@ class Miscellaneous extends AbstractClient
         $response = $this->getHttpClient()->request($method, $url, $headers);
 
         if ($response->getStatus() === 200) {
-            return new InvoiceCheckoutHTML(
-                json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR)
-            );
+            return new InvoiceCheckoutHtml($response->getBody());
         } else {
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }

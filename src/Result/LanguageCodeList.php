@@ -7,13 +7,13 @@ namespace BTCPayServer\Result;
 class LanguageCodeList extends AbstractListResult
 {
     /**
-     * @return \BTCPayServer\Result\LanguageCode[]
+     * @return LanguageCode[]
      */
     public function all(): array
     {
         $languageCodes = [];
         foreach ($this->getData() as $languageCode) {
-            $languageCodes[] = new \BTCPayServer\Result\LanguageCode($languageCode);
+            $languageCodes[] = new LanguageCode($languageCode);
         }
         return $languageCodes;
     }
