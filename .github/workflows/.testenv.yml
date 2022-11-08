@@ -12,6 +12,9 @@ jobs:
 
       steps:
         - name: Output vars
+          uses: actions/checkout@v2
+          with:
+            fetch-depth: '0'
           run: |
             echo "env var secret: " 
             echo ${{ secrets.BTCPAY_STORE_ID }}
@@ -25,3 +28,9 @@ jobs:
           run: |
             echo "local env var: "
              echo "$HOST"
+          
+        - shell: bash
+          env:
+            SUPER_SECRET: ${{ secrets.BTCPAY_API_KEY }}
+          run: |
+            echo "$SUPER_SECRET"
