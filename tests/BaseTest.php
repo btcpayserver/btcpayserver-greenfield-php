@@ -44,4 +44,10 @@ class BaseTest extends TestCase
         $this->assertNotEmpty($this->storeId);
         $this->assertNotEmpty($this->nodeUri);
     }
+
+    public function dd($var): void
+    {
+        var_dump($var);
+        die();
+    }
 }
