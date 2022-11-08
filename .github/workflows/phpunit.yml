@@ -4,6 +4,7 @@ on: [ push, pull_request ]
 jobs:
   phpunit:
     runs-on: ubuntu-latest
+    environment: phpunittest
     strategy:
       matrix:
         php-versions: ['8.0', '8.1']
@@ -41,7 +42,7 @@ jobs:
       - name: Test with phpunit
         env:
           BTCPAY_HOST: ${{ secrets.BTCPAY_HOST }}
-          BTCPAY_API_KEY: "test"
+          BTCPAY_API_KEY: ${{ secrets.BTCPAY_API_KEY }}
           BTCPAY_STORE_ID: ${{ secrets.BTCPAY_STORE_ID }}
           BTCPAY_NODE_URI: ${{ secrets.BTCPAY_NODE_URI }}
         run: vendor/bin/phpunit --coverage-text
