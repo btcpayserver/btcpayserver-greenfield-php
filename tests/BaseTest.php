@@ -19,17 +19,28 @@ class BaseTest extends TestCase
         $dotenv = Dotenv::createImmutable(__DIR__);
         $dotenv->safeLoad();
 
-        if (!isset($_ENV['BTCPAY_API_KEY'], $_ENV['BTCPAY_HOST'], $_ENV['BTCPAY_STORE_ID'], $_ENV['BTCPAY_NODE_URI'])) {
+        echo '$_ENV: ';
+        echo $_ENV['BTCPAY_API_KEY'];
+        echo "\n";
+        echo 'getenv(): ';
+        echo getenv('BTCPAY_API_KEY');
+
+        $apiKey = getenv('BTCPAY_API_KEY');
+        $host = getenv('BTCPAY_HOST');
+        $storeId = getenv('BTCPAY_STORE_ID');
+        $nodeUri = getenv('BTCPAY_NODE_URI');
+
+        if (!$apiKey || !$host || !$storeId || !$nodeUri) {
             throw new \Exception('Missing .env variables');
         }
     }
 
     protected function setUp(): void
     {
-        $this->host = $_ENV['BTCPAY_HOST'];
-        $this->apiKey = $_ENV['BTCPAY_API_KEY'];
-        $this->nodeUri = $_ENV['BTCPAY_NODE_URI'];
-        $this->storeId = $_ENV['BTCPAY_STORE_ID'];
+        $this->host = getenv('BTCPAY_HOST');
+        $this->apiKey = getenv('BTCPAY_API_KEY');
+        $this->nodeUri = getenv('BTCPAY_NODE_URI');
+        $this->storeId = getenv('BTCPAY_STORE_ID');
     }
 
     public function testThatAllTheVariablesAreSet(): void
