@@ -28,8 +28,6 @@ jobs:
           BTCPAY_API_KEY: ${{ secrets.BTCPAY_API_KEY }}
           BTCPAY_STORE_ID: ${{ secrets.BTCPAY_STORE_ID }}
           BTCPAY_NODE_URI: ${{ secrets.BTCPAY_NODE_URI }}
-
-      - name: output secrets
         run: |
           echo ${{ secrets.BTCPAY_API_KEY }} \
           echo $BTCPAY_HOST
