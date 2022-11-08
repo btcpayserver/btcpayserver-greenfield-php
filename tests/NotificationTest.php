@@ -22,7 +22,7 @@ final class NotificationTest extends BaseTest
         $notifications = $this->notificationClient->getNotifications();
 
         $this->assertInstanceOf(NotificationList::class, $notifications);
-        foreach($notifications->all() as $notification) {
+        foreach ($notifications->all() as $notification) {
             $this->assertIsString($notification->getId());
             $this->assertIsString($notification->getBody());
             $this->assertIsString($notification->getLink());
