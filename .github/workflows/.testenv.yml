@@ -1,0 +1,27 @@
+name: Test env variables
+on: [push, pull_request]
+
+jobs:
+  test-env-vars:
+    runs-on: ubuntu-latest
+    env:
+      BTCPAY_HOST: ${{ secrets.BTCPAY_HOST }}
+      BTCPAY_API_KEY: ${{ secrets.BTCPAY_API_KEY }}
+      BTCPAY_STORE_ID: ${{ secrets.BTCPAY_STORE_ID }}
+      BTCPAY_NODE_URI: ${{ secrets.BTCPAY_NODE_URI }}
+
+      steps:
+        - name: Output vars
+          run: |
+            echo "env var secret: " 
+            echo ${{ secrets.BTCPAY_STORE_ID }}
+            echo "env var: "
+            echo "$BTCPAY_STORE_ID"
+
+        - name: local vars
+          env:
+            HOST: ${{ secrets.BTCPAY_HOST }}
+            CUSTOM: "custom env var value"
+          run: |
+            echo "local env var: "
+             echo "$HOST"
