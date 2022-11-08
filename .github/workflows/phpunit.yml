@@ -4,11 +4,6 @@ on: [ push, pull_request ]
 jobs:
   phpunit:
     runs-on: ubuntu-latest
-    env:
-      BTCPAY_HOST: ${{ secrets.BTCPAY_HOST }}
-      BTCPAY_API_KEY: ${{ secrets.BTCPAY_API_KEY }}
-      BTCPAY_STORE_ID: ${{ secrets.BTCPAY_STORE_ID }}
-      BTCPAY_NODE_URI: ${{ secrets.BTCPAY_NODE_URI }}
     strategy:
       matrix:
         php-versions: ['8.0', '8.1']
@@ -16,11 +11,6 @@ jobs:
 
         
     steps:
-      - name: output secrets
-        run: |
-          echo ${{ secrets.BTCPAY_API_KEY }} 
-          echo $BTCPAY_HOST
-
       - name: Checkout
         uses: actions/checkout@v2
         with:
@@ -33,6 +23,16 @@ jobs:
           tools: composer:v2, phpunit:${{ matrix.phpunit-versions }}
           extensions: curl, json, mbstring, bcmath
           coverage: xdebug #optional
+        env:
+          BTCPAY_HOST: ${{ secrets.BTCPAY_HOST }}
+          BTCPAY_API_KEY: ${{ secrets.BTCPAY_API_KEY }}
+          BTCPAY_STORE_ID: ${{ secrets.BTCPAY_STORE_ID }}
+          BTCPAY_NODE_URI: ${{ secrets.BTCPAY_NODE_URI }}
+
+      - name: output secrets
+        run: |
+          echo ${{ secrets.BTCPAY_API_KEY }} \
+          echo $BTCPAY_HOST
 
       - name: Get composer cache directory
         id: composer-cache
