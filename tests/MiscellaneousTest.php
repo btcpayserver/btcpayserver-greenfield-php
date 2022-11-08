@@ -6,6 +6,7 @@ namespace BTCPayServer\Tests;
 
 use BTCPayServer\Client\Invoice;
 use BTCPayServer\Client\Miscellaneous;
+use BTCPayServer\Result\InvoiceCheckoutHtml;
 use BTCPayServer\Result\LanguageCode;
 use BTCPayServer\Result\LanguageCodeList;
 use BTCPayServer\Result\PermissionMetadata;
@@ -61,6 +62,7 @@ final class MiscellaneousTest extends BaseTest
 
         $result = $this->miscellaneousClient->getInvoiceCheckout($invoice->getId(), null);
 
-        $this->assertStringContainsString('<!DOCTYPE html>', $result);
+        $this->assertInstanceOf(InvoiceCheckoutHtml::class, $result);
+        $this->assertStringContainsString('<!DOCTYPE html>', $result->getHtml());
     }
 }

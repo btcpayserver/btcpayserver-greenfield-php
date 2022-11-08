@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace BTCPayServer\Client;
 
+use BTCPayServer\Result\InvoiceCheckoutHtml;
 use BTCPayServer\Result\LanguageCodeList;
 use BTCPayServer\Result\PermissionMetadataList;
 
@@ -46,7 +47,7 @@ class Miscellaneous extends AbstractClient
     public function getInvoiceCheckout(
         string $invoiceId,
         ?string $lang
-    ): string {
+    ): InvoiceCheckoutHtml {
         $url = $this->getBaseUrl() . '/i/' . urlencode($invoiceId);
 
         //set language query parameter if passed
@@ -60,7 +61,7 @@ class Miscellaneous extends AbstractClient
         $response = $this->getHttpClient()->request($method, $url, $headers);
 
         if ($response->getStatus() === 200) {
-            return $response->getBody();
+            return new InvoiceCheckoutHtml($response->getBody());
         } else {
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }
