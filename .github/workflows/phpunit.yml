@@ -14,11 +14,6 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: '0'
-        env:
-          BTCPAY_HOST: ${{ secrets.BTCPAY_HOST }}
-          BTCPAY_API_KEY: ${{ secrets.BTCPAY_API_KEY }}
-          BTCPAY_STORE_ID: ${{ secrets.BTCPAY_STORE_ID }}
-          BTCPAY_NODE_URI: ${{ secrets.BTCPAY_NODE_URI }}
 
       - name: Setup PHP, with composer and extensions
         uses: shivammathur/setup-php@v2
@@ -38,12 +33,22 @@ jobs:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-
+        env:
+          BTCPAY_HOST: ${{ secrets.BTCPAY_HOST }}
+          BTCPAY_API_KEY: ${{ secrets.BTCPAY_API_KEY }}
+          BTCPAY_STORE_ID: ${{ secrets.BTCPAY_STORE_ID }}
+          BTCPAY_NODE_URI: ${{ secrets.BTCPAY_NODE_URI }}
 
       - name: Install Composer dependencies
         run: composer install --no-progress --optimize-autoloader
 
       - name: Test with phpunit
         run: vendor/bin/phpunit --coverage-text
+        env:
+          BTCPAY_HOST: ${{ secrets.BTCPAY_HOST }}
+          BTCPAY_API_KEY: ${{ secrets.BTCPAY_API_KEY }}
+          BTCPAY_STORE_ID: ${{ secrets.BTCPAY_STORE_ID }}
+          BTCPAY_NODE_URI: ${{ secrets.BTCPAY_NODE_URI }}
 
       - name: Setup problem matchers for PHP
         run: echo "::add-matcher::${{ runner.tool_cache }}/php.json"
