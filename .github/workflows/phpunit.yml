@@ -22,7 +22,6 @@ jobs:
           tools: composer:v2, phpunit:${{ matrix.phpunit-versions }}
           extensions: curl, json, mbstring, bcmath
           coverage: xdebug
-        environment: phpunittest
         env:
           BTCPAY_HOST: ${{ secrets.BTCPAY_HOST }}
           BTCPAY_API_KEY: ${{ secrets.BTCPAY_API_KEY }}
