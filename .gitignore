@@ -4,3 +4,5 @@
 *.cache
 composer.lock
 /tests/.env
+/tests/.env.testnet
+/tests/.env.mainnet

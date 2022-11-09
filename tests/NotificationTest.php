@@ -35,6 +35,11 @@ final class NotificationTest extends BaseTest
     public function testItCanGetNotification(): void
     {
         $notifications = $this->notificationClient->getNotifications();
+
+        if (empty($notifications->all())) {
+            $this->markTestSkipped('No notifications found');
+        }
+
         $notification = $this->notificationClient->getNotification($notifications->all()[0]->getId());
 
         $this->assertIsString($notification->getId());
@@ -48,6 +53,11 @@ final class NotificationTest extends BaseTest
     public function testItCanUpdateNotification(): void
     {
         $notifications = $this->notificationClient->getNotifications();
+
+        if (empty($notifications->all())) {
+            $this->markTestSkipped('No notifications found');
+        }
+
         $notification = $this->notificationClient->updateNotification($notifications->all()[0]->getId(), true);
 
         $this->assertIsString($notification->getId());
@@ -61,6 +71,11 @@ final class NotificationTest extends BaseTest
     public function testItCanRemoveNotification(): void
     {
         $notifications = $this->notificationClient->getNotifications();
+
+        if (empty($notifications->all())) {
+            $this->markTestSkipped('No notifications found');
+        }
+
         $notification = $this->notificationClient->removeNotification($notifications->all()[0]->getId());
 
         $this->assertTrue($notification);
