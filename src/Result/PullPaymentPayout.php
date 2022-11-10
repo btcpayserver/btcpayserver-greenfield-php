@@ -10,61 +10,53 @@ class PullPaymentPayout extends AbstractResult
 {
     public function getId(): string
     {
-        $data = $this->getData();
-        return $data['id'];
+        return $this->getData()['id'];
     }
 
     public function getRevision(): int
     {
-        $data = $this->getData();
-        return $data['revision'];
+        return $this->getData()['revision'];
     }
 
     public function getPullPaymentId(): string
     {
-        $data = $this->getData();
-        return $data['pullPaymentId'];
+        return $this->getData()['pullPaymentId'];
     }
 
-    public function getDate(): string
+    public function getDate(): int
     {
-        $data = $this->getData();
-        return $data['date'];
+        return $this->getData()['date'];
     }
 
     public function getDestination(): string
     {
-        $data = $this->getData();
-        return $data['destination'];
+        return $this->getData()['destination'];
     }
 
     public function getAmount(): PreciseNumber
     {
-        $data = $this->getData();
-        return PreciseNumber::parseString($data['amount']);
+        return PreciseNumber::parseString($this->getData()['amount']);
     }
 
     public function getPaymentMethod(): string
     {
-        $data = $this->getData();
-        return $data['paymentMethod'];
+        return $this->getData()['paymentMethod'];
     }
 
     public function getCryptoCode(): string
     {
-        $data = $this->getData();
-        return $data['cryptoCode'];
+        return $this->getData()['cryptoCode'];
     }
 
-    public function getPaymentMethodAmount(): PreciseNumber
+    public function getPaymentMethodAmount(): ?PreciseNumber
     {
-        $data = $this->getData();
-        return PreciseNumber::parseString($data['paymentMethodAmount']);
+        return (isset($this->getData()['paymentMethodAmount']))
+            ? PreciseNumber::parseString($this->getData()['paymentMethodAmount'])
+            : null;
     }
 
     public function getState(): string
     {
-        $data = $this->getData();
-        return $data['state'];
+        return $this->getData()['state'];
     }
 }
