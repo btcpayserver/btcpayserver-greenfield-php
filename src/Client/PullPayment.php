@@ -17,19 +17,13 @@ class PullPayment extends AbstractClient
         bool $includeArchived
     ): PullPaymentList {
         $url = $this->getApiUrl() . 'stores/' .
-                    urlencode($storeId) . '/pull-payments';
+                    urlencode($storeId) . '/pull-payments?includeArchived=' .
+                    ($includeArchived ? 'true' : 'false');
 
         $headers = $this->getRequestHeaders();
         $method = 'GET';
 
-        $body = json_encode(
-            [
-                'includeArchived' => $includeArchived,
-            ],
-            JSON_THROW_ON_ERROR
-        );
-
-        $response = $this->getHttpClient()->request($method, $url, $headers, $body);
+        $response = $this->getHttpClient()->request($method, $url, $headers);
 
         if ($response->getStatus() === 200) {
             return new PullPaymentList(
