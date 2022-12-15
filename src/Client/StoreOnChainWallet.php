@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace BTCPayServer\Client;
 
-use BTCPayServer\Result\StoreOnChainWallet;
 use BTCPayServer\Result\StoreOnChainWallet as ResultStoreOnChainWallet;
 use BTCPayServer\Result\StoreOnChainWalletAddress;
 use BTCPayServer\Result\StoreOnChainWalletFeeRate;
@@ -90,10 +89,7 @@ class StoreOnChainWallet extends AbstractClient
     {
         $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/payment-methods' . '/OnChain' . '/' . urlencode($cryptoCode) . '/wallet' . '/transactions/?';
 
-        $queryParameters = [
-            'skip' => $skip,
-            'limit' => $limit
-        ];
+        $queryParameters = ['skip' => $skip, 'limit' => $limit];
 
         $url .= http_build_query($queryParameters);
 
@@ -123,15 +119,8 @@ class StoreOnChainWallet extends AbstractClient
         $headers = $this->getRequestHeaders();
         $method = 'POST';
 
-        $body = json_encode([
-            'destinations' => $destinations,
-            'feeRate' => $feeRate,
-            'proceedWithPayjoin' => $proceedWithPayjoin,
-            'proceedWithBroadcast' => $proceedWithBroadcast,
-            'noChange' => $noChange,
-            'rbf' => $rbf,
-            'selectedInputs' => $selectedInputs
-        ], JSON_THROW_ON_ERROR);
+        $body = json_encode(['destinations' => $destinations, 'feeRate' => $feeRate, 'proceedWithPayjoin' => $proceedWithPayjoin, 'proceedWithBroadcast' => $proceedWithBroadcast,
+            'noChange' => $noChange, 'rbf' => $rbf, 'selectedInputs' => $selectedInputs], JSON_THROW_ON_ERROR);
 
         $response = $this->getHttpClient()->request($method, $url, $headers, $body);
 
@@ -165,9 +154,7 @@ class StoreOnChainWallet extends AbstractClient
         $headers = $this->getRequestHeaders();
         $method = 'PATCH';
 
-        $body = json_encode([
-            'comment' => $comment
-        ], JSON_THROW_ON_ERROR);
+        $body = json_encode(['comment' => $comment], JSON_THROW_ON_ERROR);
 
         $response = $this->getHttpClient()->request($method, $url, $headers, $body);
 
