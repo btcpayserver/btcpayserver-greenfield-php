@@ -17,3 +17,11 @@ try {
 } catch (\Throwable $e) {
     echo "Error: " . $e->getMessage();
 }
+
+// Create a new api key. Needs server modify permission of used api.
+try {
+    $client = new Apikey($host, $apiKey);
+    var_dump($client->createApiKey('api generated', ['btcpay.store.canmodifystoresettings']));
+} catch (\Throwable $e) {
+    echo "Error: " . $e->getMessage();
+}
