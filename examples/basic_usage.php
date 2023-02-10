@@ -17,3 +17,11 @@ try {
 } catch (\Throwable $e) {
     echo "Error: " . $e->getMessage();
 }
+
+// Create a new store.
+try {
+    $client = new Store($host, $apiKey);
+    var_dump($client->createStore('my new store'));
+} catch (\Throwable $e) {
+    echo "Error: " . $e->getMessage();
+}
