@@ -214,6 +214,33 @@ class StoreOnChainWallet extends AbstractClient
         }
     }
 
+    public function updateStoreOnChainWalletTransaction(
+        string $storeId,
+        string $cryptoCode,
+        string $transactionId,
+        ?string $comment
+    ): StoreOnChainWalletTransaction {
+        $url = $this->getApiUrl() . 'stores/' .
+            urlencode($storeId) . '/payment-methods' . '/OnChain' . '/' .
+            urlencode($cryptoCode) . '/wallet' . '/transactions' . '/' .
+            urlencode($transactionId);
+
+        $headers = $this->getRequestHeaders();
+        $method = 'PATCH';
+
+        $body = json_encode(['comment' => $comment], JSON_THROW_ON_ERROR);
+
+        $response = $this->getHttpClient()->request($method, $url, $headers, $body);
+
+        if ($response->getStatus() === 200) {
+            return new StoreOnChainWalletTransaction(
+                json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR)
+            );
+        } else {
+            throw $this->getExceptionByStatusCode($method, $url, $response);
+        }
+    }
+
     public function getStoreOnChainWalletUTXOs(
         string $storeId,
         string $cryptoCode
