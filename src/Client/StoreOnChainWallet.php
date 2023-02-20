@@ -219,8 +219,7 @@ class StoreOnChainWallet extends AbstractClient
         string $cryptoCode,
         string $transactionId,
         ?string $comment
-    ): StoreOnChainWalletTransaction
-    {
+    ): StoreOnChainWalletTransaction {
         $url = $this->getApiUrl() . 'stores/' .
             urlencode($storeId) . '/payment-methods' . '/OnChain' . '/' .
             urlencode($cryptoCode) . '/wallet' . '/transactions' . '/' .
