@@ -103,4 +103,30 @@ class ApiKey extends AbstractClient
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }
     }
+
+    /**
+     * Create a new API Key using Basic Auth. You need to pass email and password of the user.
+     */
+    public function createApiKeyBasicAuth($email, $password, ?string $label = null, ?array $permissions = null): ResultApiKey
+    {
+        $url = $this->getApiUrl() . 'api-keys';
+        $headers = $this->getRequestHeadersBasicAuth($email, $password);
+        $method = 'POST';
+
+        $body = json_encode(
+            [
+                'label' => $label,
+                'permissions' => $permissions
+            ],
+            JSON_THROW_ON_ERROR
+        );
+
+        $response = $this->getHttpClient()->request($method, $url, $headers, $body);
+
+        if ($response->getStatus() === 200) {
+            return new ResultApiKey(json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR));
+        } else {
+            throw $this->getExceptionByStatusCode($method, $url, $response);
+        }
+    }
 }
