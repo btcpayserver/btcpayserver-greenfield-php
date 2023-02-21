@@ -105,7 +105,7 @@ class ApiKey extends AbstractClient
     }
 
     /**
-     * Create a new API Key using Basic Auth. You need to pass
+     * Create a new API Key using Basic Auth. You need to pass email and password of the user.
      */
     public function createApiKeyBasicAuth($email, $password, ?string $label = null, ?array $permissions = null): ResultApiKey
     {
