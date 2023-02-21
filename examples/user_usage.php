@@ -49,13 +49,21 @@ class Users
         }
     }
 
-    public function deleteUser()
+    public function deleteUser($userId)
     {
-        $userId = '';
-
         try {
             $client = new User($this->host, $this->apiKey);
             var_dump($client->deleteUser($userId));
+        } catch (\Throwable $e) {
+            echo "Error: " . $e->getMessage();
+        }
+    }
+
+    public function toggleUser($userId, $toggle)
+    {
+        try {
+            $client = new User($this->host, $this->apiKey);
+            var_dump($client->toggleUser($userId, $toggle));
         } catch (\Throwable $e) {
             echo "Error: " . $e->getMessage();
         }
@@ -67,3 +75,4 @@ $users = new Users();
 //$users->deleteCurrentUserProfile();
 //$users->createUser();
 //$users->deleteUser();
+//$users->toggleUser("test@example.com", true);
