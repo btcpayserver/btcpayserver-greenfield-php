@@ -74,5 +74,5 @@ $users = new Users();
 //$users->getCurrentUserInformation();
 //$users->deleteCurrentUserProfile();
 //$users->createUser();
-//$users->deleteUser();
+//$users->deleteUser("test@example.com");
 //$users->toggleUser("test@example.com", true);
