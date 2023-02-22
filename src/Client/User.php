@@ -81,4 +81,26 @@ class User extends AbstractClient
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }
     }
+
+    public function setUserLock(string $userId, bool $locked): bool
+    {
+        $url = $this->getApiUrl() . 'users/' . urlencode($userId) . '/lock';
+        $headers = $this->getRequestHeaders();
+        $method = 'POST';
+
+        $body = json_encode(
+            [
+                'locked' => $locked,
+            ],
+            JSON_THROW_ON_ERROR
+        );
+
+        $response = $this->getHttpClient()->request($method, $url, $headers, $body);
+
+        if ($response->getStatus() === 200) {
+            return true;
+        } else {
+            throw $this->getExceptionByStatusCode($method, $url, $response);
+        }
+    }
 }
