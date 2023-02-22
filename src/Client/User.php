@@ -82,7 +82,7 @@ class User extends AbstractClient
         }
     }
 
-    public function toggleUser(string $userId, bool $locked): bool
+    public function setUserLock(string $userId, bool $locked): bool
     {
         $url = $this->getApiUrl() . 'users/' . urlencode($userId) . '/lock';
         $headers = $this->getRequestHeaders();

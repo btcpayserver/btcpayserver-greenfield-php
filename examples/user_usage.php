@@ -59,11 +59,11 @@ class Users
         }
     }
 
-    public function toggleUser($userId, $toggle)
+    public function setUserLock($userId, $toggle)
     {
         try {
             $client = new User($this->host, $this->apiKey);
-            var_dump($client->toggleUser($userId, $toggle));
+            var_dump($client->setUserLock($userId, $toggle));
         } catch (\Throwable $e) {
             echo "Error: " . $e->getMessage();
         }
@@ -75,4 +75,4 @@ $users = new Users();
 //$users->deleteCurrentUserProfile();
 //$users->createUser();
 //$users->deleteUser("test@example.com");
-//$users->toggleUser("test@example.com", true);
+//$users->setUserLock("test@example.com", true);
