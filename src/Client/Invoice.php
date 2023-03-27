@@ -76,8 +76,8 @@ class Invoice extends AbstractClient
         ?array $metaData = null
     ): ResultInvoice {
         $url = $this->getApiUrl() . 'stores/' . urlencode(
-                $storeId
-            ) . '/invoices/' . urlencode( $invoiceId );
+            $storeId
+        ) . '/invoices/' . urlencode($invoiceId);
         $headers = $this->getRequestHeaders();
         $method = 'PUT';
 
