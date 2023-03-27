@@ -81,17 +81,9 @@ class Invoice extends AbstractClient
         $headers = $this->getRequestHeaders();
         $method = 'PUT';
 
-        // Prepare metadata.
-        $metaDataMerged = [];
-
-        // Set metaData if any.
-        if ($metaData) {
-            $metaDataMerged = $metaData;
-        }
-
         $body = json_encode(
             [
-                'metadata' => !empty($metaDataMerged) ? $metaDataMerged : null
+                'metadata' => $metaData
             ],
             JSON_THROW_ON_ERROR
         );
