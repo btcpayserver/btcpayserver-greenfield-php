@@ -8,7 +8,6 @@ use BTCPayServer\Result\StoreUserList;
 
 class StoreUser extends AbstractClient
 {
-
     public function getUsers(string $storeId): StoreUserList
     {
         $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/users';
