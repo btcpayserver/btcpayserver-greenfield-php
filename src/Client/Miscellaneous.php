@@ -70,7 +70,7 @@ class Miscellaneous extends AbstractClient
         }
     }
 
-    public function getRateSources()
+    public function getRateSources(): RateSourceList
     {
         $url = $this->getBaseUrl() . '/misc/rate-sources';
         $headers = $this->getRequestHeaders();

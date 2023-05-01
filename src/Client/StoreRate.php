@@ -72,7 +72,7 @@ class StoreRate extends AbstractClient
             }
         }
 
-        // Clean URL
+        // Clean URL.
         $url = rtrim($url, '&');
         $url = rtrim($url, '?');
 
@@ -109,7 +109,7 @@ class StoreRate extends AbstractClient
             }
         }
 
-        // Clean URL
+        // Clean URL.
         $url = rtrim($url, '&');
         $url = rtrim($url, '?');
 
