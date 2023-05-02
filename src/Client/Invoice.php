@@ -136,7 +136,7 @@ class Invoice extends AbstractClient
             }
         }
 
-        // Clean URL
+        // Clean URL.
         $url = rtrim($url, '&');
         $url = rtrim($url, '?');
 
