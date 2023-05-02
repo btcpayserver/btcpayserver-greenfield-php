@@ -63,6 +63,15 @@ class AbstractClient
         ];
     }
 
+    protected function getRequestHeadersBasicAuth($username, $password): array
+    {
+        return [
+            'Accept' => 'application/json',
+            'Content-Type' => 'application/json',
+            'Authorization' => 'Basic ' . base64_encode("$username:$password")
+        ];
+    }
+
     protected function getExceptionByStatusCode(
         string $method,
         string $url,

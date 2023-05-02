@@ -68,12 +68,34 @@ class User extends AbstractClient
         }
     }
 
-    public function deleteUser(string $userId): bool
+    public function deleteUser(string $idOrMail): bool
     {
-        $url = $this->getApiUrl() . 'users/' . urlencode($userId);
+        $url = $this->getApiUrl() . 'users/' . urlencode($idOrMail);
         $headers = $this->getRequestHeaders();
         $method = 'DELETE';
         $response = $this->getHttpClient()->request($method, $url, $headers);
+
+        if ($response->getStatus() === 200) {
+            return true;
+        } else {
+            throw $this->getExceptionByStatusCode($method, $url, $response);
+        }
+    }
+    
+    public function setUserLock(string $idOrMail, bool $locked): bool
+    {
+        $url = $this->getApiUrl() . 'users/' . urlencode($idOrMail) . '/lock';
+        $headers = $this->getRequestHeaders();
+        $method = 'POST';
+
+        $body = json_encode(
+            [
+                'locked' => $locked,
+            ],
+            JSON_THROW_ON_ERROR
+        );
+
+        $response = $this->getHttpClient()->request($method, $url, $headers, $body);
 
         if ($response->getStatus() === 200) {
             return true;

@@ -77,4 +77,147 @@ class ApiKey extends AbstractClient
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }
     }
+
+    /**
+     * Create a new API key for current user.
+     *
+     * @param string $label Visible label on API key overview
+     * @param array $permissions The permissions array can contain specific store id
+     * e.g. btcpay.server.canmanageusers:2KxSpc9V5zDWfUbvgYiZuAfka4wUhGF96F75Ao8y4zHP
+     */
+    public function createApikey(?string $label = null, ?array $permissions = null): ResultApiKey
+    {
+        $url = $this->getApiUrl() . 'api-keys';
+        $headers = $this->getRequestHeaders();
+        $method = 'POST';
+
+        $body = json_encode(
+            [
+                'label' => $label,
+                'permissions' => $permissions
+            ],
+            JSON_THROW_ON_ERROR
+        );
+
+        $response = $this->getHttpClient()->request($method, $url, $headers, $body);
+
+        if ($response->getStatus() === 200) {
+            return new ResultApiKey(json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR));
+        } else {
+            throw $this->getExceptionByStatusCode($method, $url, $response);
+        }
+    }
+
+     /**
+     * Create a new API Key using Basic Auth. You need to pass email and password of the user.
+     */
+    public function createApiKeyBasicAuth($email, $password, ?string $label = null, ?array $permissions = null): ResultApiKey
+    {
+        $url = $this->getApiUrl() . 'api-keys';
+        $headers = $this->getRequestHeadersBasicAuth($email, $password);
+        $method = 'POST';
+
+        $body = json_encode(
+            [
+                'label' => $label,
+                'permissions' => $permissions
+            ],
+            JSON_THROW_ON_ERROR
+        );
+
+        $response = $this->getHttpClient()->request($method, $url, $headers, $body);
+
+        if ($response->getStatus() === 200) {
+            return new ResultApiKey(json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR));
+        } else {
+            throw $this->getExceptionByStatusCode($method, $url, $response);
+        }
+    }
+
+    /**
+     * Create a new API key for a user.
+     *
+     * @param string $userId Can be user id or email.
+     * @param string $label Visible label on API key overview
+     * @param array $permissions The permissions array can contain specific store id
+     * e.g. btcpay.server.canmanageusers:2KxSpc9V5zDWfUbvgYiZuAfka4wUhGF96F75Ao8y4zHP
+     */
+    public function createApiKeyForUser(
+        string $idOrMail,
+        ?string $label = null,
+        ?array $permissions = null
+    ): ResultApiKey {
+        $url = $this->getApiUrl() . 'users/' . urlencode($idOrMail) . '/api-keys';
+        $headers = $this->getRequestHeaders();
+        $method = 'POST';
+
+        $body = json_encode(
+            [
+                'label' => $label,
+                'permissions' => $permissions
+            ],
+            JSON_THROW_ON_ERROR
+        );
+
+        $response = $this->getHttpClient()->request($method, $url, $headers, $body);
+
+        if ($response->getStatus() === 200) {
+            return new ResultApiKey(json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR));
+        } else {
+            throw $this->getExceptionByStatusCode($method, $url, $response);
+        }
+    }
+
+
+    /**
+     * Revokes the current API key.
+     */
+    public function revokeCurrentApiKey(): bool
+    {
+        $url = $this->getApiUrl() . 'api-keys/current';
+        $headers = $this->getRequestHeaders();
+        $method = 'DELETE';
+        $response = $this->getHttpClient()->request($method, $url, $headers);
+
+        if ($response->getStatus() === 200) {
+            return true;
+        } else {
+            throw $this->getExceptionByStatusCode($method, $url, $response);
+        }
+    }
+
+    /**
+     * Revokes an API key for current user.
+     */
+    public function revokeApiKey(string $apiKey): bool
+    {
+        $url = $this->getApiUrl() . 'api-keys/' . urlencode($apiKey);
+        $headers = $this->getRequestHeaders();
+        $method = 'DELETE';
+        $response = $this->getHttpClient()->request($method, $url, $headers);
+
+        if ($response->getStatus() === 200) {
+            return true;
+        } else {
+            throw $this->getExceptionByStatusCode($method, $url, $response);
+        }
+    }
+
+
+    /**
+     * Revokes the API key of target user.
+     */
+    public function revokeApiKeyForUser(string $idOrMail, string $apiKey): bool
+    {
+        $url = $this->getApiUrl() . 'users/' . urlencode($idOrMail) . '/api-keys/' . urlencode($apiKey) ;
+        $headers = $this->getRequestHeaders();
+        $method = 'DELETE';
+        $response = $this->getHttpClient()->request($method, $url, $headers);
+
+        if ($response->getStatus() === 200) {
+            return true;
+        } else {
+            throw $this->getExceptionByStatusCode($method, $url, $response);
+        }
+    }
 }
