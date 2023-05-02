@@ -60,6 +60,7 @@ class InvoiceCheckoutOptions
         $options->paymentTolerance = $paymentTolerance;
         $options->redirectURL = $redirectURL;
         $options->redirectAutomatically = $redirectAutomatically;
+        $options->requiresRefundEmail = $requiresRefundEmail;
         $options->defaultLanguage = $defaultLanguage;
         $options->requiresRefundEmail = $requiresRefundEmail;
         return $options;

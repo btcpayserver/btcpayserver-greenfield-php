@@ -183,18 +183,16 @@ class Invoice extends AbstractClient
         string $invoiceId,
         ?array $metaData = null
     ): ResultInvoice {
+
         $url = $this->getApiUrl() . 'stores/' . urlencode(
             $storeId
         ) . '/invoices/' . urlencode($invoiceId);
         $headers = $this->getRequestHeaders();
         $method = 'PUT';
 
-        $body = json_encode(
-            [
-                'metadata' => $metaData
-            ],
-            JSON_THROW_ON_ERROR
-        );
+        $body = json_encode([
+            'metadata' => $metaData
+        ], JSON_THROW_ON_ERROR);
 
         $response = $this->getHttpClient()->request($method, $url, $headers, $body);
 
