@@ -82,7 +82,7 @@ class Store extends AbstractClient
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }
     }
-    
+
     public function getStore(string $storeId): ResultStore
     {
         $url = $this->getApiUrl() . 'stores/' . urlencode($storeId);

@@ -81,7 +81,7 @@ class User extends AbstractClient
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }
     }
-    
+
     public function setUserLock(string $idOrMail, bool $locked): bool
     {
         $url = $this->getApiUrl() . 'users/' . urlencode($idOrMail) . '/lock';
