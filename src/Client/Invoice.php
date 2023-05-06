@@ -183,7 +183,6 @@ class Invoice extends AbstractClient
         string $invoiceId,
         ?array $metaData = null
     ): ResultInvoice {
-
         $url = $this->getApiUrl() . 'stores/' . urlencode(
             $storeId
         ) . '/invoices/' . urlencode($invoiceId);
