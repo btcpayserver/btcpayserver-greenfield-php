@@ -49,7 +49,7 @@ class Users
         }
     }
 
-    public function deleteUser($userId)
+    public function deleteUser(string $userId)
     {
         try {
             $client = new User($this->host, $this->apiKey);
@@ -59,7 +59,7 @@ class Users
         }
     }
 
-    public function setUserLock($userId, $toggle)
+    public function setUserLock(string $userId, bool $toggle)
     {
         try {
             $client = new User($this->host, $this->apiKey);

@@ -4,22 +4,21 @@ env:
   BTCPAY_API_KEY: ${{ secrets.BTCPAY_API_KEY }}
   BTCPAY_STORE_ID: ${{ secrets.BTCPAY_STORE_ID }}
   BTCPAY_NODE_URI: ${{ secrets.BTCPAY_NODE_URI }}
-on: [ push, pull_request ]
+on: [push, pull_request]
 
 jobs:
   phpunit:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php-versions: ['8.0', '8.1']
-        phpunit-versions: ['latest']
+        php-versions: ["8.0", "8.1"]
+        phpunit-versions: ["latest"]
 
-        
     steps:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          fetch-depth: '0'
+          fetch-depth: "0"
 
       - name: Setup PHP, with composer and extensions
         uses: shivammathur/setup-php@v2
