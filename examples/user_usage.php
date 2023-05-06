@@ -49,13 +49,23 @@ class Users
         }
     }
 
-    public function deleteUser()
+    public function deleteUser(string $userId)
     {
         $userId = '';
 
         try {
             $client = new User($this->host, $this->apiKey);
             var_dump($client->deleteUser($userId));
+        } catch (\Throwable $e) {
+            echo "Error: " . $e->getMessage();
+        }
+    }
+
+    public function setUserLock(string $userId, bool $toggle)
+    {
+        try {
+            $client = new User($this->host, $this->apiKey);
+            var_dump($client->setUserLock($userId, $toggle));
         } catch (\Throwable $e) {
             echo "Error: " . $e->getMessage();
         }

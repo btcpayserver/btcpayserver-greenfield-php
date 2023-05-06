@@ -178,8 +178,12 @@ class Invoice extends AbstractClient
         }
     }
 
-    public function updateInvoice(string $storeId, string $invoiceId, array $metaData): ResultInvoice
-    {
+    public function updateInvoice(
+        string $storeId,
+        string $invoiceId,
+        ?array $metaData = null
+    ): ResultInvoice {
+
         $url = $this->getApiUrl() . 'stores/' . urlencode(
             $storeId
         ) . '/invoices/' . urlencode($invoiceId);

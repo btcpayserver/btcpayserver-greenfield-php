@@ -6,7 +6,7 @@ namespace BTCPayServer\Result;
 
 abstract class AbstractListResult extends AbstractResult implements \Countable
 {
-    public function count()
+    public function count(): int
     {
         return count($this->getData());
     }
