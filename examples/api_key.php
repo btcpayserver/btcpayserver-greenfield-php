@@ -7,8 +7,8 @@ use BTCPayServer\Client\ApiKey;
 // Fill in with your BTCPay Server data.
 $apiKey = '';
 $host = ''; // e.g. https://your.btcpay-server.tld
-$email = ''; // e.g. test@example.com
-$password = '';
+$userEmail = '';
+$userId = '';
 
 // Get information about store on BTCPay Server.
 try {
@@ -17,7 +17,6 @@ try {
 } catch (\Throwable $e) {
     echo "Error: " . $e->getMessage();
 }
-
 /*
 print("\nCreate a new api key (needs server modify permission of used api).\n");
 try {

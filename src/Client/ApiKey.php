@@ -62,7 +62,7 @@ class ApiKey extends AbstractClient
     }
 
     /**
-     * Get the current API Key information
+     * Get the current API key information
      */
     public function getCurrent(): ResultApiKey
     {

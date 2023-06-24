@@ -70,6 +70,35 @@ class Invoice extends AbstractClient
         }
     }
 
+    public function updateInvoice(
+        string $storeId,
+        string $invoiceId,
+        ?array $metaData = null
+    ): ResultInvoice {
+        $url = $this->getApiUrl() . 'stores/' . urlencode(
+            $storeId
+        ) . '/invoices/' . urlencode($invoiceId);
+        $headers = $this->getRequestHeaders();
+        $method = 'PUT';
+
+        $body = json_encode(
+            [
+                'metadata' => $metaData
+            ],
+            JSON_THROW_ON_ERROR
+        );
+
+        $response = $this->getHttpClient()->request($method, $url, $headers, $body);
+
+        if ($response->getStatus() === 200) {
+            return new ResultInvoice(
+                json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR)
+            );
+        } else {
+            throw $this->getExceptionByStatusCode($method, $url, $response);
+        }
+    }
+
     public function getInvoice(
         string $storeId,
         string $invoiceId
@@ -107,7 +136,7 @@ class Invoice extends AbstractClient
             }
         }
 
-        // Clean URL
+        // Clean URL.
         $url = rtrim($url, '&');
         $url = rtrim($url, '?');
 

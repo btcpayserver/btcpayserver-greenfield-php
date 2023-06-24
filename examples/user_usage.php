@@ -51,8 +51,6 @@ class Users
 
     public function deleteUser(string $userId)
     {
-        $userId = '';
-
         try {
             $client = new User($this->host, $this->apiKey);
             var_dump($client->deleteUser($userId));
@@ -76,4 +74,5 @@ $users = new Users();
 //$users->getCurrentUserInformation();
 //$users->deleteCurrentUserProfile();
 //$users->createUser();
-//$users->deleteUser();
+//$users->deleteUser("test@example.com");
+//$users->setUserLock("test@example.com", true);
