@@ -32,5 +32,8 @@ class ServerInfo extends AbstractResult
         return $this->getData()['supportedPaymentMethods'];
     }
 
-    // TODO add "syncStatus" structure
+    public function getSyncStatus(): ServerSyncStatusList
+    {
+        return new ServerSyncStatusList($this->getData()['syncStatus']);
+    }
 }
