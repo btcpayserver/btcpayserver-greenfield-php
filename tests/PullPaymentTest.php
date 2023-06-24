@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace BTCPayServer\Tests;
 
-use BTCPayServer\Client\Invoice;
-use BTCPayServer\Client\InvoiceCheckoutOptions;
 use BTCPayServer\Client\PullPayment;
 use BTCPayServer\Result\PullPayment as ResultPullPayment;
 use BTCPayServer\Result\PullPaymentList;
