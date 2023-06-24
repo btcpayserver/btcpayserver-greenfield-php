@@ -6,7 +6,6 @@ namespace BTCPayServer\Tests;
 
 use BTCPayServer\Client\Server;
 use BTCPayServer\Result\ServerInfo;
-use BTCPayServer\Result\ServerSyncStatus;
 use BTCPayServer\Result\ServerSyncStatusList;
 use BTCPayServer\Result\ServerSyncStatusNodeInformation;
 
@@ -45,7 +44,5 @@ final class ServerTest extends BaseTest
             $this->assertIsInt($serverSyncStatus->getNodeInformation()->getBlocks());
             $this->assertIsFloat($serverSyncStatus->getNodeInformation()->getVerificationProgress());
         }
-
-
     }
 }

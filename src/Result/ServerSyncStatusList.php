@@ -6,7 +6,7 @@ namespace BTCPayServer\Result;
 
 class ServerSyncStatusList extends AbstractResult
 {
-        /**
+    /**
      * @return \BTCPayServer\Result\ServerSyncStatus[]
      */
     public function all(): array
