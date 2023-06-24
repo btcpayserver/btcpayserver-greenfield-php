@@ -7,6 +7,7 @@ namespace BTCPayServer\Tests;
 use BTCPayServer\Client\Server;
 use BTCPayServer\Result\ServerInfo;
 use BTCPayServer\Result\ServerSyncStatus;
+use BTCPayServer\Result\ServerSyncStatusList;
 use BTCPayServer\Result\ServerSyncStatusNodeInformation;
 
 final class ServerTest extends BaseTest
@@ -31,15 +32,20 @@ final class ServerTest extends BaseTest
         $this->assertIsBool($serverInfo->isFullySynced());
         $this->assertIsArray($serverInfo->getSupportedPaymentMethods());
 
-        $this->assertInstanceOf(ServerSyncStatus::class, $serverInfo->getSyncStatus());
-        $this->assertIsInt($serverInfo->getSyncStatus()->getChainHeight());
-        $this->assertIsInt($serverInfo->getSyncStatus()->getSyncHeight());
-        $this->assertIsString($serverInfo->getSyncStatus()->getCryptoCode());
-        $this->assertIsBool($serverInfo->getSyncStatus()->isAvailable());
+        $this->assertInstanceOf(ServerSyncStatusList::class, $serverInfo->getSyncStatus());
 
-        $this->assertInstanceOf(ServerSyncStatusNodeInformation::class, $serverInfo->getSyncStatus()->getNodeInformation());
-        $this->assertIsInt($serverInfo->getSyncStatus()->getNodeInformation()->getHeaders());
-        $this->assertIsInt($serverInfo->getSyncStatus()->getNodeInformation()->getBlocks());
-        $this->assertIsFloat($serverInfo->getSyncStatus()->getNodeInformation()->getVerificationProgress());
+        foreach ($serverInfo->getSyncStatus()->all() as $serverSyncStatus) {
+            $this->assertIsInt($serverSyncStatus->getChainHeight());
+            $this->assertIsInt($serverSyncStatus->getSyncHeight());
+            $this->assertIsString($serverSyncStatus->getCryptoCode());
+            $this->assertIsBool($serverSyncStatus->isAvailable());
+
+            $this->assertInstanceOf(ServerSyncStatusNodeInformation::class, $serverSyncStatus->getNodeInformation());
+            $this->assertIsInt($serverSyncStatus->getNodeInformation()->getHeaders());
+            $this->assertIsInt($serverSyncStatus->getNodeInformation()->getBlocks());
+            $this->assertIsFloat($serverSyncStatus->getNodeInformation()->getVerificationProgress());
+        }
+
+
     }
 }

@@ -32,8 +32,8 @@ class ServerInfo extends AbstractResult
         return $this->getData()['supportedPaymentMethods'];
     }
 
-    public function getSyncStatus(): ServerSyncStatus
+    public function getSyncStatus(): ServerSyncStatusList
     {
-        return new ServerSyncStatus($this->getData()['syncStatus'][0]);
+        return new ServerSyncStatusList($this->getData()['syncStatus']);
     }
 }

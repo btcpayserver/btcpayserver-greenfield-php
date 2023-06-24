@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace BTCPayServer\Result;
 
+use BTCPayServer\Util\PreciseNumber;
+
 class ServerSyncStatusNodeInformation extends AbstractResult
 {
     public function getHeaders(): int
@@ -16,8 +18,8 @@ class ServerSyncStatusNodeInformation extends AbstractResult
         return $this->getData()['blocks'];
     }
 
-    public function getVerificationProgress(): float
+    public function getVerificationProgress(): PreciseNumber
     {
-        return $this->getData()['verificationProgress'];
+        return PreciseNumber::parseFloat($this->getData()['verificationProgress']);
     }
 }
