@@ -12,6 +12,8 @@ use BTCPayServer\Util\PreciseNumber;
 
 final class PullPaymentTest extends BaseTest
 {
+    public PullPayment $pullPaymentClient;
+
     public function setUp(): void
     {
         parent::setUp();
@@ -121,10 +123,20 @@ final class PullPaymentTest extends BaseTest
             paymentMethods: ['BTC-LightningNetwork']
         );
 
+        $lightningClient = new \BTCPayServer\Client\LightningInternalNode($this->host, $this->apiKey);
+        $lightningInvoice = $lightningClient->createLightningInvoice(
+            'BTC',
+            '1000000', // milisats
+            111111,
+            'Test invoice description',
+        );
+
+        $bolt11 = $lightningInvoice["BOLT11"];
+
         // Create a payout associated with the pull payment.
         $payout = $this->pullPaymentClient->createPayout(
             pullPaymentId: $pullPayment->getId(),
-            destination: 'lntb10u1p3kc0z6pp5tdkj8cs9fgw83rep03t3veqre8s89z626cvrynst4j5tlvqmnrjsdq8xycrqvqcqzpgxqy7sjqsp5ff38cafky3pjtv5wajk3uraqdy7pghwqce9x63sqdefknc8hrq7q9qyyssq93e88ve2hzevdm6j3ar64qmfg7vym3ugfzz2444efz8mrjacq47zy4fl0j0687jr20k26c9rmz5ytrxfgvp49lnk633d5x9pcg794zgpgyyam0',
+            destination: $bolt11,
             amount: PreciseNumber::parseFloat(0.00001),
             paymentMethod: 'BTC-LightningNetwork'
         );
