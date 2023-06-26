@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace BTCPayServer\Client;
 
 use BTCPayServer\Result\Store as ResultStore;
+use BTCPayServer\Result\StoreList;
 
 class Store extends AbstractClient
 {
@@ -98,9 +99,9 @@ class Store extends AbstractClient
     }
 
     /**
-     * @return \BTCPayServer\Result\Store[]
+     * @return \BTCPayServer\Result\StoreList
      */
-    public function getStores(): array
+    public function getStores(): StoreList
     {
         $url = $this->getApiUrl() . 'stores';
         $headers = $this->getRequestHeaders();
@@ -110,11 +111,7 @@ class Store extends AbstractClient
         if ($response->getStatus() === 200) {
             $r = [];
             $data = json_decode($response->getBody(), true);
-            foreach ($data as $item) {
-                $item = new ResultStore($item);
-                $r[] = $item;
-            }
-            return $r;
+            return new StoreList($data);
         } else {
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }
