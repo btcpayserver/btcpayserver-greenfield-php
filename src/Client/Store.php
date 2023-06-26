@@ -109,7 +109,6 @@ class Store extends AbstractClient
         $response = $this->getHttpClient()->request($method, $url, $headers);
 
         if ($response->getStatus() === 200) {
-            $r = [];
             $data = json_decode($response->getBody(), true);
             return new StoreList($data);
         } else {
