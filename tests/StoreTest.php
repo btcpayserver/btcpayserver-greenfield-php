@@ -92,7 +92,7 @@ final class StoreTest extends BaseTest
         $this->assertIsBool($store->redirectAutomatically());
         $this->assertIsBool($store->showRecommendedFee());
         $this->assertIsInt($store->getRecommendedFeeBlockTarget());
-        //$this->assertIsString($store->getDefaultLang());
+
         if ($store->getCustomLogo() !== null) {
             $this->assertIsString($store->getCustomLogo());
         }
@@ -114,7 +114,6 @@ final class StoreTest extends BaseTest
         $this->assertIsString($store->getNetworkFeeMode());
         $this->assertIsBool($store->payJoinEnabled());
         $this->assertIsBool($store->lazyPaymentMethods());
-        //$this->assertIsString($store->getDefaultPaymentMethod());
         $this->assertIsString($store->getId());
     }
 }
