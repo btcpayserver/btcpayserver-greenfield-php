@@ -14,14 +14,13 @@ class Store extends AbstractResult
         return $data['name'];
     }
 
-    public function getWebsite():? string
+    public function getWebsite(): ?string
     {
         $data = $this->getData();
         return $data['website'];
     }
 
-    // Temporarily allowing null as it appears Greenfield has a bug.
-    public function getDefaultCurrency():? string
+    public function getDefaultCurrency(): ?string
     {
         $data = $this->getData();
         return $data['defaultCurrency'];
@@ -105,25 +104,25 @@ class Store extends AbstractResult
         return $data['recommendedFeeBlockTarget'];
     }
 
-    public function getDefaultLang():? string
+    public function getDefaultLang(): ?string
     {
         $data = $this->getData();
         return $data['defaultLang'];
     }
 
-    public function getCustomLogo():? string
+    public function getCustomLogo(): ?string
     {
         $data = $this->getData();
         return $data['customLogo'];
     }
 
-    public function getCustomCSS():? string
+    public function getCustomCSS(): ?string
     {
         $data = $this->getData();
         return $data['customCSS'];
     }
 
-    public function getHtmlTitle():? string
+    public function getHtmlTitle(): ?string
     {
         $data = $this->getData();
         return $data['htmlTitle'];
@@ -147,7 +146,7 @@ class Store extends AbstractResult
         return $data['lazyPaymentMethods'];
     }
 
-    public function getDefaultPaymentMethod():? string
+    public function getDefaultPaymentMethod(): ?string
     {
         $data = $this->getData();
         return $data['defaultPaymentMethod'];

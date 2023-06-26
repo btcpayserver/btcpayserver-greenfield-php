@@ -96,11 +96,11 @@ final class StoreTest extends BaseTest
         if ($store->getCustomLogo() !== null) {
             $this->assertIsString($store->getCustomLogo());
         }
-        
+
         if ($store->getCustomCSS() !== null) {
             $this->assertIsString($store->getCustomCSS());
         }
-        
+
         if ($store->getHtmlTitle() !== null) {
             $this->assertIsString($store->getHtmlTitle());
         }
@@ -110,7 +110,7 @@ final class StoreTest extends BaseTest
         if ($store->getDefaultPaymentMethod() !== null) {
             $this->assertIsString($store->getDefaultPaymentMethod());
         }
-        
+
         $this->assertIsString($store->getNetworkFeeMode());
         $this->assertIsBool($store->payJoinEnabled());
         $this->assertIsBool($store->lazyPaymentMethods());
