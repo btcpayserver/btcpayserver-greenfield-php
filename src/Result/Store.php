@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace BTCPayServer\Result;
 
+use BTCPayServer\Util\PreciseNumber;
+
 class Store extends AbstractResult
 {
     public function getName(): string
@@ -12,13 +14,13 @@ class Store extends AbstractResult
         return $data['name'];
     }
 
-    public function getWebsite(): string
+    public function getWebsite(): ?string
     {
         $data = $this->getData();
         return $data['website'];
     }
 
-    public function getDefaultCurrency(): string
+    public function getDefaultCurrency(): ?string
     {
         $data = $this->getData();
         return $data['defaultCurrency'];
@@ -48,10 +50,10 @@ class Store extends AbstractResult
         return $data['lightningDescriptionTemplate'];
     }
 
-    public function getPaymentTolerance(): int
+    public function getPaymentTolerance(): PreciseNumber
     {
         $data = $this->getData();
-        return $data['paymentTolerance'];
+        return PreciseNumber::parseFloat($data['paymentTolerance']);
     }
 
     public function anyoneCanCreateInvoice(): bool
@@ -102,25 +104,25 @@ class Store extends AbstractResult
         return $data['recommendedFeeBlockTarget'];
     }
 
-    public function getDefaultLang(): string
+    public function getDefaultLang(): ?string
     {
         $data = $this->getData();
         return $data['defaultLang'];
     }
 
-    public function getCustomLogo(): string
+    public function getCustomLogo(): ?string
     {
         $data = $this->getData();
         return $data['customLogo'];
     }
 
-    public function getCustomCSS(): string
+    public function getCustomCSS(): ?string
     {
         $data = $this->getData();
         return $data['customCSS'];
     }
 
-    public function getHtmlTitle(): string
+    public function getHtmlTitle(): ?string
     {
         $data = $this->getData();
         return $data['htmlTitle'];
@@ -144,7 +146,7 @@ class Store extends AbstractResult
         return $data['lazyPaymentMethods'];
     }
 
-    public function getDefaultPaymentMethod(): string
+    public function getDefaultPaymentMethod(): ?string
     {
         $data = $this->getData();
         return $data['defaultPaymentMethod'];
