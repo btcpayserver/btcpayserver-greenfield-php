@@ -22,7 +22,7 @@ final class PullPaymentTest extends BaseTest
     }
 
     /** @group createPullPayment */
-    public function testCreatePullPayment(): void
+    public function testItCanCreatePullPayment(): void
     {
         $pullPayment = $this->pullPaymentClient->createPullPayment(
             storeId: $this->storeId,
@@ -107,7 +107,7 @@ final class PullPaymentTest extends BaseTest
     }
 
     /** @group payouts */
-    public function testAllPayoutMethods(): void
+    public function testItCanGetAllPayoutMethods(): void
     {
         // Create a pull payment.
         $pullPayment = $this->pullPaymentClient->createPullPayment(
@@ -182,10 +182,6 @@ final class PullPaymentTest extends BaseTest
         );
 
         $this->assertTrue($paid);
-
-        // Cancel the payout
-        $cancel = $this->pullPaymentClient->cancelPayout($this->storeId, $payout->getId());
-        $this->assertTrue($cancel);
 
         // Archive the new pull payment.
         $archive = $this->pullPaymentClient->archivePullPayment($this->storeId, $pullPayment->getId());

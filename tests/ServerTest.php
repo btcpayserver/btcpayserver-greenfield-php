@@ -8,6 +8,7 @@ use BTCPayServer\Client\Server;
 use BTCPayServer\Result\ServerInfo;
 use BTCPayServer\Result\ServerSyncStatusList;
 use BTCPayServer\Result\ServerSyncStatusNodeInformation;
+use BTCPayServer\Util\PreciseNumber;
 
 final class ServerTest extends BaseTest
 {
@@ -42,7 +43,7 @@ final class ServerTest extends BaseTest
             $this->assertInstanceOf(ServerSyncStatusNodeInformation::class, $serverSyncStatus->getNodeInformation());
             $this->assertIsInt($serverSyncStatus->getNodeInformation()->getHeaders());
             $this->assertIsInt($serverSyncStatus->getNodeInformation()->getBlocks());
-            $this->assertIsFloat($serverSyncStatus->getNodeInformation()->getVerificationProgress());
+            $this->assertInstanceOf(PreciseNumber::class, $serverSyncStatus->getNodeInformation()->getVerificationProgress());
         }
     }
 }
