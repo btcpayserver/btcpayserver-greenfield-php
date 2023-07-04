@@ -6,39 +6,45 @@ namespace BTCPayServer\Result;
 
 class StoreEmailSettings extends AbstractResult
 {
-    public function getServer(): string
+    public function getServer(): ?string
     {
         $data = $this->getData();
         return $data['server'];
     }
 
-    public function getPort(): string
+    public function getPort(): ?int
     {
         $data = $this->getData();
         return $data['port'];
     }
 
-    public function getUsername(): string
+    public function getUsername(): ?string
     {
         $data = $this->getData();
         return $data['login'];
     }
 
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         $data = $this->getData();
         return $data['password'];
     }
 
-    public function getFromEmail(): string
+    public function getFromEmail(): ?string
     {
         $data = $this->getData();
         return $data['from'];
     }
 
-    public function getFromName(): string
+    public function getFromName(): ?string
     {
         $data = $this->getData();
         return $data['fromDisplay'];
+    }
+
+    public function getDisableCertificateCheck(): ?bool
+    {
+        $data = $this->getData();
+        return $data['disableCertificateCheck'];
     }
 }
