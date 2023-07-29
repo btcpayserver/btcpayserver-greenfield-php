@@ -24,13 +24,13 @@ class StoreOnChainWalletTransaction extends AbstractResult
         return $data['labels'];
     }
 
-    public function getBlockHash():? string
+    public function getBlockHash(): ?string
     {
         $data = $this->getData();
         return $data['blockHash'];
     }
 
-    public function getBlockHeight():? int
+    public function getBlockHeight(): ?int
     {
         $data = $this->getData();
         return $data['blockHeight'];

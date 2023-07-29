@@ -10,7 +10,6 @@ use BTCPayServer\Result\StoreOnChainWallet as ResultStoreOnChainWallet;
 use BTCPayServer\Result\StoreOnChainWalletAddress;
 use BTCPayServer\Result\StoreOnChainWalletFeeRate;
 use BTCPayServer\Result\StoreOnChainWalletTransaction;
-use BTCPayServer\Result\StoreOnChainWalletTransactionDestination;
 use BTCPayServer\Result\StoreOnChainWalletTransactionList;
 use BTCPayServer\Result\StoreOnChainWalletUtxo;
 use BTCPayServer\Result\StoreOnChainWalletUtxoList;
@@ -30,7 +29,7 @@ final class StoreOnChainWalletTest extends BaseTest
     }
 
     /** @group getStoreOnChainWalletOverview */
-    public function testItCanGetStoreOnChainWalletOverview(): void 
+    public function testItCanGetStoreOnChainWalletOverview(): void
     {
         //$this->markTestIncomplete('BTC doesnt have any derivation scheme set');
         $overview = $this->storeOnChainWalletClient->getStoreOnChainWalletOverview(
@@ -46,7 +45,7 @@ final class StoreOnChainWalletTest extends BaseTest
     }
 
     /** @group getStoreOnChainWalletFeeRate */
-    public function testItCanGetStoreOnChainWalletFeeRate(): void 
+    public function testItCanGetStoreOnChainWalletFeeRate(): void
     {
         $feeRate = $this->storeOnChainWalletClient->getStoreOnChainWalletFeeRate(
             $this->storeId,
@@ -58,7 +57,7 @@ final class StoreOnChainWalletTest extends BaseTest
     }
 
     /** @group getStoreOnChainWalletAddress */
-    public function testItCanGetStoreOnChainWalletAddress(): void 
+    public function testItCanGetStoreOnChainWalletAddress(): void
     {
         $address = $this->storeOnChainWalletClient->getStoreOnChainWalletAddress(
             $this->storeId,
@@ -107,7 +106,7 @@ final class StoreOnChainWalletTest extends BaseTest
     /** @group createStoreOnChainWalletTransaction */
     public function testItCanCreateGetUpdateStoreOnChainWalletTransaction(): void
     {
-        $destination = 
+        $destination =
             [
                 'destination' => 'tb1q2yy5gxpdlsr40xjvy7v6x4gjxr5y8t428nqppa',
                 'amount' => "0.00001",
