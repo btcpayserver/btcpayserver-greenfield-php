@@ -6,48 +6,51 @@ namespace BTCPayServer\Result;
 
 class StoreOnChainWalletTransaction extends AbstractResult
 {
-    public function getDestinations(): StoreOnChainWalletTransactionDestinationList
+    public function getTransactionHash(): string
     {
         $data = $this->getData();
-        return new StoreOnChainWalletTransactionDestinationList($data['destinations']);
+        return $data['transactionHash'];
     }
 
-    public function getFeeRate(): StoreOnChainWalletFeeRate
+    public function getComment(): string
     {
         $data = $this->getData();
-        return new StoreOnChainWalletFeeRate($data['feeRate']);
+        return $data['comment'];
     }
 
-    public function proceedWithPayjoin(): bool
+    public function getLabels(): array
     {
         $data = $this->getData();
-        return $data['proceedWithPayjoin'];
+        return $data['labels'];
     }
 
-    public function proceedWithBroadcast(): bool
+    public function getBlockHash():? string
     {
         $data = $this->getData();
-        return $data['proceedWithBroadcast'];
+        return $data['blockHash'];
     }
 
-    public function noChange(): bool
+    public function getBlockHeight():? int
     {
         $data = $this->getData();
-        return $data['noChange'];
+        return $data['blockHeight'];
     }
 
-    public function rbf(): bool
+    public function getConfirmations(): int
     {
         $data = $this->getData();
-        return $data['rbf'];
+        return $data['confirmations'];
     }
 
-    /**
-     * @return array strings
-     */
-    public function selectedInputs(): array
+    public function getTimestamp(): int
     {
         $data = $this->getData();
-        return $data['selectedInputs'];
+        return $data['timestamp'];
+    }
+
+    public function getStatus(): string
+    {
+        $data = $this->getData();
+        return $data['status'];
     }
 }

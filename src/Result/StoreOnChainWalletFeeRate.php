@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace BTCPayServer\Result;
 
+use BTCPayServer\Util\PreciseNumber;
+
 class StoreOnChainWalletFeeRate extends AbstractResult
 {
-    public function getFeeRate(): float
+    public function getFeeRate(): PreciseNumber
     {
         $data = $this->getData();
-        return $data['feeRate'];
+        return PreciseNumber::parseFloat($data['feeRate']);
     }
 }
