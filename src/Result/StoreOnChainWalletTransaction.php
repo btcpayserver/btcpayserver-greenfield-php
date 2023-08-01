@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace BTCPayServer\Result;
 
+use BTCPayServer\Util\PreciseNumber;
+
 class StoreOnChainWalletTransaction extends AbstractResult
 {
     public function getTransactionHash(): string
@@ -16,6 +18,12 @@ class StoreOnChainWalletTransaction extends AbstractResult
     {
         $data = $this->getData();
         return $data['comment'];
+    }
+
+    public function getAmount(): PreciseNumber
+    {
+        $data = $this->getData();
+        return new PreciseNumber($data['amount']);
     }
 
     public function getLabels(): array
