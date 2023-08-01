@@ -25,4 +25,10 @@ class StoreOnChainWallet extends AbstractResult
         $data = $this->getData();
         return PreciseNumber::parseString($data['confirmedBalance']);
     }
+
+    public function getLabel(): string
+    {
+        $data = $this->getData();
+        return $data['label'];
+    }
 }

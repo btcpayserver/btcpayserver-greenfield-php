@@ -4,50 +4,61 @@ declare(strict_types=1);
 
 namespace BTCPayServer\Result;
 
+use BTCPayServer\Util\PreciseNumber;
+
 class StoreOnChainWalletTransaction extends AbstractResult
 {
-    public function getDestinations(): StoreOnChainWalletTransactionDestinationList
+    public function getTransactionHash(): string
     {
         $data = $this->getData();
-        return new StoreOnChainWalletTransactionDestinationList($data['destinations']);
+        return $data['transactionHash'];
     }
 
-    public function getFeeRate(): StoreOnChainWalletFeeRate
+    public function getComment(): string
     {
         $data = $this->getData();
-        return new StoreOnChainWalletFeeRate($data['feeRate']);
+        return $data['comment'];
     }
 
-    public function proceedWithPayjoin(): bool
+    public function getAmount(): PreciseNumber
     {
         $data = $this->getData();
-        return $data['proceedWithPayjoin'];
+        return new PreciseNumber($data['amount']);
     }
 
-    public function proceedWithBroadcast(): bool
+    public function getLabels(): array
     {
         $data = $this->getData();
-        return $data['proceedWithBroadcast'];
+        return $data['labels'];
     }
 
-    public function noChange(): bool
+    public function getBlockHash(): ?string
     {
         $data = $this->getData();
-        return $data['noChange'];
+        return $data['blockHash'];
     }
 
-    public function rbf(): bool
+    public function getBlockHeight(): ?int
     {
         $data = $this->getData();
-        return $data['rbf'];
+        return $data['blockHeight'];
     }
 
-    /**
-     * @return array strings
-     */
-    public function selectedInputs(): array
+    public function getConfirmations(): int
     {
         $data = $this->getData();
-        return $data['selectedInputs'];
+        return $data['confirmations'];
+    }
+
+    public function getTimestamp(): int
+    {
+        $data = $this->getData();
+        return $data['timestamp'];
+    }
+
+    public function getStatus(): string
+    {
+        $data = $this->getData();
+        return $data['status'];
     }
 }

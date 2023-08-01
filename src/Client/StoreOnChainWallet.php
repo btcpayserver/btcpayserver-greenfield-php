@@ -9,7 +9,7 @@ use BTCPayServer\Result\StoreOnChainWalletAddress;
 use BTCPayServer\Result\StoreOnChainWalletFeeRate;
 use BTCPayServer\Result\StoreOnChainWalletTransaction;
 use BTCPayServer\Result\StoreOnChainWalletTransactionList;
-use BTCPayServer\Result\StoreOnChainWalletUTXOList;
+use BTCPayServer\Result\StoreOnChainWalletUtxoList;
 
 class StoreOnChainWallet extends AbstractClient
 {
@@ -241,10 +241,10 @@ class StoreOnChainWallet extends AbstractClient
         }
     }
 
-    public function getStoreOnChainWalletUTXOs(
+    public function getStoreOnChainWalletUtxos(
         string $storeId,
         string $cryptoCode
-    ): StoreOnChainWalletUTXOList {
+    ): StoreOnChainWalletUtxoList {
         $url = $this->getApiUrl() . 'stores/' .
                     urlencode($storeId) . '/payment-methods' . '/OnChain' . '/' .
                     urlencode($cryptoCode) . '/wallet' . '/utxos';
@@ -255,7 +255,7 @@ class StoreOnChainWallet extends AbstractClient
         $response = $this->getHttpClient()->request($method, $url, $headers);
 
         if ($response->getStatus() === 200) {
-            return new StoreOnChainWalletUTXOList(
+            return new StoreOnChainWalletUtxoList(
                 json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR)
             );
         } else {

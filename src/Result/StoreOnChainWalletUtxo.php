@@ -6,7 +6,7 @@ namespace BTCPayServer\Result;
 
 use BTCPayServer\Util\PreciseNumber;
 
-class StoreOnChainWalletUTXO extends AbstractResult
+class StoreOnChainWalletUtxo extends AbstractResult
 {
     public function getComment(): string
     {
