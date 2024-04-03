@@ -223,8 +223,8 @@ class Store extends AbstractClient
     }
 
     /**
-    * @return \BTCPayServer\Result\Store[]
-    */
+     * @return \BTCPayServer\Result\Store[]
+     */
     public function getStores(): array
     {
         $url = $this->getApiUrl() . 'stores';
