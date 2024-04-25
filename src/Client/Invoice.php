@@ -229,8 +229,7 @@ class Invoice extends AbstractClient
         ?float $subtractPercentage = 0.0,
         ?PreciseNumber $customAmount = null,
         ?string $customCurrency = null
-    ): ResultPullPayment
-    {
+    ): ResultPullPayment {
         $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/invoices/' . urlencode($invoiceId) . '/refund';
         $headers = $this->getRequestHeaders();
         $method = 'POST';
