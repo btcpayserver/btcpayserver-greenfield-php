@@ -43,6 +43,7 @@ class PullPayment extends AbstractClient
     public function createPullPayment(
         string $storeId,
         ?string $name = null,
+        ?string $description = null,
         PreciseNumber $amount,
         string $currency,
         ?int $period,
@@ -61,6 +62,7 @@ class PullPayment extends AbstractClient
         $body = json_encode(
             [
                 'name' => $name,
+                'description' => $description,
                 'amount' => $amount->__toString(),
                 'currency' => $currency,
                 'period' => $period,
