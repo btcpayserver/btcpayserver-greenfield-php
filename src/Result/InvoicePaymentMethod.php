@@ -59,24 +59,31 @@ class InvoicePaymentMethod extends AbstractResult
     public function getNetworkFee(): string
     {
         $data = $this->getData();
-        return $data['networkFee'];
+        // BTCPay 2.0.0 compatibility: networkFee was renamed to paymentMethodFee.
+        return $data['networkFee'] ?? $data['paymentMethodFee'];
     }
 
     public function getPaymentMethod(): string
     {
         $data = $this->getData();
-        return $data['paymentMethod'];
+        // BTCPay 2.0.0 compatibility: paymentMethod was renamed to paymentMethodId.
+        return $data['paymentMethod'] ?? $data['paymentMethodId'];
     }
 
     public function getCryptoCode(): string
     {
         $data = $this->getData();
+        // BTCPay 2.0.0 compatibility: cryptoCode was renamed to currency.
+        if (isset($data['currency'])) {
+            return $data['currency'];
+        }
+
         // For future compatibility check if cryptoCode exists.
         if (isset($data['cryptoCode'])) {
             return $data['cryptoCode'];
         } else {
             // Extract cryptoCode from paymentMethod string.
-            $parts = explode('-', $data['paymentMethod']);
+            $parts = explode('-', $this->getPaymentMethod());
             return $parts[0];
         }
     }
