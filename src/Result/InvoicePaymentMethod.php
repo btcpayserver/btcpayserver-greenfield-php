@@ -73,10 +73,6 @@ class InvoicePaymentMethod extends AbstractResult
     public function getCryptoCode(): string
     {
         $data = $this->getData();
-        // BTCPay 2.0.0 compatibility: cryptoCode was renamed to currency.
-        if (isset($data['currency'])) {
-            return $data['currency'];
-        }
 
         // For future compatibility check if cryptoCode exists.
         if (isset($data['cryptoCode'])) {
@@ -86,5 +82,14 @@ class InvoicePaymentMethod extends AbstractResult
             $parts = explode('-', $this->getPaymentMethod());
             return $parts[0];
         }
+    }
+
+    /**
+     * New field as of BTCPay 2.0.0.
+     */
+    public function getCurrency(): ?string
+    {
+        $data = $this->getData();
+        return $data['currency'] ?? null;
     }
 }
