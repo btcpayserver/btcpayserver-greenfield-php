@@ -42,7 +42,7 @@ class StorePaymentMethodCollection extends AbstractListResult
                     $paymentMethodData['cryptoCode'] = str_replace('-LightningNetwork', '', $paymentMethod);
                 }
 
-                // BTCPay 2.0 compatibility: put the currency code in the cryptoCode field.
+                // BTCPay 2.0 compatibility: put the extracted cryptoCode in the cryptoCode field.
                 if (isset($extractedCryptoCode)) {
                     $paymentMethodData['cryptoCode'] = $extractedCryptoCode;
                 }
