@@ -31,3 +31,13 @@ try {
 } catch (\Throwable $e) {
     echo "Error: " . $e->getMessage();
 }
+
+// Get newer/equal than 2024-10-20
+try {
+    echo 'Get invoices newer/equal than 2024-10-20:' . PHP_EOL;
+    $date = new DateTime('2024-10-20');
+    $client = new Invoice($host, $apiKey);
+    var_dump($client->getAllInvoicesWithFilter($storeId, null, null, null, $date->getTimestamp()));
+} catch (\Throwable $e) {
+    echo "Error: " . $e->getMessage();
+}
