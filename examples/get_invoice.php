@@ -22,3 +22,12 @@ try {
 } catch (\Throwable $e) {
     echo "Error: " . $e->getMessage();
 }
+
+// Get 2 invoices, skip 2
+try {
+    echo 'Get invoices:' . PHP_EOL;
+    $client = new Invoice($host, $apiKey);
+    var_dump($client->getAllInvoices($storeId, 2,2));
+} catch (\Throwable $e) {
+    echo "Error: " . $e->getMessage();
+}
