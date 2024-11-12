@@ -233,11 +233,17 @@ class Invoice extends AbstractClient
     /**
      * @return InvoicePaymentMethod[]
      */
-    public function getPaymentMethods(string $storeId, string $invoiceId): array
-    {
+    public function getPaymentMethods(
+        string $storeId,
+        string $invoiceId,
+        bool $includeSensitive = false,
+        bool $onlyAccountedPayments = true
+    ): array {
         $method = 'GET';
         $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/invoices/'
             . urlencode($invoiceId) . '/payment-methods';
+        $url .= '?includeSensitive=' . ($includeSensitive ? 'true' : 'false');
+        $url .= '&onlyAccountedPayments=' . ($onlyAccountedPayments ? 'true' : 'false');
         $headers = $this->getRequestHeaders();
         $response = $this->getHttpClient()->request($method, $url, $headers);
 
