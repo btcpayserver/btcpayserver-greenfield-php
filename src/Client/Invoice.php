@@ -19,7 +19,9 @@ class Invoice extends AbstractClient
         ?string $orderId = null,
         ?string $buyerEmail = null,
         ?array $metaData = null,
-        ?InvoiceCheckoutOptions $checkoutOptions = null
+        ?InvoiceCheckoutOptions $checkoutOptions = null,
+        ?InvoiceReceiptOptions $receiptOptions = null,
+        ?array $additionalSearchTerms = null
     ): ResultInvoice {
         $url = $this->getApiUrl() . 'stores/' . urlencode(
             $storeId
@@ -55,7 +57,9 @@ class Invoice extends AbstractClient
                 'amount' => $amount !== null ? $amount->__toString() : null,
                 'currency' => $currency,
                 'metadata' => !empty($metaDataMerged) ? $metaDataMerged : null,
-                'checkout' => $checkoutOptions ? $checkoutOptions->toArray() : null
+                'checkout' => $checkoutOptions ? $checkoutOptions->toArray() : null,
+                'receipt' => $receiptOptions ? $receiptOptions->toArray() : null,
+                'additionalSearchTerms' => $additionalSearchTerms
             ],
             JSON_THROW_ON_ERROR
         );
@@ -229,11 +233,17 @@ class Invoice extends AbstractClient
     /**
      * @return InvoicePaymentMethod[]
      */
-    public function getPaymentMethods(string $storeId, string $invoiceId): array
-    {
+    public function getPaymentMethods(
+        string $storeId,
+        string $invoiceId,
+        bool $includeSensitive = false,
+        bool $onlyAccountedPayments = true
+    ): array {
         $method = 'GET';
         $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/invoices/'
             . urlencode($invoiceId) . '/payment-methods';
+        $url .= '?includeSensitive=' . ($includeSensitive ? 'true' : 'false');
+        $url .= '&onlyAccountedPayments=' . ($onlyAccountedPayments ? 'true' : 'false');
         $headers = $this->getRequestHeaders();
         $response = $this->getHttpClient()->request($method, $url, $headers);
 
