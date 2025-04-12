@@ -133,7 +133,7 @@ class StorePaymentMethodOnChain extends AbstractStorePaymentMethodClient
         string $storeId,
         string $cryptoCode,
         string $derivationScheme,
-        string $accountKeyPath = null
+        ?string $accountKeyPath = null
     ): array {
         // todo: add offset + amount query parameters + check structure of derivationScheme etc.
 
