@@ -27,7 +27,13 @@ class StorePaymentMethod extends AbstractClient
 
         if ($response->getStatus() === 200) {
             $pm = new StorePaymentMethodCollection(json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR));
-            return $pm->all();
+            $r = [];
+            if ($pm->count() > 0) {
+                foreach ($pm->all() as $paymentMethod) {
+                    $r[] = $paymentMethod->getData();
+                }
+            }
+            return $r;
         } else {
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }
