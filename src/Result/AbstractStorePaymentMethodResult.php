@@ -10,7 +10,8 @@ abstract class AbstractStorePaymentMethodResult extends AbstractResult
     {
         // Temporary workaround until the api provides paymentMethod.
         if (!isset($data['paymentMethod'])) {
-            $data['paymentMethod'] = $paymentMethod;
+            $data['paymentMethod'] = $paymentMethod ?? $data['paymentMethodId'];
+            unset($data['paymentMethodId']);
         }
 
         parent::__construct($data);
