@@ -9,7 +9,7 @@ use BTCPayServer\Result\StorePaymentMethodOnChain as ResultStorePaymentMethodOnC
 /**
  * Handles stores on chain payment methods.
  *
- * @see https://docs.btcpayserver.org/API/Greenfield/v1/#tag/Store-Payment-Methods-(On-Chain)
+ * @see https://docs.btcpayserver.org/API/Greenfield/v1/#tag/Store-(Payment-Methods)
  */
 class StorePaymentMethodOnChain extends AbstractStorePaymentMethodClient
 {
@@ -40,14 +40,14 @@ class StorePaymentMethodOnChain extends AbstractStorePaymentMethodClient
 
     public function getPaymentMethod(string $storeId, string $cryptoCode): ResultStorePaymentMethodOnChain
     {
-        $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/payment-methods/' . self::PAYMENT_TYPE_ONCHAIN . '/' . $cryptoCode;
+        $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/payment-methods/' . $cryptoCode . '-' . self::PAYMENT_TYPE_ONCHAIN;
         $headers = $this->getRequestHeaders();
         $method = 'GET';
         $response = $this->getHttpClient()->request($method, $url, $headers);
 
         if ($response->getStatus() === 200) {
             $data = json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
-            return new ResultStorePaymentMethodOnChain($data, $data['cryptoCode']);
+            return new ResultStorePaymentMethodOnChain($data, $cryptoCode);
         } else {
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }
@@ -73,14 +73,14 @@ class StorePaymentMethodOnChain extends AbstractStorePaymentMethodClient
      */
     public function updatePaymentMethod(string $storeId, string $cryptoCode, array $settings): \BTCPayServer\Result\StorePaymentMethodOnChain
     {
-        $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/payment-methods/' . self::PAYMENT_TYPE_ONCHAIN . '/' . $cryptoCode;
+        $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/payment-methods/' . $cryptoCode . '-' . self::PAYMENT_TYPE_ONCHAIN;
         $headers = $this->getRequestHeaders();
         $method = 'PUT';
         $response = $this->getHttpClient()->request($method, $url, $headers, json_encode($settings));
 
         if ($response->getStatus() === 200) {
             $data = json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
-            return new \BTCPayServer\Result\StorePaymentMethodOnChain($data, $data['cryptoCode']);
+            return new \BTCPayServer\Result\StorePaymentMethodOnChain($data, $cryptoCode);
         } else {
             throw $this->getExceptionByStatusCode($method, $url, $response);
         }
@@ -167,7 +167,7 @@ class StorePaymentMethodOnChain extends AbstractStorePaymentMethodClient
      */
     public function removePaymentMethod(string $storeId, string $cryptoCode): bool
     {
-        $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/payment-methods/' . self::PAYMENT_TYPE_ONCHAIN . '/' . $cryptoCode;
+        $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/payment-methods/' . $cryptoCode . '-' . self::PAYMENT_TYPE_ONCHAIN;
         $headers = $this->getRequestHeaders();
         $method = 'DELETE';
         $response = $this->getHttpClient()->request($method, $url, $headers);
