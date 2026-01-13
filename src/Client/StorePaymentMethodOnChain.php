@@ -10,6 +10,8 @@ use BTCPayServer\Result\StorePaymentMethodOnChain as ResultStorePaymentMethodOnC
  * Handles stores on chain payment methods.
  *
  * @see https://docs.btcpayserver.org/API/Greenfield/v1/#tag/Store-Payment-Methods-(On-Chain)
+ *
+ * @deprecated with BTCPay 2.0. Use \BTCPayServer\Client\StorePaymentMethod->getPaymentMethods() instead.
  */
 class StorePaymentMethodOnChain extends AbstractStorePaymentMethodClient
 {
