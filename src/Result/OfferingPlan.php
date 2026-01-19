@@ -8,62 +8,62 @@ class OfferingPlan extends AbstractResult
 {
     public function getId(): string
     {
-        return $this->data['id'];
+        return $this->getData()['id'];
     }
 
     public function getName(): string
     {
-        return $this->data['name'];
+        return $this->getData()['name'];
     }
 
     public function getStatus(): string
     {
-        return $this->data['status'];
+        return $this->getData()['status'];
     }
 
     public function getPrice(): string
     {
-        return $this->data['price'];
+        return $this->getData()['price'];
     }
 
     public function getCurrency(): string
     {
-        return $this->data['currency'];
+        return $this->getData()['currency'];
     }
 
     public function getRecurringType(): string
     {
-        return $this->data['recurringType'];
+        return $this->getData()['recurringType'];
     }
 
     public function getGracePeriodDays(): int
     {
-        return $this->data['gracePeriodDays'];
+        return $this->getData()['gracePeriodDays'];
     }
 
     public function getTrialDays(): int
     {
-        return $this->data['trialDays'];
+        return $this->getData()['trialDays'];
     }
 
     public function getDescription(): string
     {
-        return $this->data['description'];
+        return $this->getData()['description'];
     }
 
     public function getMemberCount(): int
     {
-        return $this->data['memberCount'];
+        return $this->getData()['memberCount'];
     }
 
     public function isOptimisticActivation(): bool
     {
-        return $this->data['optimisticActivation'];
+        return $this->getData()['optimisticActivation'];
     }
 
     public function isRenewable(): bool
     {
-        return $this->data['renewable'];
+        return $this->getData()['renewable'];
     }
 
     /**
@@ -71,11 +71,11 @@ class OfferingPlan extends AbstractResult
      */
     public function getFeatures(): array
     {
-        return $this->data['features'] ?? [];
+        return $this->getData()['features'] ?? [];
     }
 
     public function getMetadata(): ?array
     {
-        return $this->data['metadata'] ?? null;
+        return $this->getData()['metadata'] ?? null;
     }
 }

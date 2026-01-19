@@ -14,9 +14,9 @@ $storeId = '';
 // Create the subscriptions client.
 try {
     $client = new Subscriptions($host, $apiKey);
-    
+
     echo "=== BTCPay Server Subscriptions API Examples ===\n\n";
-    
+
     // 1. Create a new offering
     echo "1. Creating a new offering...\n";
     $offering = $client->createOffering(
@@ -36,12 +36,12 @@ try {
     );
     echo "Offering created with ID: " . $offering->getId() . "\n";
     echo "App Name: " . $offering->getAppName() . "\n\n";
-    
+
     $offeringId = $offering->getId();
-    
+
     // 2. Create plans for the offering
     echo "2. Creating plans for the offering...\n";
-    
+
     // Basic plan
     $basicPlan = $client->createOfferingPlan(
         $storeId,
@@ -59,7 +59,7 @@ try {
         ['feature-analytics']
     );
     echo "Basic plan created with ID: " . $basicPlan->getId() . "\n";
-    
+
     // Premium plan
     $premiumPlan = $client->createOfferingPlan(
         $storeId,
@@ -77,10 +77,10 @@ try {
         ['feature-analytics', 'feature-support', 'feature-api']
     );
     echo "Premium plan created with ID: " . $premiumPlan->getId() . "\n\n";
-    
+
     $basicPlanId = $basicPlan->getId();
     $premiumPlanId = $premiumPlan->getId();
-    
+
     // 3. Get all offerings for the store
     echo "3. Getting all offerings for the store...\n";
     $offerings = $client->getOfferings($storeId);
@@ -91,14 +91,14 @@ try {
         }
     }
     echo "\n";
-    
+
     // 4. Get a specific offering
     echo "4. Getting specific offering details...\n";
     $specificOffering = $client->getOffering($storeId, $offeringId);
     echo "Offering: " . $specificOffering->getAppName() . "\n";
     echo "Success URL: " . $specificOffering->getSuccessRedirectUrl() . "\n";
     echo "Number of plans: " . count($specificOffering->getPlans()) . "\n\n";
-    
+
     // 5. Get a specific plan
     echo "5. Getting specific plan details...\n";
     $specificPlan = $client->getOfferingPlan($storeId, $offeringId, $basicPlanId);
@@ -106,7 +106,7 @@ try {
     echo "Price: " . $specificPlan->getPrice() . " " . $specificPlan->getCurrency() . "\n";
     echo "Trial Days: " . $specificPlan->getTrialDays() . "\n";
     echo "Features: " . implode(', ', $specificPlan->getFeatures()) . "\n\n";
-    
+
     // 6. Create a plan checkout session
     echo "6. Creating a plan checkout session...\n";
     $checkout = $client->createPlanCheckout(
@@ -128,9 +128,9 @@ try {
     echo "Checkout URL: " . $checkout->getUrl() . "\n";
     echo "Is Trial: " . ($checkout->isTrial() ? 'Yes' : 'No') . "\n";
     echo "New Subscriber: " . ($checkout->isNewSubscriber() ? 'Yes' : 'No') . "\n\n";
-    
+
     $checkoutId = $checkout->getId();
-    
+
     // 7. Get plan checkout details
     echo "7. Getting plan checkout details...\n";
     $checkoutDetails = $client->getPlanCheckout($checkoutId);
@@ -141,9 +141,9 @@ try {
         echo "Subscriber Email: " . ($subscriber->getCustomer()->getIdentities()['Email'] ?? 'N/A') . "\n";
     }
     echo "\n";
-    
+
     echo "=== Examples completed successfully! ===\n";
-    
+
 } catch (\Throwable $e) {
     echo "Error: " . $e->getMessage() . "\n";
     echo "Stack trace:\n" . $e->getTraceAsString() . "\n";

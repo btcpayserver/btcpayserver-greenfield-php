@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace BTCPayServer\Client;
 
+use BTCPayServer\Result\Credit;
 use BTCPayServer\Result\Offering;
 use BTCPayServer\Result\OfferingList;
 use BTCPayServer\Result\OfferingPlan;
-use BTCPayServer\Result\Subscriber;
-use BTCPayServer\Result\Credit;
 use BTCPayServer\Result\PlanCheckout;
 use BTCPayServer\Result\PortalSession;
+use BTCPayServer\Result\Subscriber;
 
 class Subscriptions extends AbstractClient
 {

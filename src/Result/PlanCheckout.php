@@ -8,106 +8,106 @@ class PlanCheckout extends AbstractResult
 {
     public function getId(): string
     {
-        return $this->data['id'];
+        return $this->getData()['id'];
     }
 
     public function getSubscriber(): ?Subscriber
     {
-        return isset($this->data['subscriber']) ? new Subscriber($this->data['subscriber']) : null;
+        return isset($this->getData()['subscriber']) ? new Subscriber($this->getData()['subscriber']) : null;
     }
 
     public function getPlan(): OfferingPlan
     {
-        return new OfferingPlan($this->data['plan']);
+        return new OfferingPlan($this->getData()['plan']);
     }
 
     public function getBaseUrl(): string
     {
-        return $this->data['baseUrl'];
+        return $this->getData()['baseUrl'];
     }
 
     public function getInvoiceId(): ?string
     {
-        return $this->data['invoiceId'] ?? null;
+        return $this->getData()['invoiceId'] ?? null;
     }
 
     public function getSuccessRedirectUrl(): ?string
     {
-        return $this->data['successRedirectUrl'] ?? null;
+        return $this->getData()['successRedirectUrl'] ?? null;
     }
 
     public function getExpiration(): int
     {
-        return $this->data['expiration'];
+        return $this->getData()['expiration'];
     }
 
     public function getRedirectUrl(): string
     {
-        return $this->data['redirectUrl'];
+        return $this->getData()['redirectUrl'];
     }
 
     public function getInvoiceMetadata(): ?array
     {
-        return $this->data['invoiceMetadata'] ?? null;
+        return $this->getData()['invoiceMetadata'] ?? null;
     }
 
     public function getMetadata(): ?array
     {
-        return $this->data['metadata'] ?? null;
+        return $this->getData()['metadata'] ?? null;
     }
 
     public function isNewSubscriber(): bool
     {
-        return $this->data['newSubscriber'];
+        return $this->getData()['newSubscriber'];
     }
 
     public function isTrial(): bool
     {
-        return $this->data['isTrial'];
+        return $this->getData()['isTrial'];
     }
 
     public function getCreated(): int
     {
-        return $this->data['created'];
+        return $this->getData()['created'];
     }
 
     public function isPlanStarted(): bool
     {
-        return $this->data['planStarted'];
+        return $this->getData()['planStarted'];
     }
 
     public function getNewSubscriberMetadata(): ?array
     {
-        return $this->data['newSubscriberMetadata'] ?? null;
+        return $this->getData()['newSubscriberMetadata'] ?? null;
     }
 
     public function getRefundAmount(): ?string
     {
-        return $this->data['refundAmount'] ?? null;
+        return $this->getData()['refundAmount'] ?? null;
     }
 
     public function getCreditedByInvoice(): ?string
     {
-        return $this->data['creditedByInvoice'] ?? null;
+        return $this->getData()['creditedByInvoice'] ?? null;
     }
 
     public function getOnPayBehavior(): ?string
     {
-        return $this->data['onPayBehavior'] ?? null;
+        return $this->getData()['onPayBehavior'] ?? null;
     }
 
     public function isExpired(): bool
     {
-        return $this->data['isExpired'];
+        return $this->getData()['isExpired'];
     }
 
     public function getUrl(): string
     {
-        return $this->data['url'];
+        return $this->getData()['url'];
     }
 
     public function getCreditPurchase(): ?string
     {
-        return $this->data['creditPurchase'] ?? null;
+        return $this->getData()['creditPurchase'] ?? null;
     }
 }

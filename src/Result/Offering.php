@@ -8,32 +8,32 @@ class Offering extends AbstractResult
 {
     public function getId(): string
     {
-        return $this->data['id'];
+        return $this->getData()['id'];
     }
 
     public function getStoreId(): string
     {
-        return $this->data['storeId'];
+        return $this->getData()['storeId'];
     }
 
     public function getAppId(): ?string
     {
-        return $this->data['appId'] ?? null;
+        return $this->getData()['appId'] ?? null;
     }
 
     public function getAppName(): ?string
     {
-        return $this->data['appName'] ?? null;
+        return $this->getData()['appName'] ?? null;
     }
 
     public function getSuccessRedirectUrl(): ?string
     {
-        return $this->data['successRedirectUrl'] ?? null;
+        return $this->getData()['successRedirectUrl'] ?? null;
     }
 
     public function getMetadata(): ?array
     {
-        return $this->data['metadata'] ?? null;
+        return $this->getData()['metadata'] ?? null;
     }
 
     /**
@@ -42,8 +42,8 @@ class Offering extends AbstractResult
     public function getPlans(): array
     {
         $plans = [];
-        if (isset($this->data['plans']) && is_array($this->data['plans'])) {
-            foreach ($this->data['plans'] as $plan) {
+        if (isset($this->getData()['plans']) && is_array($this->getData()['plans'])) {
+            foreach ($this->getData()['plans'] as $plan) {
                 $plans[] = new OfferingPlan($plan);
             }
         }
@@ -56,8 +56,8 @@ class Offering extends AbstractResult
     public function getFeatures(): array
     {
         $features = [];
-        if (isset($this->data['features']) && is_array($this->data['features'])) {
-            foreach ($this->data['features'] as $feature) {
+        if (isset($this->getData()['features']) && is_array($this->getData()['features'])) {
+            foreach ($this->getData()['features'] as $feature) {
                 $features[] = new Feature($feature);
             }
         }

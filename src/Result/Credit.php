@@ -8,11 +8,11 @@ class Credit extends AbstractResult
 {
     public function getCurrency(): string
     {
-        return $this->data['currency'];
+        return $this->getData()['currency'];
     }
 
     public function getValue(): string
     {
-        return $this->data['value'];
+        return $this->getData()['value'];
     }
 }

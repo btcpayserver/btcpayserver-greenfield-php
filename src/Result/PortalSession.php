@@ -8,31 +8,31 @@ class PortalSession extends AbstractResult
 {
     public function getId(): string
     {
-        return $this->data['id'];
+        return $this->getData()['id'];
     }
 
     public function getBaseUrl(): string
     {
-        return $this->data['baseUrl'];
+        return $this->getData()['baseUrl'];
     }
 
     public function getSubscriber(): Subscriber
     {
-        return new Subscriber($this->data['subscriber']);
+        return new Subscriber($this->getData()['subscriber']);
     }
 
     public function getExpiration(): ?int
     {
-        return $this->data['expiration'] ?? null;
+        return $this->getData()['expiration'] ?? null;
     }
 
     public function isExpired(): bool
     {
-        return $this->data['isExpired'];
+        return $this->getData()['isExpired'];
     }
 
     public function getUrl(): string
     {
-        return $this->data['url'];
+        return $this->getData()['url'];
     }
 }

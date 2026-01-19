@@ -8,11 +8,11 @@ class Feature extends AbstractResult
 {
     public function getId(): string
     {
-        return $this->data['id'];
+        return $this->getData()['id'];
     }
 
     public function getDescription(): string
     {
-        return $this->data['description'];
+        return $this->getData()['description'];
     }
 }

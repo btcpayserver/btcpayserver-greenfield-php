@@ -8,26 +8,26 @@ class Customer extends AbstractResult
 {
     public function getStoreId(): string
     {
-        return $this->data['storeId'];
+        return $this->getData()['storeId'];
     }
 
     public function getId(): string
     {
-        return $this->data['id'];
+        return $this->getData()['id'];
     }
 
     public function getExternalId(): ?string
     {
-        return $this->data['externalId'] ?? null;
+        return $this->getData()['externalId'] ?? null;
     }
 
     public function getIdentities(): ?array
     {
-        return $this->data['identities'] ?? null;
+        return $this->getData()['identities'] ?? null;
     }
 
     public function getMetadata(): ?array
     {
-        return $this->data['metadata'] ?? null;
+        return $this->getData()['metadata'] ?? null;
     }
 }
