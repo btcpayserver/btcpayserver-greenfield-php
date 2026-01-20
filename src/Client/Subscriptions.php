@@ -14,7 +14,7 @@ use BTCPayServer\Result\Subscriber;
 
 /**
  * Handles subscriptions operations.
- * 
+ *
  * @see https://docs.btcpayserver.org/API/Greenfield/v1/#tag/Subscriptions
  */
 class Subscriptions extends AbstractClient

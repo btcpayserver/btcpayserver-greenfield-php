@@ -14,7 +14,7 @@ $storeId = '';
 // Create the subscriptions client.
 try {
     $client = new Subscriptions($host, $apiKey);
-    
+
     echo "=== BTCPay Server Subscriptions API Examples ===\n\n";
 
     // 1. Create a new offering
@@ -141,14 +141,14 @@ try {
         echo "Subscriber Email: " . ($subscriber->getCustomer()->getIdentities()['Email'] ?? 'N/A') . "\n";
     }
     echo "\n";
-    
+
     // 8. Subscriber management examples
     /*
     // Fill these variables with actual values to test subscriber operations
     $offeringId = ''; // e.g. "offering_GFbMSBpybM6i5uEiqc"
     $customerSelector = ''; // e.g. "ps_N71XxcPDnKNgNDxKHZ" or customer email
-    $suspensionReason = 'User requested cancellation'; 
-    
+    $suspensionReason = 'User requested cancellation';
+
     if (!empty($storeId) && !empty($offeringId) && !empty($customerSelector)) {
         try {
             // Get subscriber details
@@ -159,29 +159,29 @@ try {
             echo "Phase: " . $subscriber->getPhase() . "\n";
             echo "Created: " . date('Y-m-d H:i:s', $subscriber->getCreated()) . "\n";
             echo "\n";
-            
+
             // Suspend subscriber
             if (!empty($suspensionReason)) {
                 echo "9. Suspending subscriber...\n";
                 $client->suspendSubscriber($storeId, $offeringId, $customerSelector, $suspensionReason);
                 echo "Subscriber suspended successfully!\n";
-                
+
                 // Check status after suspension
                 $suspendedSubscriber = $client->getSubscriber($storeId, $offeringId, $customerSelector);
                 echo "Status after suspension: " . ($suspendedSubscriber->isActive() ? 'Active' : 'Suspended') . "\n";
                 echo "Suspension reason: " . ($suspendedSubscriber->getSuspensionReason() ?? 'N/A') . "\n\n";
-                
+
                 // Unsuspend subscriber
                 echo "10. Unsuspending subscriber...\n";
                 $client->unsuspendSubscriber($storeId, $offeringId, $customerSelector);
                 echo "Subscriber unsuspended successfully!\n";
-                
+
                 // Check status after unsuspending
                 $reactivatedSubscriber = $client->getSubscriber($storeId, $offeringId, $customerSelector);
                 echo "Status after unsuspending: " . ($reactivatedSubscriber->isActive() ? 'Active' : 'Suspended') . "\n";
                 echo "Suspension reason: " . ($reactivatedSubscriber->getSuspensionReason() ?? 'N/A') . "\n\n";
             }
-            
+
         } catch (\Throwable $e) {
             echo "Error in subscriber management: " . $e->getMessage() . "\n";
         }
