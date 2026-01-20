@@ -67,7 +67,7 @@ class Subscriptions extends AbstractClient
 
         $response = $this->getHttpClient()->request($method, $url, $headers, $body);
 
-        if ($response->getStatus() === 201) {
+        if ($response->getStatus() === 200 || $response->getStatus() === 201) {
             return new Offering(json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR));
         } else {
             throw $this->getExceptionByStatusCode($method, $url, $response);
@@ -114,7 +114,7 @@ class Subscriptions extends AbstractClient
 
         $response = $this->getHttpClient()->request($method, $url, $headers, $body);
 
-        if ($response->getStatus() === 201) {
+        if ($response->getStatus() === 200 || $response->getStatus() === 201) {
             return new OfferingPlan(json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR));
         } else {
             throw $this->getExceptionByStatusCode($method, $url, $response);
@@ -281,7 +281,7 @@ class Subscriptions extends AbstractClient
         string $storeId,
         string $offeringId,
         string $planId,
-        string $customerSelector,
+        ?string $customerSelector = null,
         ?int $durationMinutes = null,
         ?string $onPayBehavior = null,
         ?array $newSubscriberMetadata = null,
