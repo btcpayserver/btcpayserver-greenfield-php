@@ -79,6 +79,37 @@ class Subscriptions extends AbstractClient
         }
     }
 
+    public function updateOffering(
+        string $storeId,
+        string $offeringId,
+        ?string $appName = null,
+        ?string $successRedirectUrl = null,
+        ?array $metadata = null,
+        ?array $features = null
+    ): Offering {
+        $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/offerings/' . urlencode($offeringId);
+        $headers = $this->getRequestHeaders();
+        $method = 'PUT';
+
+        $body = json_encode(
+            [
+                'appName' => $appName,
+                'successRedirectUrl' => $successRedirectUrl,
+                'metadata' => $metadata,
+                'features' => $features
+            ],
+            JSON_THROW_ON_ERROR
+        );
+
+        $response = $this->getHttpClient()->request($method, $url, $headers, $body);
+
+        if ($response->getStatus() === 200) {
+            return new Offering(json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR));
+        } else {
+            throw $this->getExceptionByStatusCode($method, $url, $response);
+        }
+    }
+
     // Plan endpoints
 
     public function createOfferingPlan(
@@ -140,6 +171,52 @@ class Subscriptions extends AbstractClient
         }
     }
 
+    public function updateOfferingPlan(
+        string $storeId,
+        string $offeringId,
+        string $planId,
+        ?string $description = null,
+        ?string $currency = null,
+        ?int $gracePeriodDays = null,
+        ?string $name = null,
+        ?bool $optimisticActivation = null,
+        ?string $price = null,
+        ?bool $renewable = null,
+        ?int $trialDays = null,
+        ?array $metadata = null,
+        ?string $recurringType = null,
+        ?array $features = null
+    ): OfferingPlan {
+        $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/offerings/' . urlencode($offeringId) . '/plans/' . urlencode($planId);
+        $headers = $this->getRequestHeaders();
+        $method = 'PUT';
+
+        $body = json_encode(
+            [
+                'description' => $description,
+                'currency' => $currency,
+                'gracePeriodDays' => $gracePeriodDays,
+                'name' => $name,
+                'optimisticActivation' => $optimisticActivation,
+                'price' => $price,
+                'renewable' => $renewable,
+                'trialDays' => $trialDays,
+                'metadata' => $metadata,
+                'recurringType' => $recurringType,
+                'features' => $features
+            ],
+            JSON_THROW_ON_ERROR
+        );
+
+        $response = $this->getHttpClient()->request($method, $url, $headers, $body);
+
+        if ($response->getStatus() === 200) {
+            return new OfferingPlan(json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR));
+        } else {
+            throw $this->getExceptionByStatusCode($method, $url, $response);
+        }
+    }
+
     // Subscriber endpoints
 
     public function getSubscriber(string $storeId, string $offeringId, string $customerSelector): Subscriber
@@ -148,6 +225,46 @@ class Subscriptions extends AbstractClient
         $headers = $this->getRequestHeaders();
         $method = 'GET';
         $response = $this->getHttpClient()->request($method, $url, $headers);
+
+        if ($response->getStatus() === 200) {
+            return new Subscriber(json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR));
+        } else {
+            throw $this->getExceptionByStatusCode($method, $url, $response);
+        }
+    }
+
+    public function deleteSubscriber(string $storeId, string $offeringId, string $customerSelector): void
+    {
+        $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/offerings/' . urlencode($offeringId) . '/subscribers/' . urlencode($customerSelector);
+        $headers = $this->getRequestHeaders();
+        $method = 'DELETE';
+        $response = $this->getHttpClient()->request($method, $url, $headers);
+
+        if ($response->getStatus() !== 204) {
+            throw $this->getExceptionByStatusCode($method, $url, $response);
+        }
+    }
+
+    public function updateSubscriberDates(
+        string $storeId,
+        string $offeringId,
+        string $customerSelector,
+        ?int $startDate = null,
+        ?int $expirationDate = null
+    ): Subscriber {
+        $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/offerings/' . urlencode($offeringId) . '/subscribers/' . urlencode($customerSelector) . '/dates';
+        $headers = $this->getRequestHeaders();
+        $method = 'PUT';
+
+        $body = json_encode(
+            [
+                'startDate' => $startDate,
+                'expirationDate' => $expirationDate
+            ],
+            JSON_THROW_ON_ERROR
+        );
+
+        $response = $this->getHttpClient()->request($method, $url, $headers, $body);
 
         if ($response->getStatus() === 200) {
             return new Subscriber(json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR));

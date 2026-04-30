@@ -76,6 +76,16 @@ class Subscriber extends AbstractResult
         return isset($this->getData()['nextPlan']) ? new OfferingPlan($this->getData()['nextPlan']) : null;
     }
 
+    public function getScheduledPlan(): ?OfferingPlan
+    {
+        return isset($this->getData()['scheduledPlan']) ? new OfferingPlan($this->getData()['scheduledPlan']) : null;
+    }
+
+    public function getScheduledPlanActivatesAt(): ?int
+    {
+        return $this->getData()['scheduledPlanActivatesAt'] ?? null;
+    }
+
     public function getPhase(): string
     {
         return $this->getData()['phase'];

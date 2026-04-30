@@ -81,6 +81,32 @@ try {
     $basicPlanId = $basicPlan->getId();
     $premiumPlanId = $premiumPlan->getId();
 
+    // 2b. Update the offering
+    echo "2b. Updating the offering...\n";
+    $updatedOffering = $client->updateOffering(
+        $storeId,
+        $offeringId,
+        'Premium SaaS App v2',
+        'https://example.com/success-v2',
+        ['category' => 'saas', 'region' => 'eu', 'version' => '2.0']
+    );
+    echo "Offering updated: " . $updatedOffering->getAppName() . "\n\n";
+
+    // 2c. Update a plan
+    echo "2c. Updating the basic plan...\n";
+    $updatedPlan = $client->updateOfferingPlan(
+        $storeId,
+        $offeringId,
+        $basicPlanId,
+        'Updated basic monthly subscription',
+        'USD',
+        7,
+        'Basic Plan v2',
+        null,
+        '2.99'
+    );
+    echo "Plan updated: " . $updatedPlan->getName() . " - " . $updatedPlan->getPrice() . " " . $updatedPlan->getCurrency() . "\n\n";
+
     // 3. Get all offerings for the store
     echo "3. Getting all offerings for the store...\n";
     $offerings = $client->getOfferings($storeId);
@@ -171,6 +197,19 @@ try {
                 echo "Status after suspension: " . ($suspendedSubscriber->isActive() ? 'Active' : 'Suspended') . "\n";
                 echo "Suspension reason: " . ($suspendedSubscriber->getSuspensionReason() ?? 'N/A') . "\n\n";
 
+                // Update subscriber dates
+                echo "9b. Updating subscriber dates...\n";
+                $updatedSubscriber = $client->updateSubscriberDates(
+                    $storeId,
+                    $offeringId,
+                    $customerSelector,
+                    null,
+                    time() + (30 * 24 * 60 * 60) // 30 days from now
+                );
+                echo "Subscriber expiration updated\n";
+                echo "Scheduled plan: " . ($updatedSubscriber->getScheduledPlan() ? $updatedSubscriber->getScheduledPlan()->getName() : 'None') . "\n";
+                echo "Scheduled plan activates at: " . ($updatedSubscriber->getScheduledPlanActivatesAt() ? date('Y-m-d H:i:s', $updatedSubscriber->getScheduledPlanActivatesAt()) : 'N/A') . "\n\n";
+
                 // Unsuspend subscriber
                 echo "10. Unsuspending subscriber...\n";
                 $client->unsuspendSubscriber($storeId, $offeringId, $customerSelector);
@@ -181,6 +220,11 @@ try {
                 echo "Status after unsuspending: " . ($reactivatedSubscriber->isActive() ? 'Active' : 'Suspended') . "\n";
                 echo "Suspension reason: " . ($reactivatedSubscriber->getSuspensionReason() ?? 'N/A') . "\n\n";
             }
+
+            // Delete subscriber
+            echo "11. Deleting subscriber...\n";
+            $client->deleteSubscriber($storeId, $offeringId, $customerSelector);
+            echo "Subscriber deleted successfully!\n\n";
 
         } catch (\Throwable $e) {
             echo "Error in subscriber management: " . $e->getMessage() . "\n";
