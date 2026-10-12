@@ -192,6 +192,10 @@ class Webhook extends AbstractClient
         bool $automaticRedelivery = true,
         ?string $secret = null
     ): ResultWebhook {
+        if ($secret === '') {
+            throw new \InvalidArgumentException('Argument $secret should be NULL (keep the existing secret) or you should provide a long and safe secret string.');
+        }
+
         $data = [
           'enabled' => $enabled,
           'automaticRedelivery' => $automaticRedelivery,
@@ -230,12 +234,12 @@ class Webhook extends AbstractClient
      * Check if the request your received from a webhook is authentic and can be trusted.
      * @param string $requestBody Most likely you will use `$requestBody = file_get_contents('php://input');`
      * @param string $btcpaySigHeader Most likely you will use `$_SERVER['HTTP_BTCPay-Sig']` for this.
-     * @param string $secret The secret that's registered with the webhook in BTCPay Server as a security precaution.
+     * @param string $secret The non-empty secret that's registered with the webhook in BTCPay Server as a security precaution.
      * @return bool
      */
     public static function isIncomingWebhookRequestValid(string $requestBody, string $btcpaySigHeader, string $secret): bool
     {
-        if ($requestBody && $btcpaySigHeader) {
+        if ($requestBody && $btcpaySigHeader && $secret !== '') {
             $expectedHeader = 'sha256=' . hash_hmac('sha256', $requestBody, $secret);
 
             if (hash_equals($expectedHeader, $btcpaySigHeader)) {
