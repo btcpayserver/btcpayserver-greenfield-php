@@ -49,7 +49,7 @@ class Webhook extends AbstractClient
 
     public function getLatestDeliveries(string $storeId, string $webhookId, string $count): WebhookDeliveryList
     {
-        $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/webhooks/' . urlencode($webhookId) . '/deliveries?count=' . $count;
+        $url = $this->getApiUrl() . 'stores/' . urlencode($storeId) . '/webhooks/' . urlencode($webhookId) . '/deliveries?count=' . urlencode($count);
         $headers = $this->getRequestHeaders();
         $method = 'GET';
         $response = $this->getHttpClient()->request($method, $url, $headers);
