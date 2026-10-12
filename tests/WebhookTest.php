@@ -11,6 +11,39 @@ use PHPUnit\Framework\TestCase;
 
 final class WebhookTest extends TestCase
 {
+    /**
+     * @dataProvider deliveryCounts
+     */
+    public function testLatestDeliveriesKeepsCountAsSingleQueryParameter(string $count): void
+    {
+        $httpClient = $this->createMock(ClientInterface::class);
+        $httpClient->expects($this->once())->method('request')->with(
+            'GET',
+            $this->callback(function (string $url) use ($count): bool {
+                $this->assertSame(
+                    'https://example.com/api/v1/stores/store-id/webhooks/webhook-id/deliveries',
+                    strtok($url, '?')
+                );
+                parse_str(parse_url($url, PHP_URL_QUERY), $query);
+                $this->assertSame(['count' => $count], $query);
+                return true;
+            }),
+            $this->anything()
+        )->willReturn(new Response(200, '[]', []));
+        $webhookClient = new Webhook('https://example.com', 'api-key', $httpClient);
+
+        $this->assertSame([], $webhookClient->getLatestDeliveries('store-id', 'webhook-id', $count)->all());
+    }
+
+    public function deliveryCounts(): array
+    {
+        return [
+            'numeric count' => ['5'],
+            'injected parameter' => ['5&take=100'],
+            'fragment delimiter' => ['5#fragment'],
+        ];
+    }
+
     public function testUpdateWebhookRejectsEmptySecretBeforeSendingRequest(): void
     {
         $httpClient = $this->createMock(ClientInterface::class);
